@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: #1A1A1A;
+  font-family: var(--font-bw-gradual);
+}
+
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For Internet Explorer */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  /* For Chrome, Safari, and Edge */
+}
+
+/* added here to resolve iphone 7+ issue */
+.slick-dots {
+  bottom: -75px;
+
+  @media screen and (max-width:768px) {
+    bottom: 50px;
+  }
+}
+
+.slick-dots li button {
+  width: 4px !important;
+  height: 4px !important;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.16) !important;
+  /* Inactive color */
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.slick-dots li button::before {
+  display: none !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: transparent;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #ffffff !important;
+  /* Active color (white) */
+}
+
+.slider-styled-component {
+  width: 100%;
+
+  .slick-slide {
+    padding-right: 28px;
+  }
+
+  .slick-track {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .slick-slide.slick-active {
+    opacity: 1;
+  }
+
+  /* .slick-list{
+    padding: 0 80px;
+  } */
+}
+
+.slider-styled-component-testimonial {
+  width: 100%;
+
+  .slick-list {
+    overflow: visible;
+  }
+
+  .slick-dots {
+    bottom: -75px;
+
+    @media screen and (max-width:768px) {
+      bottom: 50px;
+    }
+  }
+
+  .slick-dots li button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.16);
+    /* Inactive color */
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .slick-dots li button::before {
+    color: transparent;
+  }
+
+  .slick-dots li.slick-active button:before {
+    color: transparent;
+  }
+
+  .slick-dots li.slick-active button {
+    background-color: #ffffff;
+    /* Active color (white) */
+  }
+}
+
+.before-custom-shadow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0 0 40px 60px rgba(130, 102, 242, 1);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 50%, 0% 100%);
+  pointer-events: none;
+}
+
+.footer-divider-gradient {
+  background: linear-gradient(90deg, rgba(26, 26, 26, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(26, 26, 26, 0) 100%);
+}
+
+.border-gradient {
+  border-image-source: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0.11%,
+      rgba(255, 255, 255, 0.32) 50%,
+      rgba(255, 255, 255, 0.16) 74.95%,
+      rgba(255, 255, 255, 0) 99.89%);
+  border-image-slice: 1;
+}
+.ps-sidebar-container {
+  width: 100%;
+}
+.ps-menu-button {
+  background: transparent;
+  height: 56px;
+  width: 305px;
+}
+
+.ps-menu-button:hover {
+  background: linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%) !important;
+  box-shadow: 0px 0px 24px 0px rgba(130, 102, 242, 0.25);
+  border-radius: 32px;
+  /* Hover effect */
+}
+
+.ps-menu-button:focus {
+  background: linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%) !important;
+    border-radius: 100%;
+    box-shadow: 0px 0px 24px 0px rgba(130, 102, 242, 0.25);
+  border-radius: 32px;
+  /* Focus effect */
+}
+
+.ps-menu-button:active {
+  background: linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%) !important;
+  box-shadow: 0px 0px 24px 0px rgba(130, 102, 242, 0.25);
+    border-radius: 32px;
+  /* Active effect */
+}
+.css-dip3t8 {
+  background-color: transparent;
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.08); 
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%);
+  box-shadow: 0px 0px 12px 0px rgba(130, 102, 242, 1);
+}
+.table-head-border {
+  border-bottom: 0.5px solid;
+  border-image: radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255, 255, 255, 0.32) 100%);
+  border-image-slice: 1;
+}
+.heading-text {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+}
+.mblsidebar {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(80px)
+}

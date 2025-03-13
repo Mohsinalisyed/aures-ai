@@ -1,0 +1,27 @@
+.duration_button {
+    width: 40px;
+    font-size: 14px;
+    height: 28px;
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
+}
+@media screen and (max-width:768px) {
+    .duration_button {font-size: 8px;}
+}
+.duration_button:hover {
+    background-color: #f0f0f0;
+    background: rgba(130, 102, 242, 1);
+}
+
+.duration_button:active {
+    background-color: #d0d0d0;
+    background: rgba(130, 102, 242, 1);
+}
+.asset_card {
+    @media screen and (max-width:768px) {
+          border:rgba(255, 255, 255, 0.28) solid 2px;
+          border-radius: 12px;
+          min-height: 159px;
+          padding: 12px;
+        }
+}
