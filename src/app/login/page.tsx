@@ -78,7 +78,9 @@ export default function Login() {
             <LeftArrowIcon />
             <span className="text-white text-[14px] lg:text-[16px]">Back</span>
           </div>
-          <LogoIcon />
+          <div className="hidden lg:block">
+            <LogoIcon />
+          </div>
         </div>
 
         {/* QR Section */}
@@ -87,11 +89,11 @@ export default function Login() {
             Connect Your Wallet
           </span>
 
-          <div className="bg-white800 p-[24px] rounded-[24px] backdrop-blur-[80px] w-[800px] h-[380px]">
+          <div className="bg-white800 p-[24px] rounded-[24px] backdrop-blur-[80px] w-full sm:w-[800px] h-[380px]">
             {connectionError ? (
               <div className="text-red-500 text-center">{connectionError}</div>
             ) : uri ? (
-              <div className="flex flex-row gap-[40px]">
+              <div className="flex gap-[40px] flex-col lg:flex-row">
                 {/* QR Code */}
                 <div className="w-[fit-content] relative p-3">
                   <QRCodeSVG className="bg-white" value={uri} size={300} />
@@ -109,12 +111,12 @@ export default function Login() {
                 </div>
 
                 {/* Instructions */}
-                <div className="flex flex-col justify-center">
-                  <span className="text-white text-[24px] font-medium leading-[120%] mb-[40px]">
+                <div className="flex flex-col justify-center mt-6 sm:mt-0">
+                  <span className="text-white text-[24px] font-medium leading-[120%] mb-[40px] text-center sm:text-start">
                     Scan this code in your wallet app
                   </span>
                   <div className="flex flex-col">
-                    <div className="flex flex-row mb-[16px] gap-2 items-center">
+                    <div className="flex flex-row mb-[16px] gap-2 items-center justify-center sm:justify-start">
                       <RightArrowIcon />
                       <span className="text-white text-[14px] lg:text-[16px] font-normal leading-[120%]">
                         Open wallet connect app on your phone
@@ -122,7 +124,7 @@ export default function Login() {
                     </div>
                   </div>
                   <div className="flex flex-col ">
-                    <div className="flex flex-row mb-[16px] gap-2 items-center">
+                    <div className="flex flex-row mb-[16px] gap-2 items-center justify-center sm:justify-start">
                       <RightArrowIcon />
                       <span className="text-white text-[14px] lg:text-[16px] font-normal leading-[120%] flex items-center gap-1">
                         Tap Linked Devices from the <EllipsisMenuIcon /> menu
@@ -130,7 +132,7 @@ export default function Login() {
                     </div>
                   </div>
                   <div className="flex flex-col ">
-                    <div className="flex flex-row mb-[16px] gap-2 items-center">
+                    <div className="flex flex-row mb-[16px] gap-2 items-center justify-center sm:justify-start">
                       <RightArrowIcon />
                       <span className="text-white text-[14px] lg:text-[16px] font-normal leading-[120%]">
                         Scan this QR code
@@ -138,7 +140,7 @@ export default function Login() {
                     </div>
                   </div>
 
-                  <span className="mt-[24px] text-primary text-[14px] lg:text-[16px] font-medium leading-[130%]">
+                  <span className="mt-[24px] text-primary text-[14px] lg:text-[16px] font-medium leading-[130%] text-center sm:text-start">
                     Need Help?
                   </span>
                 </div>
