@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/app/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Tooltip } from '../Tooltip';
+import { usePathname, useRouter } from "next/navigation";
 
 interface MobileMenuProps {
   visible?: boolean;
@@ -13,6 +12,7 @@ const MobileNavbar = ({ visible, onDismissMobileMenu }: MobileMenuProps) => {
   const pathName = usePathname();
   const [shouldRender, setShouldRender] = useState(false); // Controls initial render
   const [isAnimating, setIsAnimating] = useState(false); // Tracks animation state
+     const router = useRouter();
 
   useEffect(() => {
     if (visible) {
@@ -68,35 +68,30 @@ const MobileNavbar = ({ visible, onDismissMobileMenu }: MobileMenuProps) => {
                 href="#about-us"
                 className={` text-[24px] text-center pb-6 text-white }`}
                 onClick={() => onDismissMobileMenu()}
-
               >
                 About Us
               </Link>
               <Link
                 href="#parent-future-plans"
                 className={` text-[24px] text-center pb-6 text-white }`}
-
                 onClick={() => onDismissMobileMenu()}
-
               >
                 Roadmap
               </Link>
               <Link
                 href="#contact-us"
                 className={` text-[24px] text-center pb-6 text-white }`}
-
                 onClick={() => onDismissMobileMenu()}
-
               >
                 Contact Us
               </Link>
-              
             </div>
-            <Tooltip text="Coming Soon">
-              <button className="w-full py-4 text-16 text-center rounded-3xl bg-darkest_white backdrop-blur-[80px] shadow-[inset_0px_0px_8px_0px_#FFFFFF40] text-white ">
-                Get Started
-              </button>
-            </Tooltip>
+            <button
+              onClick={() => router.push("/login")}
+              className="w-full py-4 text-16 text-center rounded-3xl bg-darkest_white backdrop-blur-[80px] shadow-[inset_0px_0px_8px_0px_#FFFFFF40] text-white "
+            >
+              Get Started
+            </button>
           </div>
         </div>
       </div>
