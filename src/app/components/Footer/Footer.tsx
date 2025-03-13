@@ -31,7 +31,7 @@ const Footer = () => {
       if (!containerRef.current) return;
 
       const container = containerRef.current;
-      const elementSize = 150; // Element width & height
+      const elementSize = 150;
 
       const getRandomPosition = () => ({
         x: Math.random() * (container.clientWidth - elementSize),
