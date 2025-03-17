@@ -138,7 +138,7 @@ const AiAgentCertifcation: React.FC<IconSvgProps> = () => {
         d="M353 354.5H285M285 354.5V201.5H220.5M285 354.5V513.5H220.5M285 354.5H220.5"
         stroke="url(#paint7_linear_1620_986)"
           strokeOpacity="0.32"
-        stroke-width="2"
+        strokeWidth="2"
         stroke-dasharray="6 6"
       />
       <path

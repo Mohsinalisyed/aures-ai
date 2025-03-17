@@ -51,3 +51,12 @@ export function formatParams(path: string): string {
   return formattedText;
 }
 
+ export const extractMessage = (response: string) => {
+   const regex = /Sign this message to authenticate: (.+)/;
+   const match = response?.match(regex);
+
+   if (match && match[1]) {
+     return match[1];
+   }
+   return null;
+ };

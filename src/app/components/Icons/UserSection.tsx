@@ -17,73 +17,73 @@ const UserSection: React.FC<IconSvgProps> = () => {
         <path
           d="M0 7.33901C0 3.28578 2.52679 0 5.64374 0H364.962C368.079 0 370.606 3.28579 370.606 7.33901V153.508C370.606 157.561 368.079 160.847 364.962 160.847H5.64375C2.5268 160.847 0 157.561 0 153.508V7.33901Z"
           fill="black"
-          fill-opacity="0.71"
+          fillOpacity="0.71"
         />
         <path
           d="M0.5 7.33901C0.5 5.41309 1.10086 3.68776 2.04937 2.45434C2.99746 1.22146 4.27258 0.5 5.64374 0.5H364.962C366.333 0.5 367.608 1.22146 368.556 2.45435C369.505 3.68777 370.106 5.41309 370.106 7.33901V153.508C370.106 155.434 369.505 157.159 368.556 158.392C367.608 159.625 366.333 160.347 364.962 160.347H5.64375C4.27259 160.347 2.99747 159.625 2.04937 158.392C1.10086 157.159 0.5 155.434 0.5 153.508V7.33901Z"
           stroke="url(#paint0_linear_1822_1627)"
-          stroke-opacity="0.32"
+          strokeOpacity="0.32"
         />
       </g>
       <path
         d="M25.0156 18.617C25.0156 18.2417 25.2983 17.9375 25.6469 17.9375H63.5264C63.875 17.9375 64.1577 18.2417 64.1577 18.617C64.1577 18.9923 63.875 19.2966 63.5264 19.2966H25.6469C25.2983 19.2966 25.0156 18.9923 25.0156 18.617Z"
         fill="white"
-        fill-opacity="0.8"
+        fillOpacity="0.8"
       />
       <path
         d="M25.0156 22.6943C25.0156 22.319 25.2983 22.0147 25.6469 22.0147H63.5264C63.875 22.0147 64.1577 22.319 64.1577 22.6943C64.1577 23.0696 63.875 23.3738 63.5264 23.3738H25.6469C25.2983 23.3738 25.0156 23.0696 25.0156 22.6943Z"
         fill="white"
-        fill-opacity="0.8"
+        fillOpacity="0.8"
       />
       <path
         d="M14.5742 15.2215C14.5742 12.2191 16.9108 9.78516 19.7932 9.78516H90.2489C93.1312 9.78516 95.4678 12.2191 95.4678 15.2215V28.8122C95.4678 31.8146 93.1312 34.2485 90.2489 34.2485H19.7932C16.9108 34.2485 14.5742 31.8146 14.5742 28.8122V15.2215Z"
         fill="white"
-        fill-opacity="0.32"
+        fillOpacity="0.32"
       />
       <path
         d="M108.73 18.617C108.73 18.2417 109.013 17.9375 109.362 17.9375H147.241C147.59 17.9375 147.873 18.2417 147.873 18.617C147.873 18.9923 147.59 19.2966 147.241 19.2966H109.362C109.013 19.2966 108.73 18.9923 108.73 18.617Z"
         fill="white"
-        fill-opacity="0.8"
+        fillOpacity="0.8"
       />
       <path
         d="M108.73 22.6943C108.73 22.319 109.013 22.0147 109.362 22.0147H147.241C147.59 22.0147 147.873 22.319 147.873 22.6943C147.873 23.0696 147.59 23.3738 147.241 23.3738H109.362C109.013 23.3738 108.73 23.0696 108.73 22.6943Z"
         fill="white"
-        fill-opacity="0.8"
+        fillOpacity="0.8"
       />
       <path
         d="M98.2969 15.2215C98.2969 12.2191 100.633 9.78516 103.516 9.78516H173.972C176.854 9.78516 179.19 12.2191 179.19 15.2215V28.8122C179.19 31.8146 176.854 34.2485 173.972 34.2485H103.516C100.633 34.2485 98.2969 31.8146 98.2969 28.8122V15.2215Z"
         fill="white"
-        fill-opacity="0.32"
+        fillOpacity="0.32"
       />
       <path
         d="M193.395 18.617C193.395 18.2417 193.677 17.9375 194.026 17.9375H231.905C232.254 17.9375 232.537 18.2417 232.537 18.617C232.537 18.9923 232.254 19.2966 231.905 19.2966H194.026C193.677 19.2966 193.395 18.9923 193.395 18.617Z"
         fill="white"
-        fill-opacity="0.8"
+        fillOpacity="0.8"
       />
       <path
         d="M193.395 22.6943C193.395 22.319 193.677 22.0147 194.026 22.0147H231.905C232.254 22.0147 232.537 22.319 232.537 22.6943C232.537 23.0696 232.254 23.3738 231.905 23.3738H194.026C193.677 23.3738 193.395 23.0696 193.395 22.6943Z"
         fill="white"
-        fill-opacity="0.8"
+        fillOpacity="0.8"
       />
       <path
         d="M182.953 15.2215C182.953 12.2191 185.29 9.78516 188.172 9.78516H258.628C261.51 9.78516 263.847 12.2191 263.847 15.2215V28.8122C263.847 31.8146 261.51 34.2485 258.628 34.2485H188.172C185.29 34.2485 182.953 31.8146 182.953 28.8122V15.2215Z"
         fill="white"
-        fill-opacity="0.32"
+        fillOpacity="0.32"
       />
       <path
         d="M279.93 18.617C279.93 18.2417 280.212 17.9375 280.561 17.9375H318.44C318.789 17.9375 319.072 18.2417 319.072 18.617C319.072 18.9923 318.789 19.2966 318.44 19.2966H280.561C280.212 19.2966 279.93 18.9923 279.93 18.617Z"
         fill="white"
-        fill-opacity="0.8"
+        fillOpacity="0.8"
       />
       <path
         d="M279.93 22.6943C279.93 22.319 280.212 22.0147 280.561 22.0147H318.44C318.789 22.0147 319.072 22.319 319.072 22.6943C319.072 23.0696 318.789 23.3738 318.44 23.3738H280.561C280.212 23.3738 279.93 23.0696 279.93 22.6943Z"
         fill="white"
-        fill-opacity="0.8"
+        fillOpacity="0.8"
       />
       <path
         d="M269.488 15.2215C269.488 12.2191 272.029 9.78516 275.162 9.78516H351.762C354.896 9.78516 357.437 12.2191 357.437 15.2215V28.8122C357.437 31.8146 354.896 34.2485 351.762 34.2485H275.162C272.029 34.2485 269.488 31.8146 269.488 28.8122V15.2215Z"
         fill="white"
-        fill-opacity="0.32"
+        fillOpacity="0.32"
       />
       <g filter="url(#filter0_i_1822_1627)">
         <path
@@ -190,7 +190,7 @@ const UserSection: React.FC<IconSvgProps> = () => {
           <path
             d="M242.633 131.216C242.633 132.747 241.392 133.988 239.861 133.988C238.33 133.988 237.089 132.747 237.089 131.216C237.089 129.686 238.33 128.445 239.861 128.445C241.392 128.445 242.633 129.686 242.633 131.216Z"
             stroke="white"
-            stroke-width="0.1"
+            strokeWidth="0.1"
           />
         </g>
       </g>
@@ -239,7 +239,7 @@ const UserSection: React.FC<IconSvgProps> = () => {
           <path
             d="M296.594 59.7633C296.594 61.2941 295.353 62.5351 293.822 62.5351C292.291 62.5351 291.05 61.2941 291.05 59.7633C291.05 58.2324 292.291 56.9914 293.822 56.9914C295.353 56.9914 296.594 58.2324 296.594 59.7633Z"
             stroke="white"
-            stroke-width="0.1"
+            strokeWidth="0.1"
           />
         </g>
       </g>
@@ -288,7 +288,7 @@ const UserSection: React.FC<IconSvgProps> = () => {
           <path
             d="M80.5937 94.7633C80.5937 96.2941 79.3527 97.5351 77.8219 97.5351C76.291 97.5351 75.05 96.2941 75.05 94.7633C75.05 93.2324 76.291 91.9914 77.8219 91.9914C79.3527 91.9914 80.5937 93.2324 80.5937 94.7633Z"
             stroke="white"
-            stroke-width="0.1"
+            strokeWidth="0.1"
           />
         </g>
       </g>
@@ -311,9 +311,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="74.3086"
           height="33.3555"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -346,9 +346,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="74.3086"
           height="33.3555"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -381,9 +381,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="93.1211"
           height="33.3555"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -416,9 +416,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="74.3086"
           height="33.3555"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -451,9 +451,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="41.8594"
           height="33.3555"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -486,9 +486,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="41.8594"
           height="33.3555"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -521,9 +521,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="23.8445"
           height="23.8445"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -560,9 +560,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="23.8445"
           height="23.8445"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -599,9 +599,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           width="23.8445"
           height="23.8445"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -639,9 +639,9 @@ const UserSection: React.FC<IconSvgProps> = () => {
           y2="120.635"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white" stop-opacity="0" />
-          <stop offset="0.5" stop-color="white" />
-          <stop offset="1" stop-color="white" stop-opacity="0" />
+          <stop stopColor="white" stopOpacity="0" />
+          <stop offset="0.5" stopColor="white" />
+          <stop offset="1" stopColor="white" stopOpacity="0" />
         </linearGradient>
         <image
           id="image0_1822_1627"

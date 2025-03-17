@@ -31,7 +31,7 @@ const Footer = () => {
       if (!containerRef.current) return;
 
       const container = containerRef.current;
-      const elementSize = 150;
+      const elementSize = 150; // Element width & height
 
       const getRandomPosition = () => ({
         x: Math.random() * (container.clientWidth - elementSize),
@@ -93,9 +93,8 @@ const Footer = () => {
           <div className="flex justify-between items-center md:flex-row flex-row-reverse w-full mb-[80px]">
             <div className="hidden md:flex flex-col gap-6 ">
               {NavMenu.map((menu) => (
-                <>
+                <div key={menu.id}>
                   <Link
-                    key={menu.id}
                     href={`#${menu.id}`}
                     onClick={(e) => handleClick(e, menu.id)}
                     className={cn(
@@ -105,7 +104,7 @@ const Footer = () => {
                   >
                     {menu.label}
                   </Link>
-                </>
+                </div>
               ))}
             </div>
             <div className="flex gap-4 md:ml-[15%]">
@@ -136,9 +135,8 @@ const Footer = () => {
           </div>
           <div className="md:hidden flex flex-col gap-6 w-full justify-center items-center z-10">
             {NavMenu.map((menu) => (
-              <>
+              <div key={menu.id}>
                 <Link
-                  key={menu.id}
                   href={`#${menu.id}`}
                   onClick={(e) => handleClick(e, menu.id)}
                   className={cn(
@@ -148,7 +146,7 @@ const Footer = () => {
                 >
                   {menu.label}
                 </Link>
-              </>
+              </div>
             ))}
           </div>
           <div className="footer-divider-gradient w-full h-[1px] my-6 md:hidden" />

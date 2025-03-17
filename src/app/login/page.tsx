@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useAccount, useConnect } from "wagmi";
+import { useAccount, useConnect, useSignMessage } from "wagmi";
 import { QRCodeSVG } from "qrcode.react";
 import { useRouter } from "next/navigation";
 import {
@@ -9,27 +9,46 @@ import {
   LogoIcon,
   RightArrowIcon,
 } from "../components/Icons";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getNonce, verifyAccount } from "../api/auth";
+import { VerifyAccountRequest, VerifyAccountResponse } from "../api";
 
 export default function Login() {
   const router = useRouter();
   const { address, isConnected } = useAccount();
-
   const { connect, connectors } = useConnect();
-
-  // const { disconnect } = useDisconnect();
+  const { signMessage, data: signMessageData, error } = useSignMessage();
 
   const [uri, setUri] = useState<string | null>(null);
   const [connectionError, setConnectionError] = useState<string | null>(null);
+  const { data } = useQuery({
+    queryKey: ["nonce"],
+    queryFn: getNonce,
+  });
+const {
+  mutate: verify,
+} = useMutation<
+  VerifyAccountResponse, // The type of data returned from the mutation
+  Error, // The type of error that may be thrown
+  VerifyAccountRequest // The type of input expected by the mutation function
+>({
+  mutationFn: async ({ address, signature, message }: VerifyAccountRequest) => {
+    return verifyAccount({ address, signature, message });
+  },
+});
 
   // Redirect when connected
-  useEffect(() => {
-    if (isConnected) {
-      console.log("Connected: ", address);
-      router.push("/dashboard/portfolio");
-    }
-  }, [address, isConnected, router]);
 
-  // Setup WalletConnect
+  useEffect(() => {
+    if (isConnected && data !== undefined) {
+      console.log("Connected: ", address);
+      console.log(data.nonce, "data.nonce ");
+
+      // After connection, we can sign the message
+      signMessage({ message: data.nonce });
+    }
+  }, [isConnected, address, signMessage, data?.nonce]);
+
   useEffect(() => {
     const connector = connectors.find((c) => c.id === "walletConnect");
 
@@ -64,6 +83,26 @@ export default function Login() {
       setupProvider(); // Reinitialize provider when disconnected
     }
   }, [connectors, connect, isConnected]);
+  // Handle the signed message and verify it or redirect based on success
+  useEffect(() => {
+    const verifySignature = async () => {
+      if (error) {
+        console.error("Error signing message:", error);
+      } else if (signMessageData && isConnected) {
+        console.log("Message Signed Successfully: ", signMessageData);
+        if (address && signMessageData && data?.nonce) {
+          await verify({
+            address,
+            signature: signMessageData,
+            message: data.nonce,
+          });
+          router.push('/dashboard/portfolio')
+        }
+      }
+    };
+
+    verifySignature();
+  }, [signMessageData, error, address, isConnected]);
 
   return (
     <>
@@ -78,9 +117,7 @@ export default function Login() {
             <LeftArrowIcon />
             <span className="text-white text-[14px] lg:text-[16px]">Back</span>
           </div>
-          <div className="hidden lg:block">
-            <LogoIcon />
-          </div>
+          <LogoIcon />
         </div>
 
         {/* QR Section */}
@@ -89,14 +126,14 @@ export default function Login() {
             Connect Your Wallet
           </span>
 
-          <div className="bg-white800 p-[24px] rounded-[24px] backdrop-blur-[80px] w-full sm:w-[800px] h-[380px]">
+          <div className="bg-white800 p-[24px] rounded-[24px] backdrop-blur-[80px] w-[800px] h-[326px]">
             {connectionError ? (
               <div className="text-red-500 text-center">{connectionError}</div>
             ) : uri ? (
-              <div className="flex gap-[40px] flex-col lg:flex-row">
+              <div className="flex flex-row gap-[40px]">
                 {/* QR Code */}
                 <div className="w-[fit-content] relative p-3">
-                  <QRCodeSVG className="bg-white" value={uri} size={300} />
+                  <QRCodeSVG className="bg-white" value={uri} size={256} />
                   {/* Corner borders */}
                   <div className="absolute inset-0 border-white w-full h-full pointer-events-none">
                     {/* Top Left */}
@@ -111,12 +148,12 @@ export default function Login() {
                 </div>
 
                 {/* Instructions */}
-                <div className="flex flex-col justify-center mt-6 sm:mt-0">
-                  <span className="text-white text-[24px] font-medium leading-[120%] mb-[40px] text-center sm:text-start">
+                <div className="flex flex-col justify-center">
+                  <span className="text-white text-[24px] font-medium leading-[120%] mb-[40px]">
                     Scan this code in your wallet app
                   </span>
                   <div className="flex flex-col">
-                    <div className="flex flex-row mb-[16px] gap-2 items-center justify-center sm:justify-start">
+                    <div className="flex flex-row mb-[16px] gap-2 items-center">
                       <RightArrowIcon />
                       <span className="text-white text-[14px] lg:text-[16px] font-normal leading-[120%]">
                         Open wallet connect app on your phone
@@ -124,7 +161,7 @@ export default function Login() {
                     </div>
                   </div>
                   <div className="flex flex-col ">
-                    <div className="flex flex-row mb-[16px] gap-2 items-center justify-center sm:justify-start">
+                    <div className="flex flex-row mb-[16px] gap-2 items-center">
                       <RightArrowIcon />
                       <span className="text-white text-[14px] lg:text-[16px] font-normal leading-[120%] flex items-center gap-1">
                         Tap Linked Devices from the <EllipsisMenuIcon /> menu
@@ -132,7 +169,7 @@ export default function Login() {
                     </div>
                   </div>
                   <div className="flex flex-col ">
-                    <div className="flex flex-row mb-[16px] gap-2 items-center justify-center sm:justify-start">
+                    <div className="flex flex-row mb-[16px] gap-2 items-center">
                       <RightArrowIcon />
                       <span className="text-white text-[14px] lg:text-[16px] font-normal leading-[120%]">
                         Scan this QR code
@@ -140,7 +177,7 @@ export default function Login() {
                     </div>
                   </div>
 
-                  <span className="mt-[24px] text-primary text-[14px] lg:text-[16px] font-medium leading-[130%] text-center sm:text-start">
+                  <span className="mt-[24px] text-primary text-[14px] lg:text-[16px] font-medium leading-[130%]">
                     Need Help?
                   </span>
                 </div>
@@ -155,16 +192,6 @@ export default function Login() {
               )
             )}
           </div>
-
-          {/* Disconnect Button */}
-          {/* {isConnected && (
-            <button
-              onClick={() => disconnect()}
-              className="mt-6 px-6 py-2 bg-red-500 text-white rounded-md"
-            >
-              Disconnect Wallet
-            </button>
-          )} */}
         </div>
 
         {/* Bottom Section */}

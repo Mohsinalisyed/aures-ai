@@ -19,7 +19,7 @@ const CreateNewAgent = () => {
       }
     };
     return (
-      <div className="lg:pl-16 lg:py-12 pb-2">
+      <div className="lg:px-16 lg:py-12 pb-2">
         <div className="text-white  text-[24px] lg:text-[40px] font-bold flex justify-between lg:items-center  flex-col lg:flex-row gap-4">
           <div className="flex gap-4 text-white items-center">
             <button
@@ -80,9 +80,9 @@ const CreateNewAgent = () => {
           </form>
         )}
         <div className="text-white pt-[34px] text-[40px]  flex justify-end items-center">
-          <div className="lg:pt-[200px] w-full flex justify-end">
+          <div className="lg:pt-[32px] w-full flex justify-end">
             <div>
-              <div className="w-full  lg:w-[168px] flex items-center justify-end gap-2 text-16 mb-4 sm:mb-8">
+              <div className="w-full  lg:w-[168px] flex items-center justify-end gap-2 text-16 mb-8 sm:mb-4">
                 <Toggle /> Activate
               </div>
               <button

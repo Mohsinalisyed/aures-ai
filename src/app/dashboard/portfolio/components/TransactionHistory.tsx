@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Transaction_History } from '../dummyData';
 import { WrappedItem } from '../../component';

@@ -173,6 +173,14 @@ body {
   border-radius: 32px;
   /* Focus effect */
 }
+.ps-menu-button-active {
+  background: linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%) !important;
+  border-radius: 100%;
+  box-shadow: 0px 0px 24px 0px rgba(130, 102, 242, 0.25);
+  border-radius: 32px;
+  width: 95% !important;
+  /* Focus effect */
+}
 
 .ps-menu-button:active {
   background: linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%) !important;

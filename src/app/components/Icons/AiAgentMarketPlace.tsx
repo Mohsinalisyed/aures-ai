@@ -45,7 +45,7 @@ const AiAgentMarketPlace: React.FC<IconSvgProps> = () => {
       />
       </g>
 
-      <circle cx="245" cy="375" r="12" fill="#909090" fill-opacity="0.36" />
+      <circle cx="245" cy="375" r="12" fill="#909090" fillOpacity="0.36" />
       <ellipse cx="245.5" cy="375" rx="6.5" ry="6" fill="white" />
       <g className="hover-translate-group1">
         <g filter="url(#filter0_d_1620_1037)">

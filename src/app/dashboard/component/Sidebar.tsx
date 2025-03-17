@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import Link from "next/link";
-import {  LogoIcon } from "@/app/components/Icons";
+import { usePathname } from "next/navigation"; // ✅ Import usePathname
+import { LogoIcon } from "@/app/components/Icons";
 import {
   AIAgent,
   AIChat,
@@ -12,6 +12,7 @@ import {
   Porfolio,
 } from "@/app/svg";
 import { useMediaQuery } from "@/app/hooks";
+import Link from "next/link";
 
 interface ISidebar {
   isSidebarHidden: boolean;
@@ -23,19 +24,19 @@ const DashboardSidebar: React.FC<ISidebar> = ({
   setIsSidebarHidden,
 }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const pathname = usePathname(); // ✅ Get the current path
 
   // Close sidebar when clicking outside
   useEffect(() => {
     if (isMobile) {
       const handleClickOutside = (event: MouseEvent) => {
-        const sidebar = document.querySelector(".pro-sidebar"); // Adjust selector if needed
+        const sidebar = document.querySelector(".pro-sidebar");
         if (sidebar && !sidebar.contains(event.target as Node)) {
-          setIsSidebarHidden(true); // Close the sidebar when clicking outside
+          setIsSidebarHidden(true);
         }
       };
 
       document.addEventListener("mousedown", handleClickOutside);
-
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
@@ -44,7 +45,6 @@ const DashboardSidebar: React.FC<ISidebar> = ({
 
   return (
     <>
-      {/* Overlay */}
       {!isSidebarHidden && isMobile && (
         <div
           className="fixed inset-0 bg-black opacity-80 z-[998] backdrop-blur-[120px]"
@@ -58,22 +58,56 @@ const DashboardSidebar: React.FC<ISidebar> = ({
       >
         <div className="bg-sidebar_background min-h-screen overflow-y-auto overflow-x-hidden relative">
           <div className="bg-sidebar_background mt-[60px] mb-[36px] cursor-pointer flex items-center justify-center">
-            <LogoIcon width="166" height="32" />
+            <Link href='/'>
+              <LogoIcon width="166" height="32" />
+            </Link>
           </div>
 
           <div className="px-4">
             <Menu className="text-white border-t border-primary_border py-10">
-              <MenuItem icon={<Porfolio />} className="pb-3">
-                <Link href="/dashboard/portfolio">Portfolio</Link>
+              <MenuItem
+                href="/dashboard/portfolio"
+                icon={<Porfolio />}
+                className={`mb-3 ${
+                  pathname === "/dashboard/portfolio"
+                    ? "ps-menu-button-active"
+                    : ""
+                }`}
+              >
+                Portfolio
               </MenuItem>
-              <MenuItem icon={<AIAgent />} className="pb-3">
-                <Link href="/dashboard/ai_agents">Custom AI Agents</Link>
+              <MenuItem
+                href="/dashboard/ai_agents"
+                icon={<AIAgent />}
+                className={`mb-3 ${
+                  pathname === "/dashboard/ai_agents"
+                    ? "ps-menu-button-active"
+                    : ""
+                }`}
+              >
+                Custom AI Agents
               </MenuItem>
-              <MenuItem icon={<Notification />} className="pb-3">
-                <Link href="/dashboard/notifications">Notifications</Link>
+              <MenuItem
+                href="/dashboard/notifications"
+                icon={<Notification />}
+                className={`mb-3 ${
+                  pathname === "/dashboard/notifications"
+                    ? "ps-menu-button-active"
+                    : ""
+                }`}
+              >
+                Notifications
               </MenuItem>
-              <MenuItem icon={<AIChat />} className="pb-3">
-                <Link href="/dashboard/chat_agent">AI Chat Agent</Link>
+              <MenuItem
+                href="/dashboard/chat_agent"
+                icon={<AIChat />}
+                className={`mb-3 ${
+                  pathname === "/dashboard/chat_agent"
+                    ? "ps-menu-button-active"
+                    : ""
+                }`}
+              >
+                AI Chat Agent
               </MenuItem>
             </Menu>
           </div>

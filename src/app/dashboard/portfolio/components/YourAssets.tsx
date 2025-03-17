@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import { WrappedItem } from "../../component";
 import { Bitcoin, BitcoinToken, LiraToken } from "@/app/svg";
