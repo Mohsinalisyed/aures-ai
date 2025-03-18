@@ -1,23 +1,38 @@
 import Axios, { InternalAxiosRequestConfig, AxiosResponse } from "axios";
 
+// Create an Axios instance
 export const axios = Axios.create({
-  baseURL: "https://31c4-110-93-246-171.ngrok-free.app",
+  baseURL: "http://localhost:3001",
 });
 
+// Request interceptor to attach token to headers
 const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
-  const token = localStorage.getItem("jwtToken");
+  // Retrieve login data from localStorage
+  const loginData = localStorage.getItem("loginData");
+
+  // Log the login data to the console to verify
 
   // Ensure headers are initialized
   config.headers = config.headers || {};
 
-  // Set the Authorization header if the jwtTexists
-  if (token) {
-    config.headers["Authorization"] = `${token}`;
+  // Check if loginData exists and if it's valid JSON
+  if (loginData) {
+    try {
+      // Parse the login data and extract the token
+      const parsedLoginData = JSON.parse(loginData);
+      const token = parsedLoginData.token;
+      // If token exists, set it in the Authorization header
+      if (token) {
+        config.headers["Authorization"] = `Bearer ${token}`;
+      }
+    } catch (error) {
+      console.error("Error parsing login data:", error);
+    }
   }
-  // config.headers["ngrok-skip-browser-warning"] = "69420";
-  config.headers["ngrok-skip-browser-warning"] = "true"; // Add this line to skip Ngrok warning
-  // Set the Accept header to "application/json"
-  config.headers["Accept"] = "application/json";
+
+  // Set additional headers
+  config.headers["ngrok-skip-browser-warning"] = "true"; // Skip Ngrok warning
+  config.headers["Accept"] = "application/json"; // Set Accept header to application/json
 
   return config;
 };
@@ -33,11 +48,11 @@ axios.interceptors.response.use(
   (error) => {
     const status = error.response?.status || 200;
 
-    // Handle 401 Unauthorized errors
+    // Handle 401 Unauthorized errors (e.g., token expired or invalid)
     if (status === 401) {
-      localStorage.clear();
+      // localStorage.clear(); // Clear localStorage if token is invalid
     }
 
-    return Promise.reject(error);
+    return Promise.reject(error); // Reject the promise with the error
   }
 );

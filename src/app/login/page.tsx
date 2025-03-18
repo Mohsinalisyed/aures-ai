@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useState, useEffect } from "react";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
@@ -11,14 +12,15 @@ import {
 } from "../components/Icons";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getNonce, verifyAccount } from "../api/auth";
-import { VerifyAccountRequest, VerifyAccountResponse } from "../api";
+import { VerifyAccountRequest } from "../api";
+import { updateLoginState, useLoginStore } from "../state";
 
 export default function Login() {
   const router = useRouter();
   const { address, isConnected } = useAccount();
   const { connect, connectors } = useConnect();
   const { signMessage, data: signMessageData, error } = useSignMessage();
-
+  const { token } = useLoginStore()
   const [uri, setUri] = useState<string | null>(null);
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const { data } = useQuery({
@@ -26,11 +28,12 @@ export default function Login() {
     queryFn: getNonce,
   });
 const {
-  mutate: verify,
+  mutateAsync: verify,
 } = useMutation<
-  VerifyAccountResponse, // The type of data returned from the mutation
-  Error, // The type of error that may be thrown
-  VerifyAccountRequest // The type of input expected by the mutation function
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any,
+  Error,
+  VerifyAccountRequest
 >({
   mutationFn: async ({ address, signature, message }: VerifyAccountRequest) => {
     return verifyAccount({ address, signature, message });
@@ -38,13 +41,16 @@ const {
 });
 
   // Redirect when connected
-
+  useEffect(() => {
+    if (token) {
+     router.push("/dashboard/portfolio");
+   }
+  }, [router, token])
+  
   useEffect(() => {
     if (isConnected && data !== undefined) {
       console.log("Connected: ", address);
-      console.log(data.nonce, "data.nonce ");
 
-      // After connection, we can sign the message
       signMessage({ message: data.nonce });
     }
   }, [isConnected, address, signMessage, data?.nonce]);
@@ -91,11 +97,13 @@ const {
       } else if (signMessageData && isConnected) {
         console.log("Message Signed Successfully: ", signMessageData);
         if (address && signMessageData && data?.nonce) {
-          await verify({
+          const user= await verify({
             address,
             signature: signMessageData,
             message: data.nonce,
           });
+          updateLoginState(user.token, user.user);
+
           router.push('/dashboard/portfolio')
         }
       }

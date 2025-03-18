@@ -71,7 +71,10 @@ export default {
         toggle_color: "rgba(157, 157, 157, 1)",
         toggle_active_color: "rgba(130, 102, 242, 1)",
         overlay_color: "rgba(0, 0, 0, 0.62)",
-        eth_color: 'rgba(217, 217, 217, 1)'
+        eth_color: "rgba(217, 217, 217, 1)",
+        error_color: "#FF0000",
+        inactive_color: 'rgba(144, 144, 144, 1)'
+
       },
       backgroundImage: {
         "button-gradient":
@@ -82,7 +85,7 @@ export default {
           "linear-gradient(180deg, rgba(148, 136, 195, 0.5) 0%, rgba(130, 102, 242, 0.5) 79.87%)",
         "testimonial-gradient":
           "linear-gradient(90deg, #8266F2 0%, #8266F2 58.09%, rgba(255, 255, 255, 0.8) 73.5%, #8266F2 88.51%, #9488C3 100%)",
-        'refund_card_gradient':
+        refund_card_gradient:
           "linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%)",
       },
       fontSize: {

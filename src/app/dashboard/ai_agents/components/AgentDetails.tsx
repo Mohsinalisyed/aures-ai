@@ -23,12 +23,12 @@ const AgentDetails: React.FC<AgentDetailsProps> = ({
       <div className="flex justify-between">
         <div
           className={`p-1 rounded-[24px] w-[76px] lg:w-[99px] text-center text-[14px] lg:text-[16px] ${
-            status === "Active"
+            status
               ? "bg-text_success text-success text-center"
-              : "bg-darker_white"
+              : "bg-darkest_white text-inactive_color"
           }`}
         >
-          {status}
+          {status ? "Active" : "In-Active"}
         </div>
         <p className="text-16 min-w-[133px] text-light_gray">
           Last Trade: {lastTrade}

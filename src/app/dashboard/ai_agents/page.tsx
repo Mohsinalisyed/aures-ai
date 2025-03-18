@@ -1,35 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
 import { AgentDetails, AgentNotFound } from "./components";
+import { useQuery } from "@tanstack/react-query";
+import { getagents } from "@/app/api";
 
-const page = () => {
+const AIAgent = () => {
+    const { data } = useQuery({
+      queryKey: ["agents"],
+      queryFn: getagents,
+    });
+  console.log(data, "agent");
   return (
     <div className="max-w-[1920px] mx-auto lg:pl-16">
       <AgentNotFound />
       <div className="mt-8">
-        <AgentDetails
-          owner="0x2efa......"
-          status="Active"
-          lastTrade="2 Hours Ago"
-        />
-        <AgentDetails
-          owner="0x2efa......"
-          status="Active"
-          lastTrade="2 Hours Ago"
-        />
-        <AgentDetails
-          owner="0x2efa......"
-          status="Active"
-          lastTrade="2 Hours Ago"
-        />
-        <AgentDetails
-          owner="0x2efa......"
-          status="Active"
-          lastTrade="2 Hours Ago"
-        />
+        {data?.map((agent:any, index:number) => {
+           return (
+             <AgentDetails
+               key={index}
+               owner={`${agent.walletPublicKey.slice(0, 6)}......`}
+               status={agent.isActive}
+               lastTrade="2 Hours Ago"
+             />
+           );
+        })}
+    
       </div>
     </div>
   );
 };
 
-export default page;
+export default AIAgent;

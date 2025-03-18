@@ -1,3 +1,6 @@
+import { IUser } from "../state";
+import { GoalType, InvestmentType, Tolerance, TradingPerformance } from "../utils";
+
 export interface VerifyAccountRequest {
   address: string;
   signature: string;
@@ -6,5 +9,28 @@ export interface VerifyAccountRequest {
 export interface VerifyAccountResponse {
   success: boolean;
   message: string;
-  // Add other fields here based on your backend response structure
+  data: IUser;
+}
+export interface ApiResponse {
+  success: boolean;
+  message: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any;
+}
+export interface TradingBotData {
+  name: string;
+  purpose: string;
+  description: string;
+  tolerance: Tolerance;
+  investmentType: InvestmentType;
+  pairAddresses: string[];
+  goalType: GoalType;
+  tradingPreference: TradingPerformance;
+  dcaPref: boolean;
+  takeProfitStatus: boolean;
+  takeProfitPercentage: number;
+  stopLossStatus: boolean;
+  stopLossPercentage: number;
+  autoExit: boolean;
+  isActive: boolean;
 }

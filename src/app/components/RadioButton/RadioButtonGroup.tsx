@@ -1,25 +1,49 @@
 import React from "react";
 import { RadioButton } from "@/app/components";
 import { TooltipIcon } from "@/app/svg";
+import { FieldErrors, UseFormRegisterReturn } from "react-hook-form";
+import { AgentFormData } from "@/app/dashboard/ai_agents/type";
+interface RadioButtonOption {
+  label: string;
+  value: string;
+}
 
 interface RadioButtonGroupProps {
   title: string;
-  options: string[];
+  options: readonly RadioButtonOption[];
+  errors: FieldErrors<AgentFormData>;
+  register: UseFormRegisterReturn; // Accept register function
+  fieldName: keyof AgentFormData;
 }
 
-const RadioButtonGroup = ({ title, options }: RadioButtonGroupProps) => {
+const RadioButtonGroup = ({
+  title,
+  options,
+  register,
+  fieldName,
+  errors,
+}: RadioButtonGroupProps) => {
   return (
     <div>
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">{title}</h1>
-
-       <TooltipIcon/>
+        <TooltipIcon />
       </div>
       <div className="flex gap-8 lg:gap-[80px]">
         {options.map((option, index) => (
-          <RadioButton key={index} label={option} />
+          <RadioButton
+            key={index}
+            label={option.label}
+            register={register} // Pass register to RadioButton
+            value={option.value} // Pass the option value
+          />
         ))}
       </div>
+      {errors[fieldName] && (
+        <p className="text-error_color text-sm mt-4">
+          {errors[fieldName]?.message}
+        </p>
+      )}
     </div>
   );
 };
