@@ -1,19 +1,14 @@
+import Image from "next/image";
 import * as React from "react";
 
-function LiraToken() {
+interface LiraTokenProps {
+  width?: number;
+  height?: number;
+}
+
+function LiraToken({ width = 24, height = 24 }: LiraTokenProps) {
   return (
-    <svg
-      width={32}
-      height={30}
-      viewBox="0 0 32 30"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M16-.002C7.164-.002 0 7.165 0 16c0 8.835 7.164 16 16 16s16-7.163 16-16C32.027 7.19 24.905.026 16.095-.002H16zm.272 16.542l-1.666 5.617h8.91a.45.45 0 01.465.433v.148l-.775 2.676a.577.577 0 01-.58.426H8.988l2.286-7.787-2.557.775.581-1.782 2.557-.775L15.07 5.346a.586.586 0 01.58-.426H19.1a.45.45 0 01.464.434V5.5l-2.711 9.22 2.557-.774-.542 1.86-2.596.733z"
-        fill="#345D9D"
-      />
-    </svg>
+    <Image src="/lira.png" alt="Lira Token" width={width} height={height} />
   );
 }
 

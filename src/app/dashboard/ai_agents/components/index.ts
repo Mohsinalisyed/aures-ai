@@ -1,2 +1,2 @@
-export { default as AgentNotFound } from './AgentNotFound'
+export { default as AgentHeader } from './AgentHeader'
 export {default as AgentDetails} from './AgentDetails'

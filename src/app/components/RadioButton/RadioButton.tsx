@@ -18,16 +18,24 @@ const RadioButton: React.FC<IRadioButton> = ({
 }) => {
   return (
     <div className="flex items-center space-x-4">
-      <input
-        type="radio"
-        id={label}
-        value={value} // Set the value for the radio button
-        {...register(fieldName)} // Spread register return object into the input
-        className="w-6 h-6 rounded-full border-2 border-gray-500 bg-gray-800 focus:ring-0"
-      />
-      <label htmlFor={label} className="text-white">
-        {label}
-      </label>
+      <div className="inline-flex items-center">
+        <label
+          className="relative flex items-center cursor-pointer"
+          htmlFor={label}
+        >
+          <input
+            id={label}
+            value={value} // Set the value for the radio button
+            {...register(fieldName)}
+            type="radio"
+            className="peer h-6 w-6 cursor-pointer appearance-none rounded-full border border-darker_white checked:border-none checked:shadow-radio_btn_shadow checked:bg-primary transition-all"
+          />
+          <span className="absolute bg-white w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+        </label>
+        <label className="ml-2 text-white cursor-pointer" htmlFor={label}>
+          {label}
+        </label>
+      </div>
     </div>
   );
 };

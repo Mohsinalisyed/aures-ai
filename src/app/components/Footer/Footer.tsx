@@ -3,9 +3,9 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { FacebookIcon, FooterLogo, LinkedInIcon } from "../Icons";
 import { cn, gsap, useGSAP } from "@/app/utils";
-import { Tooltip } from "../Tooltip";
 import { NavMenu } from "../Navbar/Navbar";
 import { scrollToElement } from "@/app/utils/function";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -13,7 +13,8 @@ const Footer = () => {
   const moveDiagonalRef = useRef<HTMLDivElement>(null);
   const moveVerticalRef = useRef<HTMLDivElement>(null);
   const [clickedItem, setClickedItem] = useState<string | null>(null);
-
+  const router = useRouter()
+  
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     menuId: string
@@ -71,11 +72,12 @@ const Footer = () => {
             Join the decentralized future of autonomous trading and sustainable
             growth.
           </p>
-          <Tooltip text="Coming Soon">
-            <button className="px-3 md:w-[270px] w-full text-16 font-medium py-5 bg-darkest_white backdrop-blur-[80px] shadow-[inset_0px_0px_8px_0px_#FFFFFF40] rounded-[48px] text-white">
-              Get Started
-            </button>
-          </Tooltip>
+          <button
+            onClick={() => router.push("/login")}
+            className="px-3 md:w-[270px] w-full text-16 font-medium py-5 bg-darkest_white backdrop-blur-[80px] shadow-[inset_0px_0px_8px_0px_#FFFFFF40] rounded-[48px] text-white"
+          >
+            Get Started
+          </button>
         </div>
         <div
           id="contact-us"

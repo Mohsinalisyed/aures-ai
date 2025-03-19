@@ -13,7 +13,7 @@
     background: rgba(130, 102, 242, 1);
 }
 
-.duration_button:active {
+.duration_button-active {
     background-color: #d0d0d0;
     background: rgba(130, 102, 242, 1);
 }

@@ -4,7 +4,7 @@ import { AIAgents, LineChart, TransactionHistory, YourAssets } from './component
 
 const page = () => {
     return (
-        <div className="flex gap-5 mt-6 w-full flex-col lg:flex-row">
+        <div className="flex gap-5 mt-6 w-full flex-col lg:flex-row pb-5">
           <div className="flex flex-col gap-5 w-full lg:w-[50%]">
             <LineChart />
             <div className="block lg:hidden">

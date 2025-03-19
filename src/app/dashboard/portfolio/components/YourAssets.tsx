@@ -47,7 +47,7 @@ const YourAssets = () => {
             <WrappedItem
               heading="Token Name"
               subHeading="ABC"
-              icon={<LiraToken />}
+              icon={<LiraToken width={32} height={32}/>}
               style="flex-col"
               textAlign="text-center"
             />

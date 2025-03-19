@@ -21,22 +21,25 @@ const AIAgents = () => {
           </tr>
         </thead>
         <tbody
-          className="bg-grey-light flex flex-col items-center justify-between overflow-y-auto overflow-x-hidden lg:overflow-y-scroll w-full h-[38vh]"
-          style={{ maxHeight: "38vh" }}
+          className="bg-grey-light flex flex-col items-center justify-between overflow-y-auto overflow-x-hidden lg:overflow-y-scroll w-full "
+          style={{ maxHeight: "43vh" }}
         >
           {AI_Agents.map((agent) => (
-            <tr key={agent.id} className="flex justify-between mr-4  w-full">
-              <td className="  text-white w-[30%] text-[14px] lg:text-[16px] pl-2 lg:pl-0">
+            <tr
+              key={agent.id}
+              className="flex justify-between mr-4  w-full pb-3"
+            >
+              <td className="  text-white w-[33%] lg:w-[30%] text-[14px] lg:text-[16px] pl-2">
                 <div>{agent.name}</div>
                 <div className="flex text-sub_heading_color text-[14px] lg:text-[16px]">
                   <span>Owner:</span>
                   <span>{agent.owner_address.slice(0, 5)}...</span>
                 </div>
               </td>
-              <td className=" text-sub_heading_color  w-[30%] text-[14px] lg:text-[16px] ">
+              <td className=" text-sub_heading_color  w-[28%] lg:w-[30%] text-[14px] lg:text-[16px] ">
                 {agent.latest_trade}
               </td>
-              <td className="  text-white w-[25%] text-[14px] lg:text-[16px] ">
+              <td className="  text-white w-[20%] lg:w-[25%] text-[14px] lg:text-[16px] ">
                 {agent.earning}
               </td>
               <td className={` text-white `}>

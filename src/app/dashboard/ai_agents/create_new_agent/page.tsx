@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { BackwardArrow, PlusIcon } from '@/app/svg';
+import { BackwardArrow, CopyIcon, DropDownIcon, UpwardIcon } from '@/app/svg';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { ConnectWallet, RefundCard } from './components';
@@ -56,6 +56,7 @@ const CreateNewAgent = () => {
   });
   const [customForm, setCustomForm] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [showdetail, setShowDeatils] =useState(true)
   const {
     register,
     handleSubmit,
@@ -65,7 +66,6 @@ const CreateNewAgent = () => {
   } = useForm<AgentFormData>({
     resolver: zodResolver(agentSchema),
   });
-  const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   const router=useRouter()
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -110,14 +110,14 @@ const onSubmit = async (data: AgentFormData) => {
           </button>
           Create New Agent
         </div>
-        <div>
+        {/* <div>
           <button
             onClick={openModal}
             className="border border-gray_border p-4 flex gap-2  justify-center items-center rounded-[80px] text-[14px] lg:text-[16px] font-medium w-full  lg:w-auto"
           >
             <PlusIcon /> <span>Connect Wallet</span>
           </button>
-        </div>
+        </div> */}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         {customForm ? (
@@ -128,15 +128,26 @@ const onSubmit = async (data: AgentFormData) => {
               errors={errors}
             />
             <div className="bg-darkest_white p-[10px] sm:p-0 sm:bg-transparent flex flex-col-reverse sm:flex-col rounded-[12px] mt-4 sm:mt-0">
-              <RefundCard />
+             {showdetail &&  <RefundCard />}
               <div className="w-full sm:w-[353px] mt-4 rounded-[12px] p-0 sm:p-[10px] bg-transparent sm:bg-darkest_white ">
-                <div className="flex justify-between  text-white pb-4">
+                <div className="flex justify-between  text-white pb-4 text-[20px]">
                   <span>Balance</span>
-                  <span>$24.7800</span>
+                  <span className="font-bold">$24.7800</span>
                 </div>
-                <div className="flex justify-between  text-white">
+                <div className="flex justify-between  text-white text-[20px]">
                   <span>Address</span>
-                  <span>BNr1...LkYT</span>
+                  <span className="flex items-center gap-2">
+                    BNr1...LkYT <CopyIcon />
+                  </span>
+                </div>
+                <div
+                  className="text-white text-[20px] mt-4 text-center flex justify-center items-center gap-2  lg:hidden"
+                  onClick={() => setShowDeatils(!showdetail)}
+                >
+                  <span>Details</span>
+                  <span>
+                   {!showdetail ? <DropDownIcon /> :<UpwardIcon/>}
+                  </span>
                 </div>
               </div>
             </div>
@@ -174,7 +185,7 @@ const onSubmit = async (data: AgentFormData) => {
               <textarea
                 {...register("description")}
                 placeholder="Enter Here"
-                className=" w-full bg-darkest_white rounded-[6px] min-h-[168px] border-gray_border border px-2 placeholder:text-white hover:border-primary"
+                className=" w-full py-4 bg-darkest_white rounded-[6px] min-h-[168px] border-gray_border border px-2 placeholder:text-white hover:border-primary"
               />
               {errors.description && (
                 <p className="text-error_color text-sm mt-1">

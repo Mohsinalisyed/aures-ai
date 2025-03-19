@@ -158,7 +158,7 @@ const Navbar = ({ onPresentMobileMenu, onDismissMobileMenu, visible }: INavbarPr
         >
           <div className="flex items-center z-[100] px-2 py-2 bg-[#FFFFFF14] rounded-full gap-x-2 flex-row container w-fit  backdrop-blur-[80px] ">
             {NavMenu.map((menu, index) => (
-              <div key={menu.id} className="h-10">
+              <div key={menu.id} className="h-10 relative">
                 <Link
                   href={`#${menu.id}`}
                   onClick={(e) => scrollToElement(e, menu.id, setIsActive)}
@@ -174,15 +174,17 @@ const Navbar = ({ onPresentMobileMenu, onDismissMobileMenu, visible }: INavbarPr
                 >
                   {menu.label}
                 </Link>
-                {index < NavMenu.length - 1 && <DividerIcon />}
+                <div className="absolute top-[0px]">
+                  {index < NavMenu.length && index > 0 && <DividerIcon />}
+                </div>
               </div>
             ))}
-              <button
-                className="py-3 px-3 bg-darkest_white text-white text-16 shadow-[inset_0px_0px_8px_0px_#FFFFFF40] rounded-full transition-shadow duration-500 ease-in-out"
-                onClick={() => router.push("/login")}
-              >
-                Get Started
-              </button>
+            <button
+              className="py-3 px-3 bg-darkest_white text-white text-16 shadow-[inset_0px_0px_8px_0px_#FFFFFF40] rounded-full transition-shadow duration-500 ease-in-out"
+              onClick={() => router.push("/login")}
+            >
+              Get Started
+            </button>
           </div>
         </div>
       </div>

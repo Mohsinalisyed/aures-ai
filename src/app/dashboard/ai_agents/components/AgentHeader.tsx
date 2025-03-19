@@ -3,7 +3,7 @@ import { PlusIcon } from '@/app/svg';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 
-const AgentNotFound = () => {
+const AgentHeader = () => {
 const router=useRouter()
   return (
     <div className="lg:pt-20">
@@ -13,9 +13,6 @@ const router=useRouter()
             <h1 className="text-white  text-[24px] lg:text-[40px] font-bold">
               My Agents
             </h1>
-            <p className="text-sub_heading_color text-[14px] lg:text-[16px] mt-6">
-              No Agents Found!
-            </p>
           </div>
           <button
             className="w-[56px] h-[56px] rounded-[80px] p-4 bg-hover_background_gradient text-white"
@@ -29,4 +26,4 @@ const router=useRouter()
   );
 }
 
-export default AgentNotFound
+export default AgentHeader

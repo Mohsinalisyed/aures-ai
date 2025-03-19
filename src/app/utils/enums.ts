@@ -1,4 +1,13 @@
 // Enums
+export enum TimePeriod {
+  HOUR='HOUR',
+  DAY='DAY',
+  WEEk='WEEK',
+  MONTH='MONTH',
+  YEAR='YEAR',
+  ALL='ALL'
+}
+
 export enum Tolerance {
   LOW = "LOW",
   MEDIUM = "MEDIUM",
@@ -34,7 +43,7 @@ export const INVESTMENT_TYPE = [
 
 export const GOAL_TYPE = [
   { label: "Short-Term Gains", value: GoalType.SHORT_TERM },
-  { label: "Short-Term Gains", value: GoalType.LONG_TERM },
+  { label: "Long-Term Gains", value: GoalType.LONG_TERM },
 ] as const;
 
 export const TRADING_PERFORMANCE = [

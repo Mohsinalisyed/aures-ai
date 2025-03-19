@@ -21,7 +21,7 @@ const WrappedItem: React.FC<WrappedItemProps> = ({
       {icon && <span>{icon}</span>}
       <div>
         <p
-          className={`font-bold text-white text-[14px] lg:text-[16px] leading-[120%] mb-2 ${textAlign}`}
+          className={`font-bold text-white text-[12px] lg:text-[16px] leading-[120%] mb-2 ${textAlign}`}
         >
           {heading}
         </p>

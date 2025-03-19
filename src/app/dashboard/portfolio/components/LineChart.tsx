@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker"; // Ensure you have @faker-js/faker installed
+import { TimePeriod } from "@/app/utils";
 
 ChartJS.register(
   CategoryScale,
@@ -72,13 +73,13 @@ const generateData = (count: number) => {
 };
 
 const LineChart = () => {
-  const [timePeriod, setTimePeriod] = useState("1 Month");
+  const [timePeriod, setTimePeriod] = useState(TimePeriod.MONTH);
 
   // Dynamically update the labels and data based on the time period
   let periodLabels = labels;
   let periodData = generateData(labels.length);
 
-  if (timePeriod === "1 Hour") {
+  if (timePeriod === TimePeriod.HOUR) {
     periodLabels = [
       "5m",
       "10m",
@@ -94,7 +95,7 @@ const LineChart = () => {
       "60m",
     ];
     periodData = generateData(12);
-  } else if (timePeriod === "1 Day") {
+  } else if (timePeriod === TimePeriod.DAY) {
     periodLabels = [
       "1h",
       "2h",
@@ -122,13 +123,13 @@ const LineChart = () => {
       "24h",
     ];
     periodData = generateData(24);
-  } else if (timePeriod === "1 Week") {
+  } else if (timePeriod === TimePeriod.WEEk) {
     periodLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     periodData = generateData(7);
-  } else if (timePeriod === "1 Month") {
+  } else if (timePeriod === TimePeriod.MONTH) {
     periodLabels = ["Week 1", "Week 2", "Week 3", "Week 4"];
     periodData = generateData(4);
-  } else if (timePeriod === "1 Year") {
+  } else if (timePeriod === TimePeriod.YEAR) {
     periodLabels = [
       "Jan",
       "Feb",
@@ -163,47 +164,58 @@ const LineChart = () => {
         <div>
           <h2 className="text-white text-14 lg:text-24">Portfolio Balance</h2>
         </div>
-        <div className="w-[184px] lg:w-[256px] h-[24px] lg:h-[36px] rounded-[24px] flex items-center justify-between bg-sidebar_background px-2  text-white">
+        <div className="w-[184px] lg:w-[256px] h-[24px] lg:h-[36px] rounded-[24px] gap-1 flex items-center justify-between bg-sidebar_background px-2  text-white">
           <button
-            onClick={() => setTimePeriod("1 Hour")}
-            className="duration_button"
+            onClick={() => setTimePeriod(TimePeriod.HOUR)}
+            className={`${
+              timePeriod === TimePeriod.HOUR ? "duration_button-active" : ""
+            } duration_button`}
           >
             1Hr
           </button>
           <button
-            onClick={() => setTimePeriod("1 Day")}
-            className="duration_button"
+            onClick={() => setTimePeriod(TimePeriod.DAY)}
+            className={`${
+              timePeriod === TimePeriod.DAY ? "duration_button-active" : ""
+            } duration_button`}
           >
             1D
           </button>
           <button
-            onClick={() => setTimePeriod("1 Week")}
-            className="duration_button"
+            onClick={() => setTimePeriod(TimePeriod.WEEk)}
+            className={`${
+              timePeriod === TimePeriod.WEEk ? "duration_button-active" : ""
+            } duration_button`}
           >
             1W
           </button>
           <button
-            onClick={() => setTimePeriod("1 Month")}
-            className="duration_button"
+            onClick={() => setTimePeriod(TimePeriod.MONTH)}
+            className={`${
+              timePeriod === TimePeriod.MONTH ? "duration_button-active" : ""
+            } duration_button`}
           >
             1M
           </button>
           <button
-            onClick={() => setTimePeriod("1 Year")}
-            className="duration_button"
+            onClick={() => setTimePeriod(TimePeriod.YEAR)}
+            className={`${
+              timePeriod === TimePeriod.YEAR ? "duration_button-active" : ""
+            } duration_button`}
           >
             1Y
           </button>
           <button
-            onClick={() => setTimePeriod("1 Year")}
-            className="duration_button"
+            onClick={() => setTimePeriod(TimePeriod.ALL)}
+            className={`${
+              timePeriod === TimePeriod.ALL ? "duration_button-active" : ""} duration_button`}
           >
             All
           </button>
         </div>
       </div>
       <h2 className="font-bold text-white mb-4 text-24">$614.76</h2>
-      <div className="chart-container w-full h-[164px] ">
+      <div className="chart-container w-full h-[192px] ">
         <Line options={options} data={data} />
       </div>
     </div>
