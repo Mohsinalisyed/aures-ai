@@ -58,7 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           width: isSidebarHidden || isMobile ? "100%" : "calc(100% - 353px)",
           marginLeft: isSidebarHidden || isMobile ? "0%" : "353px",
         }}
-        className="px-4 w-full max-w-[1920] mx-auto overflow-x-hidden"
+        className="px-2 w-full max-w-[1920] mx-auto overflow-x-hidden"
       >
         {!isMobile && (
           <div className="text-white pt-[100px] lg:pt-[34px] text-[32px] font-bold">

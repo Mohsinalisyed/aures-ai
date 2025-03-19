@@ -50,7 +50,7 @@ const TransactionHistory = () => {
                   subHeading={"0.00%"}
                 />
               </td>
-              <td className=" p-2 text-white">
+              <td className=" text-white">
                 <div className="bg-primary rounded-[24px] px-[6px] py-[4px] text-[10px] 2xl:text-[14px] leading-[19px]">
                   00.00%
                 </div>
