@@ -47,7 +47,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
     <>
       {!isSidebarHidden && isMobile && (
         <div
-          className="fixed inset-0 bg-black opacity-80 z-[998] backdrop-blur-[120px]"
+          className="fixed inset-0 bg-black opacity-80 backdrop-blur-[120px]"
           onClick={() => setIsSidebarHidden(true)}
         />
       )}

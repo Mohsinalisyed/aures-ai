@@ -44,7 +44,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
       )}
       <div
-        className={`fixed min-h-screen ${isSidebarHidden ? "hidden" : "block"}`}
+        className={`fixed z-[998] min-h-screen ${
+          isSidebarHidden ? "hidden" : "block"
+        }`}
       >
         <DashboardSidebar
           isSidebarHidden={isSidebarHidden}

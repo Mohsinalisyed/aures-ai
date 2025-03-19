@@ -197,7 +197,7 @@ const onSubmit = async (data: AgentFormData) => {
         )}
         <div className="text-white pt-[34px] text-[40px]  flex justify-end items-center">
           <div className="lg:pt-[32px] w-full flex justify-end">
-            <div>
+            <div className='w-full'>
               <div className="w-full  lg:w-[168px] flex items-center justify-end gap-2 text-16 mb-8 sm:mb-4">
                 <Toggle
                   register={register("isActive")}
