@@ -1,3 +1,4 @@
+'use client'
 import Axios, { InternalAxiosRequestConfig, AxiosResponse } from "axios";
 
 // Create an Axios instance
@@ -7,32 +8,33 @@ export const axios = Axios.create({
 
 // Request interceptor to attach token to headers
 const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
-  // Retrieve login data from localStorage
-  const loginData = localStorage.getItem("loginData");
+  // Check if running on the client side
+  if (typeof window !== "undefined") {
+    // Retrieve login data from localStorage
+    const loginData = localStorage.getItem("loginData");
 
-  // Log the login data to the console to verify
+    // Ensure headers are initialized
+    config.headers = config.headers || {};
 
-  // Ensure headers are initialized
-  config.headers = config.headers || {};
-
-  // Check if loginData exists and if it's valid JSON
-  if (loginData) {
-    try {
-      // Parse the login data and extract the token
-      const parsedLoginData = JSON.parse(loginData);
-      const token = parsedLoginData.token;
-      // If token exists, set it in the Authorization header
-      if (token) {
-        config.headers["Authorization"] = `Bearer ${token}`;
+    // Check if loginData exists and if it's valid JSON
+    if (loginData) {
+      try {
+        // Parse the login data and extract the token
+        const parsedLoginData = JSON.parse(loginData);
+        const token = parsedLoginData.token;
+        // If token exists, set it in the Authorization header
+        if (token) {
+          config.headers["Authorization"] = `Bearer ${token}`;
+        }
+      } catch (error) {
+        console.error("Error parsing login data:", error);
       }
-    } catch (error) {
-      console.error("Error parsing login data:", error);
     }
-  }
 
-  // Set additional headers
-  config.headers["ngrok-skip-browser-warning"] = "true"; // Skip Ngrok warning
-  config.headers["Accept"] = "application/json"; // Set Accept header to application/json
+    // Set additional headers
+    config.headers["ngrok-skip-browser-warning"] = "true"; // Skip Ngrok warning
+    config.headers["Accept"] = "application/json"; // Set Accept header to application/json
+  }
 
   return config;
 };

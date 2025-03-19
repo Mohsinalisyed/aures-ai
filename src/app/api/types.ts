@@ -23,14 +23,15 @@ export interface TradingBotData {
   description: string;
   tolerance: Tolerance;
   investmentType: InvestmentType;
-  pairAddresses: string[];
+  pairAddresses?: string[]; // Make this non-optional
   goalType: GoalType;
   tradingPreference: TradingPerformance;
   dcaPref: boolean;
-  takeProfitStatus: boolean;
+  takeProfitStatus?: boolean;
   takeProfitPercentage: number;
-  stopLossStatus: boolean;
+  stopLossStatus?: boolean;
   stopLossPercentage: number;
   autoExit: boolean;
   isActive: boolean;
 }
+

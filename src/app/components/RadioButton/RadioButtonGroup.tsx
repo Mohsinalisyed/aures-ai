@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
 import { RadioButton } from "@/app/components";
 import { TooltipIcon } from "@/app/svg";
-import { FieldErrors, UseFormRegisterReturn } from "react-hook-form";
-import { AgentFormData } from "@/app/dashboard/ai_agents/type";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { TradingBotData } from "@/app/api";
 interface RadioButtonOption {
   label: string;
   value: string;
@@ -11,9 +12,9 @@ interface RadioButtonOption {
 interface RadioButtonGroupProps {
   title: string;
   options: readonly RadioButtonOption[];
-  errors: FieldErrors<AgentFormData>;
-  register: UseFormRegisterReturn; // Accept register function
-  fieldName: keyof AgentFormData;
+  errors: FieldErrors<TradingBotData>;
+  register: UseFormRegister<TradingBotData>; // Accept register function
+  fieldName: keyof TradingBotData;
 }
 
 const RadioButtonGroup = ({
@@ -36,6 +37,7 @@ const RadioButtonGroup = ({
             label={option.label}
             register={register} // Pass register to RadioButton
             value={option.value} // Pass the option value
+            fieldName={fieldName}
           />
         ))}
       </div>

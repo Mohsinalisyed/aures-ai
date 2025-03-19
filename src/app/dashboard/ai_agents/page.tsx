@@ -10,7 +10,6 @@ const AIAgent = () => {
       queryKey: ["agents"],
       queryFn: getagents,
     });
-  console.log(data, "agent");
   return (
     <div className="max-w-[1920px] mx-auto lg:pl-16">
       <AgentNotFound />

@@ -1,26 +1,33 @@
+"use client";
 import { Toggle } from "@/app/components";
 import { ProgressBar } from "@/app/components/ProgressBar";
 import RadioButtonGroup from "@/app/components/RadioButton/RadioButtonGroup";
 import React from "react";
-import { Control, Controller, FieldErrors, UseFormRegister} from "react-hook-form";
-import { AgentFormData } from "../type";
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  UseFormRegister,
+} from "react-hook-form";
 import {
   GOAL_TYPE,
   INVESTMENT_TYPE,
   TOLORENCE_ARRAY,
   TRADING_PERFORMANCE,
 } from "@/app/utils";
+import { ExplinatortToolTip } from "@/app/svg";
+import { TradingBotData } from "@/app/api";
 
 interface CustomAIAgentFormProps {
-  register: UseFormRegister<AgentFormData>;
-  control: Control<AgentFormData>;
-  errors: FieldErrors<AgentFormData>;
+  register: UseFormRegister<TradingBotData>;
+  control: Control<TradingBotData>;
+  errors: FieldErrors<TradingBotData>;
 }
 
 const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
   register,
   control,
-  errors
+  errors,
 }) => {
   return (
     <div className="max-w-[688px] pb-2 lg:py-12">
@@ -28,7 +35,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       <RadioButtonGroup
         title="Tolerance"
         options={TOLORENCE_ARRAY}
-        register={register("tolerance")}
+        register={register}
         fieldName="tolerance"
         errors={errors}
       />
@@ -37,7 +44,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       <RadioButtonGroup
         title="Investment Type"
         options={INVESTMENT_TYPE}
-        register={register("investmentType")}
+        register={register}
         fieldName="investmentType"
         errors={errors}
       />
@@ -46,7 +53,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       <RadioButtonGroup
         title="Goal Type"
         options={GOAL_TYPE}
-        register={register("goalType")}
+        register={register}
         fieldName="goalType"
         errors={errors}
       />
@@ -55,13 +62,17 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       <RadioButtonGroup
         title="Trading Preferences"
         options={TRADING_PERFORMANCE}
-        register={register("tradingPreference")}
+        register={register}
         fieldName="tradingPreference"
         errors={errors}
       />
 
       {/* DCA Preferences */}
-      <h1 className="heading-text mt-8 mb-6">DCA Preferences</h1>
+      <div className="flex items-center gap-3 mt-8 mb-6">
+        <h1 className="heading-text">DCA Preferences</h1>
+        <ExplinatortToolTip />
+      </div>
+
       <div>
         <Toggle
           register={register("dcaPref")}
@@ -71,7 +82,11 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       </div>
 
       {/* Take-Profit Conditions */}
-      <h1 className="heading-text mt-8 mb-6">Take-Profit Conditions</h1>
+      <div className="flex items-center gap-3 mt-8 mb-6">
+        <h1 className="heading-text">Take-Profit Conditions</h1>
+        <ExplinatortToolTip />
+      </div>
+
       <div className="max-w-[392px]">
         <Controller
           name="takeProfitPercentage"
@@ -91,7 +106,11 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       </div>
 
       {/* Stop-Loss Conditions */}
-      <h1 className="heading-text mt-8 mb-6">Stop-Loss Conditions</h1>
+      <div className="flex items-center gap-3 mt-8 mb-6">
+        <h1 className="heading-text">Stop-Loss Conditions</h1>
+        <ExplinatortToolTip />
+      </div>
+
       <div className="max-w-[392px]">
         <Controller
           name="stopLossPercentage"
@@ -111,7 +130,10 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       </div>
 
       {/* Auto-Exit Conditions */}
-      <h1 className="heading-text mt-8 mb-6">Auto-Exit Conditions</h1>
+      <div className="flex items-center gap-3 mt-8 mb-6">
+        <h1 className="heading-text">Auto-Exit Conditions</h1>
+        <ExplinatortToolTip />
+      </div>
       <div>
         <Toggle
           register={register("autoExit")}

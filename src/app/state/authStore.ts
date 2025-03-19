@@ -1,8 +1,8 @@
+"use client";
 import { useStore } from "@tanstack/react-store";
 import { Store } from "@tanstack/store";
 import { useCallback } from "react";
 import { User } from "./type";
-
 
 // Define the login state type
 export interface LoginState {
@@ -18,13 +18,18 @@ export const loginStore = new Store<LoginState>({
 
 // Function to load login state from localStorage
 const loadLoginStateFromLocalStorage = (): Partial<LoginState> => {
-  const savedState = localStorage.getItem("loginData");
-  return savedState ? JSON.parse(savedState) : {};
+  if (typeof window !== "undefined") {
+    const savedState = localStorage.getItem("loginData");
+    return savedState ? JSON.parse(savedState) : {};
+  }
+  return {}; // Return empty if not in browser
 };
 
 // Function to save login state to localStorage
 const saveLoginStateToLocalStorage = (state: LoginState): void => {
-  localStorage.setItem("loginData", JSON.stringify(state));
+  if (typeof window !== "undefined") {
+    localStorage.setItem("loginData", JSON.stringify(state));
+  }
 };
 
 // Initialize store with saved state
@@ -58,7 +63,9 @@ export const useLogout = () => {
       token: null,
       user: null,
     }));
-    localStorage.removeItem("loginData");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("loginData");
+    }
   }, []);
 
   return { logout };

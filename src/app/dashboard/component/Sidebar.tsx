@@ -58,7 +58,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
       >
         <div className="bg-sidebar_background min-h-screen overflow-y-auto overflow-x-hidden relative">
           <div className="bg-sidebar_background mt-[60px] mb-[36px] cursor-pointer flex items-center justify-center">
-            <Link href='/'>
+            <Link href="/dashboard/portfolio">
               <LogoIcon width="166" height="32" />
             </Link>
           </div>

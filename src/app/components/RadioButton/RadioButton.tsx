@@ -1,16 +1,20 @@
+"use client";
+import { TradingBotData } from "@/app/api";
 import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 
 interface IRadioButton {
   label: string;
-  register: UseFormRegisterReturn; // Accept register object
+  register: UseFormRegister<TradingBotData>; // Accept register function
   value: string; // The value for the radio button
+  fieldName: keyof TradingBotData;
 }
 
 const RadioButton: React.FC<IRadioButton> = ({
   label,
   register,
   value,
+  fieldName,
 }) => {
   return (
     <div className="flex items-center space-x-4">
@@ -18,7 +22,7 @@ const RadioButton: React.FC<IRadioButton> = ({
         type="radio"
         id={label}
         value={value} // Set the value for the radio button
-        {...register} // Spread register return object into the input
+        {...register(fieldName)} // Spread register return object into the input
         className="w-6 h-6 rounded-full border-2 border-gray-500 bg-gray-800 focus:ring-0"
       />
       <label htmlFor={label} className="text-white">

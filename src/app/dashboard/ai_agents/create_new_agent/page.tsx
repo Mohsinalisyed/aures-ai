@@ -3,7 +3,6 @@
 import { BackwardArrow, PlusIcon } from '@/app/svg';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-import CustomAIAgentForm from '../custom_agent_form/page';
 import { ConnectWallet, RefundCard } from './components';
 import { Toggle } from '@/app/components';
 import { useForm } from "react-hook-form";
@@ -11,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AgentFormData, agentSchema } from '../type';
 import { useMutation } from '@tanstack/react-query';
 import { createAgent, TradingBotData } from '@/app/api';
+import CustomAIAgentForm from './components/CustomAIAgentForm';
 
 const CreateNewAgent = () => {
   const { mutateAsync: createAgentMutation } = useMutation<
@@ -82,6 +82,7 @@ const onSubmit = async (data: AgentFormData) => {
   try {
     await createAgentMutation({
       ...data,
+      pairAddresses:[],
       takeProfitStatus: true,
       stopLossStatus: true,
     });
