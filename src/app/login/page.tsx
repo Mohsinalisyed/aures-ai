@@ -20,33 +20,35 @@ export default function Login() {
   const { address, isConnected } = useAccount();
   const { connect, connectors } = useConnect();
   const { signMessage, data: signMessageData, error } = useSignMessage();
-  const { token } = useLoginStore()
+  const { token } = useLoginStore();
   const [uri, setUri] = useState<string | null>(null);
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const { data } = useQuery({
     queryKey: ["nonce"],
     queryFn: getNonce,
   });
-const {
-  mutateAsync: verify,
-} = useMutation<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  any,
-  Error,
-  VerifyAccountRequest
->({
-  mutationFn: async ({ address, signature, message }: VerifyAccountRequest) => {
-    return verifyAccount({ address, signature, message });
-  },
-});
+  const { mutateAsync: verify } = useMutation<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    any,
+    Error,
+    VerifyAccountRequest
+  >({
+    mutationFn: async ({
+      address,
+      signature,
+      message,
+    }: VerifyAccountRequest) => {
+      return verifyAccount({ address, signature, message });
+    },
+  });
 
   // Redirect when connected
   useEffect(() => {
     if (token) {
-     router.push("/dashboard/portfolio");
-   }
-  }, [router, token])
-  
+      router.push("/dashboard/portfolio");
+    }
+  }, [router, token]);
+
   useEffect(() => {
     if (isConnected && data !== undefined) {
       console.log("Connected: ", address);
@@ -97,14 +99,14 @@ const {
       } else if (signMessageData && isConnected) {
         console.log("Message Signed Successfully: ", signMessageData);
         if (address && signMessageData && data?.nonce) {
-          const user= await verify({
+          const user = await verify({
             address,
             signature: signMessageData,
             message: data.nonce,
           });
           updateLoginState(user.token, user.user);
 
-          router.push('/dashboard/portfolio')
+          router.push("/dashboard/portfolio");
         }
       }
     };
@@ -125,20 +127,22 @@ const {
             <LeftArrowIcon />
             <span className="text-white text-[14px] lg:text-[16px]">Back</span>
           </div>
-          <LogoIcon />
+          <div className="hidden lg:block">
+            <LogoIcon />
+          </div>
         </div>
 
         {/* QR Section */}
-        <div className="flex flex-col items-center justify-center w-full h-[80vh]">
-          <span className="text-white text-[32px] font-bold mb-[80px]">
+        <div className="flex flex-col items-center justify-center w-full min-h-[80vh]">
+          <span className="text-white text-[24px] lg:text-[32px] font-bold mb-[80px] mt-8 lg:mt-0">
             Connect Your Wallet
           </span>
 
-          <div className="bg-white800 p-[24px] rounded-[24px] backdrop-blur-[80px] w-[800px] h-[326px]">
+          <div className="lg:bg-white800 p-[24px] rounded-[24px] backdrop-blur-[80px] lg:w-[800px] min-h-[326px]">
             {connectionError ? (
               <div className="text-red-500 text-center">{connectionError}</div>
             ) : uri ? (
-              <div className="flex flex-row gap-[40px]">
+              <div className="flex  gap-[20px] lg:gap-[40px] flex-col lg:flex-row">
                 {/* QR Code */}
                 <div className="w-[fit-content] relative p-3">
                   <QRCodeSVG className="bg-white" value={uri} size={256} />
@@ -157,7 +161,7 @@ const {
 
                 {/* Instructions */}
                 <div className="flex flex-col justify-center">
-                  <span className="text-white text-[24px] font-medium leading-[120%] mb-[40px]">
+                  <span className="text-white text-[16px] lg:text-[24px] font-medium leading-[120%] mb-[40px]">
                     Scan this code in your wallet app
                   </span>
                   <div className="flex flex-col">
