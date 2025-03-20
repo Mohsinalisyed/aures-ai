@@ -12,7 +12,7 @@ interface RadioButtonOption {
 interface RadioButtonGroupProps {
   title: string;
   options: readonly RadioButtonOption[];
-  errors: FieldErrors<TradingBotData>;
+  errors?: FieldErrors<TradingBotData>;
   register: UseFormRegister<TradingBotData>; // Accept register function
   fieldName: keyof TradingBotData;
 }
@@ -41,7 +41,7 @@ const RadioButtonGroup = ({
           />
         ))}
       </div>
-      {errors[fieldName] && (
+      {errors && errors[fieldName] && (
         <p className="text-error_color text-sm mt-4">
           {errors[fieldName]?.message}
         </p>

@@ -20,35 +20,33 @@ export default function Login() {
   const { address, isConnected } = useAccount();
   const { connect, connectors } = useConnect();
   const { signMessage, data: signMessageData, error } = useSignMessage();
-  const { token } = useLoginStore();
+  const { token } = useLoginStore()
   const [uri, setUri] = useState<string | null>(null);
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const { data } = useQuery({
     queryKey: ["nonce"],
     queryFn: getNonce,
   });
-  const { mutateAsync: verify } = useMutation<
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    any,
-    Error,
-    VerifyAccountRequest
-  >({
-    mutationFn: async ({
-      address,
-      signature,
-      message,
-    }: VerifyAccountRequest) => {
-      return verifyAccount({ address, signature, message });
-    },
-  });
+const {
+  mutateAsync: verify,
+} = useMutation<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any,
+  Error,
+  VerifyAccountRequest
+>({
+  mutationFn: async ({ address, signature, message }: VerifyAccountRequest) => {
+    return verifyAccount({ address, signature, message });
+  },
+});
 
   // Redirect when connected
   useEffect(() => {
     if (token) {
-      router.push("/dashboard/portfolio");
-    }
-  }, [router, token]);
-
+     router.push("/dashboard/portfolio");
+   }
+  }, [router, token])
+  
   useEffect(() => {
     if (isConnected && data !== undefined) {
       console.log("Connected: ", address);
@@ -99,14 +97,14 @@ export default function Login() {
       } else if (signMessageData && isConnected) {
         console.log("Message Signed Successfully: ", signMessageData);
         if (address && signMessageData && data?.nonce) {
-          const user = await verify({
+          const user= await verify({
             address,
             signature: signMessageData,
             message: data.nonce,
           });
           updateLoginState(user.token, user.user);
 
-          router.push("/dashboard/portfolio");
+          router.push('/dashboard/portfolio')
         }
       }
     };

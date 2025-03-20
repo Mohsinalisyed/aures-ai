@@ -8,27 +8,37 @@ import {
   Controller,
   FieldErrors,
   UseFormRegister,
+  UseFormWatch,
 } from "react-hook-form";
 import {
   GOAL_TYPE,
   INVESTMENT_TYPE,
+  InvestmentType,
   TOLORENCE_ARRAY,
   TRADING_PERFORMANCE,
 } from "@/app/utils";
 import { ExplinatortToolTip } from "@/app/svg";
 import { TradingBotData } from "@/app/api";
+import { TokenSelection } from "../../components";
 
 interface CustomAIAgentFormProps {
   register: UseFormRegister<TradingBotData>;
   control: Control<TradingBotData>;
   errors: FieldErrors<TradingBotData>;
+  watch: UseFormWatch<TradingBotData>;
+  selectedPairs: string[]
+  setSelectedPairs:(e:string[])=>void
 }
 
 const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
   register,
   control,
   errors,
+  watch,
+  selectedPairs,
+  setSelectedPairs
 }) => {
+  const investmentType = watch("investmentType");
   return (
     <div className="max-w-[688px] pb-2 lg:py-12">
       {/* Tolerance Group */}
@@ -46,9 +56,23 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         options={INVESTMENT_TYPE}
         register={register}
         fieldName="investmentType"
-        errors={errors}
       />
-
+      {errors.investmentType &&
+        investmentType ===
+          InvestmentType.AUTO && (
+            <p className="text-error_color text-sm mt-4">
+              {errors.investmentType?.message}
+            </p>
+          )}
+      {investmentType === InvestmentType.SELECTED_PAIRS && (
+        <div className="mt-8">
+          <TokenSelection
+            selectedPairs={selectedPairs}
+            setSelectedPairs={(e) => setSelectedPairs(e)}
+            errors={errors}
+          />
+        </div>
+      )}
       {/* Goal Type Group */}
       <RadioButtonGroup
         title="Goal Type"

@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode, Suspense, useState } from "react";
 import DashboardSidebar from "./component/Sidebar";
 import { useMediaQuery } from "../hooks";
 import { MenuIcon } from "../components/Icons";
@@ -65,7 +65,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {formatParams(pathName)}
           </div>
         )}
-        <div className="mt-[100px] lg:mt-0">{children}</div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div className="mt-[100px] lg:mt-0">{children}</div>
+        </Suspense>
       </div>
     </div>
   );

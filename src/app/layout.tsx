@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./Provider";
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; // Import QueryClient and QueryClientProvider
+import { ToastContainer } from "react-toastify";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <QueryClientProvider client={queryClient}>
           <Providers>{children}</Providers>
         </QueryClientProvider>
+        <ToastContainer />
       </body>
     </html>
   );

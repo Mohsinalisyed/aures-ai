@@ -20,3 +20,30 @@ export const getagents = async () => {
     throw error;
   }
 };
+export const getAgentById = async (id:string) => {
+  try {
+    const response = await axios.get(`/agents/${id}`);
+    return response.data.agent;
+  } catch (error) {
+    console.error("Error fetching agents:", error);
+    throw error;
+  }
+};
+export const updateAgentById = async (data: TradingBotData , id:string): Promise<ApiResponse> => {
+  try {
+    const response = await axios.put<ApiResponse>(`/agents/${id}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating agent:", error);
+    throw error;
+  }
+};
+export const getTokenPairAddress = async () => {
+  try {
+    const response = await axios.get(`/pairs`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching pairs:", error);
+    throw error;
+  }
+};

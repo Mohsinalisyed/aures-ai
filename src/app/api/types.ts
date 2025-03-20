@@ -18,6 +18,7 @@ export interface ApiResponse {
   data: any;
 }
 export interface TradingBotData {
+  id?: string;
   name: string;
   purpose: string;
   description: string;
@@ -35,3 +36,26 @@ export interface TradingBotData {
   isActive: boolean;
 }
 
+// Define type for Token
+interface Token {
+  id: number;
+  address: string;
+  name: string;
+  symbol: string;
+  decimals: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Define type for TokenPair
+export interface TokenPair {
+  id: number;
+  address: string;
+  exchange: string;
+  createdAt: string;
+  updatedAt: string;
+  token0: Token;
+  token1: Token;
+}
+
+// Type for the data that holds the array of token pairs
