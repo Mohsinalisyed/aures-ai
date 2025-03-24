@@ -19,9 +19,9 @@ export interface ApiResponse {
 }
 export interface TradingBotData {
   id?: string;
-  name: string;
-  purpose: string;
-  description: string;
+  name?: string;
+  purpose?: string;
+  description?: string;
   tolerance: Tolerance;
   investmentType: InvestmentType;
   pairAddresses?: string[]; // Make this non-optional

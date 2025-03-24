@@ -52,7 +52,7 @@ axios.interceptors.response.use(
 
     // Handle 401 Unauthorized errors (e.g., token expired or invalid)
     if (status === 401) {
-      // localStorage.clear(); // Clear localStorage if token is invalid
+      localStorage.clear(); // Clear localStorage if token is invalid
     }
 
     return Promise.reject(error); // Reject the promise with the error

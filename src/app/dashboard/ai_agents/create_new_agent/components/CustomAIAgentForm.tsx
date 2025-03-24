@@ -26,7 +26,7 @@ interface CustomAIAgentFormProps {
   control: Control<TradingBotData>;
   errors: FieldErrors<TradingBotData>;
   watch: UseFormWatch<TradingBotData>;
-  selectedPairs: string[]
+  selectedPairs: string[] | undefined
   setSelectedPairs:(e:string[])=>void
 }
 
@@ -57,9 +57,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         register={register}
         fieldName="investmentType"
       />
-      {errors.investmentType &&
-        investmentType ===
-          InvestmentType.AUTO && (
+      {errors.investmentType && (
             <p className="text-error_color text-sm mt-4">
               {errors.investmentType?.message}
             </p>
@@ -70,6 +68,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
             selectedPairs={selectedPairs}
             setSelectedPairs={(e) => setSelectedPairs(e)}
             errors={errors}
+            control={control}
           />
         </div>
       )}

@@ -23,10 +23,7 @@ const TRADING_PERFORMANCE_VALUES = TRADING_PERFORMANCE.map(
 ) as [TradingPerformance];
 
 // Create the Zod schema
-export const agentSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  purpose: z.string().min(1, "Purpose is required"),
-  description: z.string().min(1, "Description is required"),
+export const form2Schema = z.object({
   tolerance: z.enum(TOLERANCE_VALUES, {
     errorMap: () => ({ message: "Invalid tolerance" }),
   }),
@@ -34,8 +31,8 @@ export const agentSchema = z.object({
     errorMap: () => ({ message: "Invalid investment type" }),
   }),
   pairAddresses: z
-    .array(z.string().url("Invalid URL format"))
-    .min(1, "Pair addresses are required")
+    .array(z.string())
+    // .min(1, "Pair addresses are required")
     .optional(),
   goalType: z.enum(GOAL_TYPE_VALUES, {
     errorMap: () => ({ message: "Invalid goal type" }),
@@ -58,4 +55,13 @@ export const agentSchema = z.object({
   isActive: z.boolean(),
 });
 
-export type AgentFormData = z.infer<typeof agentSchema>;
+// Form 1 Schema (Name, Purpose, Description)
+export const form1Schema = z.object({
+  name: z.string().min(1, "Name is required"),
+  purpose: z.string().min(1, "Purpose is required"),
+  description: z.string().min(1, "Description is required"),
+});
+
+export type Form1Data = z.infer<typeof form1Schema>;
+
+export type AgentFormData = z.infer<typeof form2Schema>;

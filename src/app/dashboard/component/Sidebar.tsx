@@ -23,7 +23,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
   isSidebarHidden,
   setIsSidebarHidden,
 }) => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 1024px)");
   const pathname = usePathname(); // ✅ Get the current path
 
   // Close sidebar when clicking outside
@@ -69,7 +69,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                 href="/dashboard/portfolio"
                 icon={<Porfolio />}
                 className={`mb-3 ${
-                  pathname === "/dashboard/portfolio"
+                  pathname.includes("/dashboard/portfolio")
                     ? "ps-menu-button-active"
                     : ""
                 }`}
@@ -80,7 +80,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                 href="/dashboard/ai_agents"
                 icon={<AIAgent />}
                 className={`mb-3 ${
-                  pathname === "/dashboard/ai_agents"
+                  pathname.includes("/dashboard/ai_agents")
                     ? "ps-menu-button-active"
                     : ""
                 }`}
@@ -91,7 +91,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                 href="/dashboard/notifications"
                 icon={<Notification />}
                 className={`mb-3 ${
-                  pathname === "/dashboard/notifications"
+                  pathname.includes("/dashboard/notifications")
                     ? "ps-menu-button-active"
                     : ""
                 }`}
@@ -102,7 +102,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                 href="/dashboard/chat_agent"
                 icon={<AIChat />}
                 className={`mb-3 ${
-                  pathname === "/dashboard/chat_agent"
+                  pathname.includes("/dashboard/chat_agent")
                     ? "ps-menu-button-active"
                     : ""
                 }`}

@@ -9,7 +9,7 @@ import { Avatar, DropDownIcon } from "../svg";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [isSidebarHidden, setIsSidebarHidden] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 1024px)");
   const pathName = usePathname();// Use the router hook
 
   const handleToggleSidebar = () => {
