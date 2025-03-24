@@ -47,7 +47,7 @@ const Form1: React.FC<Iprops> = ({ setCustomForm, data }) => {
         <label>Agent Name</label>
         <div>
           <input
-            {...register("name", { required: "Agent name is required" })}
+            {...register("name")}
             placeholder="Enter Here"
             className="w-full bg-darkest_white h-[48px] px-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary"
           />
@@ -61,7 +61,7 @@ const Form1: React.FC<Iprops> = ({ setCustomForm, data }) => {
         <label>Agent Purpose</label>
         <div>
           <input
-            {...register("purpose", { required: "Agent purpose is required" })}
+            {...register("purpose")}
             placeholder="Enter Here"
             className="w-full bg-darkest_white h-[48px] rounded-[6px] border-gray_border border px-2 placeholder:text-white hover:border-primary"
           />
@@ -75,9 +75,7 @@ const Form1: React.FC<Iprops> = ({ setCustomForm, data }) => {
         <label>Agent Description</label>
         <div>
           <textarea
-            {...register("description", {
-              required: "Agent description is required",
-            })}
+            {...register("description")}
             placeholder="Enter Here"
             className="w-full py-4 bg-darkest_white rounded-[6px] min-h-[168px] border-gray_border border px-2 placeholder:text-white hover:border-primary"
           />

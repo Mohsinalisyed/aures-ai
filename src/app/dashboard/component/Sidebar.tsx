@@ -1,15 +1,18 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { usePathname } from "next/navigation"; // ✅ Import usePathname
+import { usePathname, useRouter } from "next/navigation"; // ✅ Import usePathname
 import { LogoIcon } from "@/app/components/Icons";
 import {
   AIAgent,
   AIChat,
   Avatar,
   DropDownIcon,
+  Logout,
   Notification,
   Porfolio,
+  Profile,
+  UpwardIcon,
 } from "@/app/svg";
 import { useMediaQuery } from "@/app/hooks";
 import Link from "next/link";
@@ -24,8 +27,9 @@ const DashboardSidebar: React.FC<ISidebar> = ({
   setIsSidebarHidden,
 }) => {
   const isMobile = useMediaQuery("(max-width: 1024px)");
-  const pathname = usePathname(); // ✅ Get the current path
-
+  const pathname = usePathname();
+  const router =useRouter()
+  const [showProfile, setShowProfile] =useState(false)
   // Close sidebar when clicking outside
   useEffect(() => {
     if (isMobile) {
@@ -53,7 +57,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
       )}
 
       <Sidebar
-        className="fixed z-[999] flex flex-col items-start overflow-y-auto overflow-x-hidden pro-sidebar"
+        className="fixed z-[999] flex flex-col  items-start overflow-y-auto overflow-x-hidden pro-sidebar"
         style={{ width: isMobile ? "289px" : "353px", border: "none" }}
       >
         <div className="bg-sidebar_background min-h-screen overflow-y-auto overflow-x-hidden relative">
@@ -64,7 +68,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
           </div>
 
           <div className="px-4">
-            <Menu className="text-white border-t border-primary_border py-10">
+            <Menu className="text-white border-t border-primary_border pt-10 pb-4">
               <MenuItem
                 href="/dashboard/portfolio"
                 icon={<Porfolio />}
@@ -113,17 +117,45 @@ const DashboardSidebar: React.FC<ISidebar> = ({
           </div>
         </div>
 
-        {/* Avatar on Desktop */}
+        {showProfile && (
+          <div className="w-[305px] fixed bottom-[112px] h-[156px] bg-darkest_white rounded-[12px] text-white mx-6">
+            <div
+              className="w-[281] h-[62px] border m-3 mb-2 bg-profile_options_bg border-darker_white rounded-[12px] p-2 cursor-pointer"
+              onClick={() => {
+                router.push("/dashboard/profile");
+                setShowProfile(false)
+              }}
+            >
+              <div className="flex gap-2 items-center">
+                <Profile /> <h1>Profile</h1>
+              </div>
+              <div className="text-[14px] text-eth_color mt-1">
+                Edit profile details
+              </div>
+            </div>
+            <div className="w-[281] h-[62px] border m-3 mt-0 bg-profile_options_bg border-darker_white rounded-[12px] p-2 cursor-pointer">
+              <div className="flex gap-2 items-center">
+                <Logout /> <h1 className="text-logout_text_color">Logout</h1>
+              </div>
+              <div className="text-[14px] text-eth_color mt-1">
+                Sign out of your account
+              </div>
+            </div>
+          </div>
+        )}
         {!isMobile && (
-          <div className="fixed flex items-center gap-2 top-[80%] left-[20px] px-4 bg-hover_background_gradient w-[305px] h-[64px] cursor-pointer rounded-full">
-            <div className="flex justify-between items-center w-full">
+          <div className="fixed flex items-center gap-2 bottom-[40px] left-[20px] px-4 bg-hover_background_gradient w-[305px] h-[64px] cursor-pointer rounded-full">
+            <div
+              className="flex justify-between items-center w-full"
+              onClick={() => setShowProfile(!showProfile)}
+            >
               <div className="flex items-center gap-2">
                 <Avatar />
                 <span className="text-white text-[14px] lg:text-[16px]">
                   Niko Setro
                 </span>
               </div>
-              <DropDownIcon />
+              {showProfile ? <UpwardIcon/> : <DropDownIcon />}
             </div>
           </div>
         )}

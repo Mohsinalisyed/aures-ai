@@ -4,14 +4,15 @@ import DashboardSidebar from "./component/Sidebar";
 import { useMediaQuery } from "../hooks";
 import { MenuIcon } from "../components/Icons";
 import { cn, formatParams } from "../utils";
-import { usePathname } from "next/navigation";
-import { Avatar, DropDownIcon } from "../svg";
+import { usePathname, useRouter } from "next/navigation";
+import { Avatar, DropDownIcon, Logout, Profile, UpwardIcon } from "../svg";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [isSidebarHidden, setIsSidebarHidden] = useState(false);
   const isMobile = useMediaQuery("(max-width: 1024px)");
   const pathName = usePathname();// Use the router hook
-
+  const [showProfile, setShowProfile] =useState(false)
+  const router=useRouter()
   const handleToggleSidebar = () => {
     setIsSidebarHidden(!isSidebarHidden);
   };
@@ -37,10 +38,40 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <div className="text-white text-[16px] font-bold">
               {formatParams(pathName)}
             </div>
-            <div className="w-[69px] flex justify-between items-center">
-              <Avatar /> <DropDownIcon />
+            <div
+              className="w-[69px] flex justify-between items-center"
+              onClick={() => setShowProfile(!showProfile)}
+            >
+              <Avatar /> {showProfile ? <UpwardIcon /> : <DropDownIcon />}
             </div>
           </div>
+          {showProfile && (
+            <div className="w-[207px] backdrop-blur-3xl bg-white/30 fixed right-0 z-[999] top-[80px] h-[140px]  rounded-[12px] text-white mx-6">
+              <div
+                className="w-[281] h-[62px]  m-3 mb-0  cursor-pointer"
+                onClick={() => {
+                  router.push("/dashboard/profile");
+                  setShowProfile(false);
+                }}
+              >
+                <div className="flex gap-2 items-center">
+                  <Profile /> <h1>Profile</h1>
+                </div>
+                <div className="text-[14px] text-eth_color mt-1">
+                  Edit profile details
+                </div>
+              </div>
+              <div className="border-t border-darker_white mx-3"></div>
+              <div className="w-[281] h-[62px]  m-3 mt-2  cursor-pointer">
+                <div className="flex gap-2 items-center">
+                  <Logout /> <h1 className="text-logout_text_color">Logout</h1>
+                </div>
+                <div className="text-[14px] text-eth_color mt-1">
+                  Sign out of your account
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
       <div

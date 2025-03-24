@@ -74,6 +74,9 @@ export default {
         eth_color: "rgba(217, 217, 217, 1)",
         error_color: "#FF0000",
         inactive_color: "rgba(144, 144, 144, 1)",
+        profile_options_bg: "rgba(255, 255, 255, 0.2)",
+        logout_text_color: "rgba(255, 85, 85, 1)",
+        placeholder_text_color: "rgba(128, 128, 128, 1)",
       },
       backgroundImage: {
         "button-gradient":
@@ -104,7 +107,7 @@ export default {
         "progressbar-inner-shadow": "0 0 16px 2px rgba(130,102,242,0.8)",
         "social-icon-shadow":
           "0px 4px 24px 0px #FFFFFF3D inset, 0px 8px 12px 0px #FFFFFFB8 inset",
-        'radio_btn_shadow': "0px 0px 4px 0px rgba(130, 102, 242, 1)",
+        radio_btn_shadow: "0px 0px 4px 0px rgba(130, 102, 242, 1)",
       },
       keyframes: {
         slideFromTop: {
