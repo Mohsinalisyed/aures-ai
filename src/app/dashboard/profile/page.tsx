@@ -53,7 +53,7 @@ const Profile = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
           <div className="mb-4">
             <label className="block text-white mb-2">Name</label>
-            <div className="flex flex-col lg:flex-row gap-3 h-[55vh] justify-between lg:justify-start">
+            <div className="flex flex-col lg:flex-row gap-3 h-[55vh] lg:h-auto justify-between lg:justify-start">
               <input
                 {...register("name", { required: "This field is required" })}
                 placeholder="John"
