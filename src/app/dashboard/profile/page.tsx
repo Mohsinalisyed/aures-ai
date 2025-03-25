@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { IProfile, updateProfile } from "@/app/api";
 import { Avatar, BackwardArrow, UploadImage } from "@/app/svg";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -10,16 +13,28 @@ interface FormData {
 
 const Profile = () => {
   const router = useRouter();
+   const { mutateAsync: updateProfileMutation } = useMutation<any, Error, any>({
+      mutationFn: async (data: IProfile) => {
+        return updateProfile(data);
+      },
+    });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    console.log("Submitted Data:", data);
-    // Handle form submission logic here (e.g., API call)
-  };
+const onSubmit = async (data: FormData) => {
+  try {
+    await updateProfileMutation(data);
+
+    console.log("Profile updated successfully!");
+  } catch (error: any) {
+    console.error("Error while updating profile:", error.message);
+
+  }
+};
+
 
   return (
     <div className="lg:px-16 lg:py-12 pb-2 text-white">

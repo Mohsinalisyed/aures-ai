@@ -142,6 +142,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
             <ProgressBar
               progress={field.value || 0}
               onProgressChange={(value: number) => field.onChange(value)}
+              isNegative
             />
           )}
         />

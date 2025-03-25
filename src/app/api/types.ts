@@ -58,4 +58,7 @@ export interface TokenPair {
   token1: Token;
 }
 
-// Type for the data that holds the array of token pairs
+export interface IProfile {
+  name: string
+  imgUrl:string
+}

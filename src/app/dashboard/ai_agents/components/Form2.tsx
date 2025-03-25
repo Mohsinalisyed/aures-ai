@@ -72,10 +72,9 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
   });
   const investType = watch("investmentType");
   useEffect(() => {
-        setValue("poolAddresses", selectedPairs);
-
+    setValue("poolAddresses", selectedPairs);
   }, [selectedPairs, setValue]);
-  
+
   useEffect(() => {
     if (data) {
       setValue("tolerance", data.tolerance);
@@ -92,7 +91,7 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
       setValue("isActive", data.isActive);
     }
   }, [data, setValue]);
-
+  console.log(errors, "errors");
   const { mutateAsync: createAgentMutation } = useMutation<any, Error, any>({
     mutationFn: async (data: TradingBotData) => {
       return createAgent(data);
@@ -115,16 +114,14 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
           poolAddresses:
             investType === InvestmentType.SELECTED_POOL ? selectedPairs : [],
         });
-              successToast("Agent successfully updated!");
-
+        successToast("Agent successfully updated!");
       } else {
         await createAgentMutation({
           ...formData,
           poolAddresses:
             investType === InvestmentType.SELECTED_POOL ? selectedPairs : [],
         });
-              successToast("Agent successfully created!");
-
+        successToast("Agent successfully created!");
       }
 
       router.push("/dashboard/ai_agents");
@@ -134,37 +131,37 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
   };
   const onSubmit = async (data: AgentFormData) => {
     try {
-    const updatedFormData = {
-      ...agentFormData,
-      tolerance: data.tolerance,
-      investmentType: data.investmentType,
-      poolAddresses: selectedPairs,
-      goalType: data.goalType,
-      tradingPreference: data.tradingPreference,
-      dcaPref: data.dcaPref,
-      takeProfitStatus: true,
-      takeProfitPercentage: data.takeProfitPercentage,
-      stopLossStatus: true,
-      stopLossPercentage: data.stopLossPercentage,
-      autoExit: data.autoExit,
-      isActive: data.isActive,
-    };
+      const updatedFormData = {
+        ...agentFormData,
+        tolerance: data.tolerance,
+        investmentType: data.investmentType,
+        poolAddresses: selectedPairs,
+        goalType: data.goalType,
+        tradingPreference: data.tradingPreference,
+        dcaPref: data.dcaPref,
+        takeProfitStatus: true,
+        takeProfitPercentage: data.takeProfitPercentage,
+        stopLossStatus: true,
+        stopLossPercentage: data.stopLossPercentage,
+        autoExit: data.autoExit,
+        isActive: data.isActive,
+      };
 
-    if (
-      Object.values(updatedFormData).some(
-        (value) => value === undefined || value === null
-      )
-    ) {
-      throw new Error("Some form values are missing or invalid.");
+      if (
+        Object.values(updatedFormData).some(
+          (value) => value === undefined || value === null
+        )
+      ) {
+        throw new Error("Some form values are missing or invalid.");
+      }
+
+      await setAgentFormData(updatedFormData);
+
+      await handleFinalSubmit();
+    } catch (error: any) {
+      console.error("Error during form submission:", error.message);
     }
-
-    await setAgentFormData(updatedFormData);
-
-    await handleFinalSubmit();
-  } catch (error:any) {
-    console.error("Error during form submission:", error.message);
-  }
-};
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">

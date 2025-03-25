@@ -3,12 +3,29 @@ import React from "react";
 
 interface ProgressBarProps {
   progress: number;
-  onProgressChange: (value: number) => void; // Function to handle progress change
+  onProgressChange: (value: number) => void;
+  isNegative?:boolean
+}
+function getPercentage(value:string) {
+  // Handle different values and return corresponding percentages
+  switch (value) {
+    case "25":
+      return "5%";
+    case "50":
+      return "10%";
+    case "75":
+      return "15%";
+    case "100":
+      return "20%";
+    default:
+      return "0%"; // Default case if no match
+  }
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
   progress,
   onProgressChange,
+  isNegative
 }) => {
   // Function to handle setting progress
   const handleSetProgress = (value: number) => {
@@ -36,7 +53,11 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
             className="text-sm text-gray-700 cursor-pointer"
             onClick={() => handleSetProgress(value)}
           >
-            {value}%
+            {isNegative ? (
+              <>-{getPercentage(value.toString())}</>
+            ) : (
+              getPercentage(value.toString())
+            )}
           </span>
         ))}
       </div>
