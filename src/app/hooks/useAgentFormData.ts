@@ -7,7 +7,7 @@ interface AgentFormData {
   description: string;
   tolerance?: string;
   investmentType?: string;
-  pairAddresses: string[];
+  poolAddresses: string[];
   goalType?: string;
   tradingPreference?: string;
   dcaPref: boolean;
@@ -31,7 +31,7 @@ export function useAgentFormData() {
     description: "",
     tolerance: undefined,
     investmentType: undefined,
-    pairAddresses: [],
+    poolAddresses: [],
     goalType: undefined,
     tradingPreference: undefined,
     dcaPref: false,

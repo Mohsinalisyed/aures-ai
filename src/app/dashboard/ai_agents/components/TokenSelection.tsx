@@ -13,7 +13,6 @@ import {
 } from "react-virtualized"; // Import necessary components from react-virtualized
 import "./selectStyle.css";
 
-// Define types for token and pair data
 interface Token {
   address: string;
   name: string;
@@ -40,7 +39,7 @@ interface ITokenSelection {
   control: Control<TradingBotData>;
 }
 
-// Update the types to handle MultiValue correctly
+// Virtualized List for dropdown
 const VirtualizedList = ({
   children,
 }: MenuListProps<Option, true, GroupBase<Option>>) => {
@@ -95,22 +94,19 @@ const TokenSelection: React.FC<ITokenSelection> = ({
   control,
   errors,
 }) => {
-  // Track search input state
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Fetch token pairs based on search term
   const { data, isLoading } = useQuery<
     TokenPair[],
     Error,
     TokenPair[],
     [string, string]
   >({
-    queryKey: ["pairs", searchTerm], // Dynamic query key based on search term
+    queryKey: ["pairs", searchTerm],
     queryFn: getTokenPairAddress,
-    enabled: !!searchTerm, // Only run the query if there's a search term
+    enabled: !!searchTerm || searchTerm === "", // This ensures the query runs even with an empty search term
   });
 
-  // Options for the select dropdown based on fetched data
   const options: Option[] =
     data && Array.isArray(data)
       ? data.map((pair: TokenPair) => ({
@@ -119,7 +115,11 @@ const TokenSelection: React.FC<ITokenSelection> = ({
         }))
       : [];
 
-  // Handle change in selection
+  // Ensure previously selected pairs are shown, even when no search term is entered
+  const selectedOptions = options.filter((option) =>
+    selectedPairs?.includes(option.value)
+  );
+
   const handleSelectChange = (newValue: MultiValue<Option>) => {
     const newSelectedPairs = newValue
       ? (newValue as Option[]).map((option) => option.value)
@@ -127,10 +127,19 @@ const TokenSelection: React.FC<ITokenSelection> = ({
     setSelectedPairs(newSelectedPairs);
   };
 
-  // Handle input change in the search field
   const handleInputChange = (newValue: string) => {
-    setSearchTerm(newValue); // Update search term with the input value
+    setSearchTerm(newValue);
   };
+
+  // Always show selected pairs, even when there's no search term
+  const displaySelectedOptions = selectedOptions.length
+    ? selectedOptions
+    : selectedPairs
+        ?.map((pairAddress) => {
+          const option = options.find((opt) => opt.value === pairAddress);
+          return option || null; // Return null if no matching option is found
+        })
+        .filter((option) => option !== null); // Filter out null values
 
   return (
     <div>
@@ -140,7 +149,7 @@ const TokenSelection: React.FC<ITokenSelection> = ({
       </div>
 
       <Controller
-        name="pairAddresses"
+        name="poolAddresses"
         control={control}
         defaultValue={selectedPairs}
         render={({ field }) => (
@@ -151,21 +160,19 @@ const TokenSelection: React.FC<ITokenSelection> = ({
             isSearchable
             isClearable={false}
             onChange={handleSelectChange}
-            value={options.filter((option) =>
-              selectedPairs?.includes(option.value)
-            )}
-            onInputChange={handleInputChange} // Capture search term changes
+            value={displaySelectedOptions} // Ensure no null values here
+            onInputChange={handleInputChange}
             components={{
-              MenuList: VirtualizedList, // Use the VirtualizedList for the dropdown menu
+              MenuList: VirtualizedList,
             }}
             isLoading={isLoading}
           />
         )}
       />
 
-      {errors.pairAddresses && (
+      {errors.poolAddresses && (
         <p className="text-error_color text-sm mt-4">
-          {errors.pairAddresses?.message}
+          {errors.poolAddresses?.message}
         </p>
       )}
     </div>

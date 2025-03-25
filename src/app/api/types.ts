@@ -24,7 +24,7 @@ export interface TradingBotData {
   description?: string;
   tolerance: Tolerance;
   investmentType: InvestmentType;
-  pairAddresses?: string[]; // Make this non-optional
+  poolAddresses?: string[]; // Make this non-optional
   goalType: GoalType;
   tradingPreference: TradingPerformance;
   dcaPref: boolean;

@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 interface AgentFormData {
   tolerance: Tolerance;
   investmentType: InvestmentType;
-  pairAddresses?: string[]; // Make this non-optional
+  poolAddresses?: string[]; // Make this non-optional
   goalType: GoalType;
   tradingPreference: TradingPerformance;
   dcaPref: boolean;
@@ -40,8 +40,8 @@ interface AgentFormData {
 const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
   const router = useRouter();
   const [selectedPairs, setSelectedPairs] = useState<string[]>(
-    data && data?.selectedPairs?.length > 0
-      ? data?.selectedPairs.map((item: TokenPair) => item.address)
+    data && data?.selectedPools?.length > 0
+      ? data?.selectedPools.map((item: TokenPair) => item.address)
       : []
   );
   const { agentFormData, setAgentFormData } = useAgentFormData();
@@ -58,7 +58,7 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
     defaultValues: {
       tolerance: undefined,
       investmentType: undefined,
-      pairAddresses: [],
+      poolAddresses: [],
       goalType: undefined,
       tradingPreference: undefined,
       dcaPref: false,
@@ -71,12 +71,16 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
     },
   });
   const investType = watch("investmentType");
+  useEffect(() => {
+        setValue("poolAddresses", selectedPairs);
 
+  }, [selectedPairs, setValue]);
+  
   useEffect(() => {
     if (data) {
       setValue("tolerance", data.tolerance);
       setValue("investmentType", data.investmentType);
-      setValue("pairAddresses", data.pairAddresses);
+      setValue("poolAddresses", data.poolAddresses);
       setValue("goalType", data.goalType);
       setValue("tradingPreference", data.tradingPreference);
       setValue("dcaPref", data.dcaPref);
@@ -100,7 +104,6 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
       return updateAgentById(data, agentId ?? "");
     },
   });
-
   const handleFinalSubmit = async () => {
     try {
       const formData = { ...agentFormData };
@@ -109,7 +112,7 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
       if (agentId) {
         await updateAgentMutation({
           ...formData,
-          pairAddresses:
+          poolAddresses:
             investType === InvestmentType.SELECTED_POOL ? selectedPairs : [],
         });
               successToast("Agent successfully updated!");
@@ -117,7 +120,7 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
       } else {
         await createAgentMutation({
           ...formData,
-          pairAddresses:
+          poolAddresses:
             investType === InvestmentType.SELECTED_POOL ? selectedPairs : [],
         });
               successToast("Agent successfully created!");
@@ -130,11 +133,12 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
     }
   };
   const onSubmit = async (data: AgentFormData) => {
-    await setAgentFormData({
+    try {
+    const updatedFormData = {
       ...agentFormData,
       tolerance: data.tolerance,
       investmentType: data.investmentType,
-      pairAddresses: selectedPairs,
+      poolAddresses: selectedPairs,
       goalType: data.goalType,
       tradingPreference: data.tradingPreference,
       dcaPref: data.dcaPref,
@@ -144,9 +148,24 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
       stopLossPercentage: data.stopLossPercentage,
       autoExit: data.autoExit,
       isActive: data.isActive,
-    });
+    };
+
+    if (
+      Object.values(updatedFormData).some(
+        (value) => value === undefined || value === null
+      )
+    ) {
+      throw new Error("Some form values are missing or invalid.");
+    }
+
+    await setAgentFormData(updatedFormData);
+
     await handleFinalSubmit();
-  };
+  } catch (error:any) {
+    console.error("Error during form submission:", error.message);
+  }
+};
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
       <div className="flex justify-between flex-col-reverse lg:flex-row">
@@ -165,7 +184,7 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
           errors={errors}
           fieldName="isActive"
         />
-        Activate
+        <h1 className="h-5">Activate</h1>
       </div>
       <div className="my-10" />
       <button
