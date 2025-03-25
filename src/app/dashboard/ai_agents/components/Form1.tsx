@@ -42,7 +42,7 @@ const Form1: React.FC<Iprops> = ({ setCustomForm, data }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full mb-4">
       <div className="max-w-[467px] 4xl:max-w-[672px] flex flex-col text-white w-full  gap-6 my-[64px]">
         <label>Agent Name</label>
         <div>
