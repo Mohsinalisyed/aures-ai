@@ -16,7 +16,7 @@ export enum Tolerance {
 
 export enum InvestmentType {
   AUTO = "AUTO",
-  SELECTED_PAIRS = "SELECTED_PAIRS",
+  SELECTED_POOL = "SELECTED_POOLS",
 }
 
 export enum GoalType {
@@ -38,7 +38,7 @@ export const TOLORENCE_ARRAY = [
 
 export const INVESTMENT_TYPE = [
   { label: "Predefined Strategy", value: InvestmentType.AUTO },
-  { label: "User-Defined Portfolio", value: InvestmentType.SELECTED_PAIRS },
+  { label: "User-Defined Portfolio", value: InvestmentType.SELECTED_POOL },
 ] as const;
 
 export const GOAL_TYPE = [

@@ -46,7 +46,10 @@ const DashboardSidebar: React.FC<ISidebar> = ({
       };
     }
   }, [setIsSidebarHidden, isMobile]);
-
+  const handleLogout = () => {
+    localStorage.clear();
+    router.push('/login')
+}
   return (
     <>
       {!isSidebarHidden && isMobile && (
@@ -123,7 +126,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
               className="w-[281] h-[62px] border m-3 mb-2 bg-profile_options_bg border-darker_white rounded-[12px] p-2 cursor-pointer"
               onClick={() => {
                 router.push("/dashboard/profile");
-                setShowProfile(false)
+                setShowProfile(false);
               }}
             >
               <div className="flex gap-2 items-center">
@@ -134,7 +137,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
               </div>
             </div>
             <div className="w-[281] h-[62px] border m-3 mt-0 bg-profile_options_bg border-darker_white rounded-[12px] p-2 cursor-pointer">
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center" onClick={()=>handleLogout()}>
                 <Logout /> <h1 className="text-logout_text_color">Logout</h1>
               </div>
               <div className="text-[14px] text-eth_color mt-1">
@@ -155,7 +158,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                   Niko Setro
                 </span>
               </div>
-              {showProfile ? <UpwardIcon/> : <DropDownIcon />}
+              {showProfile ? <UpwardIcon /> : <DropDownIcon />}
             </div>
           </div>
         )}

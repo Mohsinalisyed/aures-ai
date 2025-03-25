@@ -42,8 +42,8 @@ const Form1: React.FC<Iprops> = ({ setCustomForm, data }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="max-w-[672px] flex flex-col text-white w-full  gap-6 mt-[64px]">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+      <div className="max-w-[467px] 4xl:max-w-[672px] flex flex-col text-white w-full  gap-6 my-[64px]">
         <label>Agent Name</label>
         <div>
           <input
@@ -86,18 +86,12 @@ const Form1: React.FC<Iprops> = ({ setCustomForm, data }) => {
           )}
         </div>
       </div>
-      <div className="text-white pt-[34px] text-[40px] flex justify-end items-center">
-        <div className="lg:pt-[32px] w-full flex justify-end">
-          <div className="w-full flex justify-end flex-col items-end">
             <button
               type="submit"
-              className={`border border-gray_border p-4 flex gap-2 items-center rounded-[80px] text-[14px] lg:text-[16px] font-medium bg-primary justify-center h-12 w-full lg:w-[168px]`}
+              className={`absolute right-0  text-white border border-gray_border p-4 flex gap-2 items-center rounded-[80px] text-[14px] lg:text-[16px] font-medium bg-primary justify-center h-12 w-full lg:w-[168px]`}
             >
               Next
             </button>
-          </div>
-        </div>
-      </div>
     </form>
   );
 };

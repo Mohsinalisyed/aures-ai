@@ -85,3 +85,9 @@ export function getTimeAgo(updatedAt: string): string {
     return `${diffInYears} year${diffInYears === 1 ? '' : 's'} ago`;
   }
 }
+
+export const truncateAddress = (address: string): string => {
+  if (address?.length <= 8) return address;
+  if (address === undefined) return '---';
+  return `${address?.slice(0, 4)}...${address?.slice(-4)}`;
+};

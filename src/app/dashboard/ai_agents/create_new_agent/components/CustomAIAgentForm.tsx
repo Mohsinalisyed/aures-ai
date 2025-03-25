@@ -62,7 +62,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
               {errors.investmentType?.message}
             </p>
           )}
-      {investmentType === InvestmentType.SELECTED_PAIRS && (
+      {investmentType === InvestmentType.SELECTED_POOL && (
         <div className="mt-8">
           <TokenSelection
             selectedPairs={selectedPairs}

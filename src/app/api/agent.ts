@@ -38,9 +38,16 @@ export const updateAgentById = async (data: TradingBotData , id:string): Promise
     throw error;
   }
 };
-export const getTokenPairAddress = async () => {
+
+export const getTokenPairAddress = async ({
+  queryKey,
+}: {
+  queryKey: [string, string];
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, search] = queryKey; // Destructure to get 'search' from queryKey
   try {
-    const response = await axios.get(`/pairs`);
+    const response = await axios.get(`/pools?search=${search}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching pairs:", error);

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Select, { MenuListProps, MultiValue, GroupBase } from "react-select";
 import { useQuery } from "@tanstack/react-query";
 import { getTokenPairAddress, TradingBotData } from "@/app/api";
@@ -54,7 +54,6 @@ const VirtualizedList = ({
   }, []);
 
   if (!Array.isArray(rows)) {
-    // For children like: "Loading" or "No Options"
     return <>{children}</>;
   }
 
@@ -96,18 +95,29 @@ const TokenSelection: React.FC<ITokenSelection> = ({
   control,
   errors,
 }) => {
-  const { data, isLoading } = useQuery<TokenPair[]>({
-    queryKey: ["pairs"],
+  // Track search input state
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  // Fetch token pairs based on search term
+  const { data, isLoading } = useQuery<
+    TokenPair[],
+    Error,
+    TokenPair[],
+    [string, string]
+  >({
+    queryKey: ["pairs", searchTerm], // Dynamic query key based on search term
     queryFn: getTokenPairAddress,
+    enabled: !!searchTerm, // Only run the query if there's a search term
   });
 
-  console.log(errors, "errors");
-
+  // Options for the select dropdown based on fetched data
   const options: Option[] =
-    data?.map((pair) => ({
-      value: pair.address,
-      label: `${pair.token0.name} / ${pair.token1.name}`,
-    })) || [];
+    data && Array.isArray(data)
+      ? data.map((pair: TokenPair) => ({
+          value: pair.address,
+          label: `${pair.token0.name} / ${pair.token1.name}`,
+        }))
+      : [];
 
   // Handle change in selection
   const handleSelectChange = (newValue: MultiValue<Option>) => {
@@ -115,6 +125,11 @@ const TokenSelection: React.FC<ITokenSelection> = ({
       ? (newValue as Option[]).map((option) => option.value)
       : [];
     setSelectedPairs(newSelectedPairs);
+  };
+
+  // Handle input change in the search field
+  const handleInputChange = (newValue: string) => {
+    setSearchTerm(newValue); // Update search term with the input value
   };
 
   return (
@@ -129,19 +144,20 @@ const TokenSelection: React.FC<ITokenSelection> = ({
         control={control}
         defaultValue={selectedPairs}
         render={({ field }) => (
-          <Select<Option, true> // Ensure correct generic type for isMulti (true)
+          <Select<Option, true>
             {...field}
             options={options}
-            isMulti // TypeScript now knows this is multi-select
+            isMulti
+            isSearchable
             isClearable={false}
-            onChange={handleSelectChange} // Accepts MultiValue<Option> here
+            onChange={handleSelectChange}
             value={options.filter((option) =>
               selectedPairs?.includes(option.value)
             )}
+            onInputChange={handleInputChange} // Capture search term changes
             components={{
               MenuList: VirtualizedList, // Use the VirtualizedList for the dropdown menu
             }}
-            menuIsOpen
             isLoading={isLoading}
           />
         )}

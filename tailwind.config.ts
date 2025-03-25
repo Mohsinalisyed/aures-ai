@@ -77,6 +77,9 @@ export default {
         profile_options_bg: "rgba(255, 255, 255, 0.2)",
         logout_text_color: "rgba(255, 85, 85, 1)",
         placeholder_text_color: "rgba(128, 128, 128, 1)",
+        notification_item_background: 'rgba(17, 17, 17, 1)',
+        overlay_bg:"rgba(26, 26, 26, 0.8)"
+
       },
       backgroundImage: {
         "button-gradient":

@@ -1,10 +1,18 @@
 import * as React from "react";
 
-function BitcoinToken() {
+interface BitcoinTokenProps {
+  width?: number;
+  height?: number;
+}
+
+const BitcoinToken: React.FC<BitcoinTokenProps> = ({
+  width = 32,
+  height = 32,
+}) => {
   return (
     <svg
-      width={32}
-      height={32}
+      width={width}
+      height={height}
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -26,6 +34,6 @@ function BitcoinToken() {
       </defs>
     </svg>
   );
-}
+};
 
 export default BitcoinToken;
