@@ -32,7 +32,7 @@ export const form2Schema = z.object({
   }),
   poolAddresses: z
     .array(z.string())
-    .min(1, "Pair addresses are required")
+    // .min(1, "Pair addresses are required")
     .optional(),
   goalType: z.enum(GOAL_TYPE_VALUES, {
     errorMap: () => ({ message: "Invalid goal type" }),
