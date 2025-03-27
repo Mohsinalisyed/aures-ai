@@ -5,4 +5,5 @@ export { default as Notification } from "./Notification";
 export { default as Porfolio } from "./Porfolio";
 export { default as DropDownIcon } from "./DropDownIcon";
 export { default as Profile } from "./Profile";
-export { default as Logout} from "./Logout";
+export { default as Logout } from "./Logout";
+export { default as MarketPlace } from "./MarketPlace";

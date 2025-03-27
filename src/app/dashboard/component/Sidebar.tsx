@@ -9,6 +9,7 @@ import {
   Avatar,
   DropDownIcon,
   Logout,
+  MarketPlace,
   Notification,
   Porfolio,
   Profile,
@@ -16,6 +17,7 @@ import {
 } from "@/app/svg";
 import { useMediaQuery } from "@/app/hooks";
 import Link from "next/link";
+import { Tooltip } from "@/app/components/Tooltip";
 
 interface ISidebar {
   isSidebarHidden: boolean;
@@ -95,6 +97,17 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                 Custom AI Agents
               </MenuItem>
               <MenuItem
+                href="/dashboard/trading_agent"
+                icon={<AIChat />}
+                className={`mb-3 ${
+                  pathname.includes("/dashboard/trading_agent")
+                    ? "ps-menu-button-active"
+                    : ""
+                }`}
+              >
+                Trading AI Agent
+              </MenuItem>
+              <MenuItem
                 href="/dashboard/notifications"
                 icon={<Notification />}
                 className={`mb-3 ${
@@ -110,17 +123,16 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                   </div>
                 </div>
               </MenuItem>
-              <MenuItem
-                href="/dashboard/trading_agent"
-                icon={<AIChat />}
-                className={`mb-3 ${
-                  pathname.includes("/dashboard/trading_agent")
-                    ? "ps-menu-button-active"
-                    : ""
-                }`}
-              >
-                Trading AI Agent
-              </MenuItem>
+              <Tooltip text="Comming Soon">
+                <MenuItem
+                  href="####"
+                  disabled
+                  icon={<MarketPlace />}
+                  className={`mb-3  bg-transparent`}
+                >
+                  Market Place
+                </MenuItem>
+              </Tooltip>
             </Menu>
           </div>
         </div>

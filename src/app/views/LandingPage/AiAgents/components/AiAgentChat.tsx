@@ -75,18 +75,16 @@ const AIChatAgent: React.FC<Iprops> = ({ isDashboardChat }) => {
 
         {/* Input Box & Button */}
         <div className="flex w-full mt-9 items-center gap-2 p-4 relative">
-          <div
-            className={`py-6 px-4 bg-white600 rounded-[10px] w-[100%] 
+          <input
+            placeholder=" Type Here to Ask"
+            className={`py-6 px-4 bg-white600 rounded-[10px] w-[100%] placeholder:text-[#888888] placeholder:text-16 placeholder:font-normal 
           ${
             showAIMessage
               ? "border border-white/10 shadow-[0px_0px_10px_0px_#FFFFFF40] cursor-pointer hover:duration-300"
               : ""
           }`}
-          >
-            <div className="text-[#888888] text-16 font-normal">
-              Type Here to Ask
-            </div>
-          </div>
+          />
+
           <button
             className={`bg-button-gradient rounded-[10px] flex justify-center items-center   ${
               showAIMessage
@@ -94,7 +92,7 @@ const AIChatAgent: React.FC<Iprops> = ({ isDashboardChat }) => {
                 : ""
             } ${isDashboardChat ? "absolute right-8 h-10 w-10" : ""}`}
           >
-           {isDashboardChat ? <ForwardIcon/> : <RightArrowIcon />}
+            {isDashboardChat ? <ForwardIcon /> : <RightArrowIcon />}
           </button>
         </div>
       </div>

@@ -25,9 +25,9 @@ const RefundCard: React.FC<IRefundCard> = ({ showWithdraw }) => {
           <div className="text-white">12.4463</div>
         </div>
         <div className="flex gap-3">
-          <button className="bg-white text-toggle_active_color w-full h-[48px] rounded-[24px] mt-2">
+          {/* <button className="bg-white text-toggle_active_color w-full h-[48px] rounded-[24px] mt-2">
             Fund
-          </button>
+          </button> */}
           {showWithdraw && (
             <button
               onClick={() => setOpenModal(true)}
