@@ -19,3 +19,5 @@ export { default as AiChatIcon } from "./AiChatIcon";
 export { default as UserSectionIcon } from "./UserSection";
 export { default as LeftArrowIcon } from "./LeftArrowIcon";
 export { default as EllipsisMenuIcon } from "./EllipsisMenuIcon";
+export { default as ForwardIcon } from "./ForwardIcon";
+

@@ -1,7 +1,10 @@
-import { AiChatIcon, RightArrowIcon } from "@/app/components/Icons";
+import { AiChatIcon, ForwardIcon, RightArrowIcon } from "@/app/components/Icons";
 import { useState } from "react";
 
-export default function AIChatAgent() {
+interface Iprops {
+  isDashboardChat?:boolean
+}
+const AIChatAgent: React.FC<Iprops> = ({ isDashboardChat }) => {
   const [showAIMessage, setShowAIMessage] = useState(false);
 
   const messages = [
@@ -18,7 +21,11 @@ export default function AIChatAgent() {
   return (
     <div className="flex items-center justify-center w-full">
       <div
-        className="w-full max-w-[400px] p-6 rounded-[1.5rem] shadow-lg border border-light_gray my-[3rem] md:mx-[20px] md:max-w-[700px] "
+        className={`w-full max-w-[400px] rounded-[1.5rem] shadow-lg border border-light_gray ${
+          isDashboardChat
+            ? "h-full flex flex-col justify-between pt-6"
+            : "h-auto my-[3rem] p-6"
+        }  md:mx-[20px] md:max-w-[700px] `}
         onMouseEnter={() => setShowAIMessage(true)}
         onMouseLeave={() => setShowAIMessage(false)}
       >
@@ -67,7 +74,7 @@ export default function AIChatAgent() {
         </div>
 
         {/* Input Box & Button */}
-        <div className="flex w-full mt-9 items-center gap-2 p-4">
+        <div className="flex w-full mt-9 items-center gap-2 p-4 relative">
           <div
             className={`py-6 px-4 bg-white600 rounded-[10px] w-[100%] 
           ${
@@ -81,16 +88,17 @@ export default function AIChatAgent() {
             </div>
           </div>
           <button
-            className={`bg-button-gradient rounded-[10px] p-5  ${
+            className={`bg-button-gradient rounded-[10px] flex justify-center items-center   ${
               showAIMessage
                 ? "shadow-[0px_0px_5.2px_0px_#8266F2] cursor-pointer ease duration-300"
                 : ""
-            }`}
+            } ${isDashboardChat ? "absolute right-8 h-10 w-10" : ""}`}
           >
-            <RightArrowIcon />
+           {isDashboardChat ? <ForwardIcon/> : <RightArrowIcon />}
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
+export default AIChatAgent;

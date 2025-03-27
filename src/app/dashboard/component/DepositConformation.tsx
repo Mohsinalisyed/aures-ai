@@ -13,13 +13,20 @@ const DepositConformation: React.FC<DepositConformationProps> = ({
   onClose,
 }) => {
   if (!isOpen) return null;
+const handleModalClick = (e: React.MouseEvent) => {
+  // Prevent closing the modal when clicking inside the modal content
+  e.stopPropagation();
+};
 
   return (
     <div
       className="fixed z-[9999] top-0 left-0 w-full h-full text-white bg-overlay_bg backdrop-blur-[1px] flex justify-center items-center"
       onClick={onClose}
     >
-      <div className="w-[416px] h-[671px] overflow-y-auto rounded-[12px] p-[20px] gap-[10px] border border-darker_white  backdrop-blur-xl bg-darkest_white ">
+      <div
+        className="w-[416px] h-[671px] overflow-y-auto rounded-[12px] p-[20px] gap-[10px] border border-darker_white  backdrop-blur-xl bg-darkest_white "
+        onClick={handleModalClick}
+      >
         <h1 className="text-[22px] mb-8"> Review and Confirm</h1>
         <div className="bg-darkest_white h-[74px] rounded-[16px] flex justify-between items-center p-6">
           <h1>Send</h1>

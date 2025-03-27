@@ -52,7 +52,7 @@ axios.interceptors.response.use(
 
     if (status === 401) {
       localStorage.clear();
-    }
+window.location.href = "/";     }
 
     return Promise.reject(error); // Reject the promise with the error
   }

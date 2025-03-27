@@ -92,6 +92,7 @@ export default {
           "linear-gradient(90deg, #8266F2 0%, #8266F2 58.09%, rgba(255, 255, 255, 0.8) 73.5%, #8266F2 88.51%, #9488C3 100%)",
         refund_card_gradient:
           "linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%)",
+        
       },
       fontSize: {
         64: ["4rem", { lineHeight: "4.8rem", fontWeight: "700" }],

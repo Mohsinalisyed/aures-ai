@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
       )}
       <div
-        className={`fixed z-[998] min-h-screen ${
+        className={`fixed z-[9999] min-h-screen ${
           isSidebarHidden ? "hidden" : "block"
         }`}
       >

@@ -103,18 +103,23 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                     : ""
                 }`}
               >
-                Notifications
+                <div className="flex justify-between">
+                  <div>Notifications</div>
+                  <div className="h-6 w-6 rounded-[80px] bg-button-gradient text-center">
+                    4
+                  </div>
+                </div>
               </MenuItem>
               <MenuItem
-                href="/dashboard/chat_agent"
+                href="/dashboard/trading_agent"
                 icon={<AIChat />}
                 className={`mb-3 ${
-                  pathname.includes("/dashboard/chat_agent")
+                  pathname.includes("/dashboard/trading_agent")
                     ? "ps-menu-button-active"
                     : ""
                 }`}
               >
-                AI Chat Agent
+                Trading AI Agent
               </MenuItem>
             </Menu>
           </div>
@@ -137,7 +142,10 @@ const DashboardSidebar: React.FC<ISidebar> = ({
               </div>
             </div>
             <div className="w-[281] h-[62px] border m-3 mt-0 bg-profile_options_bg border-darker_white rounded-[12px] p-2 cursor-pointer">
-              <div className="flex gap-2 items-center" onClick={()=>handleLogout()}>
+              <div
+                className="flex gap-2 items-center"
+                onClick={() => handleLogout()}
+              >
                 <Logout /> <h1 className="text-logout_text_color">Logout</h1>
               </div>
               <div className="text-[14px] text-eth_color mt-1">

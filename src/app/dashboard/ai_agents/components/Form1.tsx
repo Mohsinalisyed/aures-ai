@@ -86,12 +86,12 @@ const Form1: React.FC<Iprops> = ({ setCustomForm, data }) => {
           )}
         </div>
       </div>
-            <button
-              type="submit"
-              className={`absolute right-0  text-white border border-gray_border p-4 flex gap-2 items-center rounded-[80px] text-[14px] lg:text-[16px] font-medium bg-primary justify-center h-12 w-full lg:w-[168px]`}
-            >
-              Next
-            </button>
+      <button
+        type="submit"
+        className={`absolute right-0  text-white border border-gray_border p-4 flex gap-2 items-center rounded-[80px] text-[14px] lg:text-[16px] font-medium bg-button-gradient justify-center h-12 w-full lg:w-[168px]`}
+      >
+        Next
+      </button>
     </form>
   );
 };

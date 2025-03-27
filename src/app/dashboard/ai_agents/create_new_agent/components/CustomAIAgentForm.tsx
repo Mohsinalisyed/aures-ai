@@ -20,6 +20,7 @@ import {
 import { ExplinatortToolTip } from "@/app/svg";
 import { TradingBotData } from "@/app/api";
 import { TokenSelection } from "../../components";
+import { Tooltip } from "@/app/components/Tooltip";
 
 interface CustomAIAgentFormProps {
   register: UseFormRegister<TradingBotData>;
@@ -58,10 +59,10 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         fieldName="investmentType"
       />
       {errors.investmentType && (
-            <p className="text-error_color text-sm mt-4">
-              {errors.investmentType?.message}
-            </p>
-          )}
+        <p className="text-error_color text-sm mt-4">
+          {errors.investmentType?.message}
+        </p>
+      )}
       {investmentType === InvestmentType.SELECTED_POOL && (
         <div className="mt-8">
           <TokenSelection
@@ -93,7 +94,9 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* DCA Preferences */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">DCA Preferences</h1>
-        <ExplinatortToolTip />
+        <Tooltip text="Comming Soon">
+          <ExplinatortToolTip />
+        </Tooltip>
       </div>
 
       <div>
@@ -107,7 +110,9 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Take-Profit Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Take-Profit Conditions</h1>
-        <ExplinatortToolTip />
+        <Tooltip text="Comming Soon">
+          <ExplinatortToolTip />
+        </Tooltip>
       </div>
 
       <div className="max-w-[392px]">
@@ -131,7 +136,9 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Stop-Loss Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Stop-Loss Conditions</h1>
-        <ExplinatortToolTip />
+        <Tooltip text="Comming Soon">
+          <ExplinatortToolTip />
+        </Tooltip>
       </div>
 
       <div className="max-w-[392px]">
@@ -156,7 +163,9 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Auto-Exit Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Auto-Exit Conditions</h1>
-        <ExplinatortToolTip />
+        <Tooltip text="Comming Soon">
+          <ExplinatortToolTip />
+        </Tooltip>
       </div>
       <div>
         <Toggle

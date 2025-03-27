@@ -26,7 +26,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ textToCopy }) => {
       {truncateAddress(textToCopy)}
       <button onClick={handleCopy} className="cursor-pointer" type="button">
         {copied ? (
-          <span>✔</span> // You can replace this with an icon or text
+          <span className="text-green-500">✔</span> // You can replace this with an icon or text
         ) : (
           <CopyIcon />
         )}

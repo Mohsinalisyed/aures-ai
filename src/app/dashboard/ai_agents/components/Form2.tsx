@@ -186,7 +186,7 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
       <div className="my-10" />
       <button
         type="submit"
-        className={`absolute right-0 border text-white border-gray_border p-4 flex gap-2 items-center rounded-[80px] text-[14px] lg:text-[16px] font-medium bg-primary justify-center h-12 w-full lg:w-[168px]`}
+        className={`absolute right-0 border text-white border-gray_border p-4 flex gap-2 items-center rounded-[80px] text-[14px] lg:text-[16px] font-medium bg-button-gradient justify-center h-12 w-full lg:w-[168px]`}
       >
         Finish
       </button>

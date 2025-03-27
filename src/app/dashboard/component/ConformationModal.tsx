@@ -23,13 +23,19 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   showCancel,
 }) => {
   if (!isOpen) return null;
-
+const handleModalClick = (e: React.MouseEvent) => {
+  // Prevent closing the modal when clicking inside the modal content
+  e.stopPropagation();
+};
   return (
     <div
       className="fixed z-[9999] top-0 left-0 w-full h-full bg-overlay_bg backdrop-blur-[1px] flex justify-center items-center"
       onClick={onClose}
     >
-      <div className="w-[380px] min-h-[265px] rounded-[12px] p-[20px] gap-[10px] border border-darker_white  backdrop-blur-[2px] bg-darkest_white">
+      <div
+        className="w-[380px] min-h-[265px] rounded-[12px] p-[20px] gap-[10px] border border-darker_white  backdrop-blur-[2px] bg-darkest_white"
+        onClick={handleModalClick}
+      >
         <div className="flex justify-center">{icon}</div>
         <div className="mt-10">
           <div className="pb-4">

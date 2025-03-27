@@ -13,11 +13,20 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   setModalOpen,
 }) => {
   if (!isOpen) return null;
-
+const handleModalClick = (e: React.MouseEvent) => {
+  // Prevent closing the modal when clicking inside the modal content
+  e.stopPropagation();
+};
   return (
     <>
-      <div className="fixed z-[9999] top-0 left-0 w-full h-full bg-overlay_bg backdrop-blur-[1px] flex justify-center items-center" onClick={onClose}>
-        <div className="w-[380px] min-h-[302px] rounded-[12px] p-10 gap-[10px] border border-darker_white  backdrop-blur-xl bg-darkest_white ">
+      <div
+        className="fixed z-[9999] top-0 left-0 w-full h-full bg-overlay_bg backdrop-blur-[1px] flex justify-center items-center"
+        onClick={onClose}
+      >
+        <div
+          className="w-[380px] min-h-[302px] rounded-[12px] p-10 gap-[10px] border border-darker_white  backdrop-blur-xl bg-darkest_white "
+          onClick={handleModalClick}
+        >
           <div>
             <div className="flex justify-between items-center">
               <div className="flex">
@@ -40,8 +49,8 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
             <button
               type="button"
               className="h-12 px-4  mt-10 text-[16px] bg-primary text-white w-full mb-4 rounded-full"
-                          onClick={() => {
-                  onClose()
+              onClick={() => {
+                onClose();
                 setModalOpen(true);
               }}
             >
