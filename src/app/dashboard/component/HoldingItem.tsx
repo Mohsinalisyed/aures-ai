@@ -20,12 +20,12 @@ const HoldingItem: React.FC<HoldingItemProps> = ({
       <div className="flex items-center gap-2">
         {tokenSymbol}
         <div>
-          <h1 className="text-[12px] font-medium">{tokenName}</h1>
+          <h1 className="text-[12px] font-medium text-white">{tokenName}</h1>
           <h1 className="text-[12px] text-gray-400">{tokenDetail}</h1>
         </div>
       </div>
       <div className="text-right">
-        <h1 className="text-[12px] font-medium">{tokenPrice}</h1>
+        <h1 className="text-[12px] font-medium text-white ">{tokenPrice}</h1>
         <h1 className="text-[12px] text-gray-400">{tokenBalance}</h1>
       </div>
     </div>

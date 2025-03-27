@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 interface AgentFormData {
   tolerance: Tolerance;
   investmentType: InvestmentType;
-  poolAddresses?: string[]; // Make this non-optional
+  poolAddresses?: string[];
   goalType: GoalType;
   tradingPreference: TradingPerformance;
   dcaPref: boolean;
@@ -37,12 +37,11 @@ interface AgentFormData {
   autoExit: boolean;
   isActive: boolean;
 }
-const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
+
+const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
   const router = useRouter();
   const [selectedPairs, setSelectedPairs] = useState<string[]>(
-    data && data?.selectedPools?.length > 0
-      ? data?.selectedPools.map((item: TokenPair) => item.address)
-      : []
+    agentData?.selectedPools?.map((item: TokenPair) => item.address) || []
   );
   const { agentFormData, setAgentFormData } = useAgentFormData();
 
@@ -70,65 +69,66 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
       isActive: false,
     },
   });
+
   const investType = watch("investmentType");
+
   useEffect(() => {
     setValue("poolAddresses", selectedPairs);
   }, [selectedPairs, setValue]);
 
   useEffect(() => {
-    if (data) {
-      setValue("tolerance", data.tolerance);
-      setValue("investmentType", data.investmentType);
-      setValue("poolAddresses", data.poolAddresses);
-      setValue("goalType", data.goalType);
-      setValue("tradingPreference", data.tradingPreference);
-      setValue("dcaPref", data.dcaPref);
-      setValue("takeProfitStatus", data.takeProfitStatus);
-      setValue("takeProfitPercentage", parseInt(data.takeProfitPercentage));
-      setValue("stopLossStatus", data.stopLossStatus);
-      setValue("stopLossPercentage", parseInt(data.stopLossPercentage));
-      setValue("autoExit", data.autoExit);
-      setValue("isActive", data.isActive);
+    if (agentData) {
+      setValue("tolerance", agentData.tolerance);
+      setValue("investmentType", agentData.investmentType);
+      setValue("poolAddresses", agentData.poolAddresses);
+      setValue("goalType", agentData.goalType);
+      setValue("tradingPreference", agentData.tradingPreference);
+      setValue("dcaPref", agentData.dcaPref);
+      setValue("takeProfitStatus", agentData.takeProfitStatus);
+      setValue(
+        "takeProfitPercentage",
+        parseInt(agentData.takeProfitPercentage)
+      );
+      setValue("stopLossStatus", agentData.stopLossStatus);
+      setValue("stopLossPercentage", parseInt(agentData.stopLossPercentage));
+      setValue("autoExit", agentData.autoExit);
+      setValue("isActive", agentData.isActive);
     }
-  }, [data, setValue]);
-  console.log(errors, "errors");
+  }, [agentData, setValue]);
+
   const { mutateAsync: createAgentMutation } = useMutation<any, Error, any>({
-    mutationFn: async (data: TradingBotData) => {
-      return createAgent(data);
-    },
+    mutationFn: async (data: TradingBotData) => createAgent(data),
   });
 
   const { mutateAsync: updateAgentMutation } = useMutation<any, Error, any>({
-    mutationFn: async (data: TradingBotData) => {
-      return updateAgentById(data, agentId ?? "");
-    },
+    mutationFn: async (data: TradingBotData) =>
+      updateAgentById(data, agentId ?? ""),
   });
-  const handleFinalSubmit = async () => {
-    try {
-      const formData = { ...agentFormData };
 
-      // Submit the agent data
+  const handleFinalSubmit = async (finalFormData: AgentFormData) => {
+    try {
+      // Submit the agent data with the final form data passed directly
       if (agentId) {
         await updateAgentMutation({
-          ...formData,
+          ...finalFormData,
           poolAddresses:
             investType === InvestmentType.SELECTED_POOL ? selectedPairs : [],
         });
         successToast("Agent successfully updated!");
       } else {
         await createAgentMutation({
-          ...formData,
+          ...finalFormData,
           poolAddresses:
             investType === InvestmentType.SELECTED_POOL ? selectedPairs : [],
         });
         successToast("Agent successfully created!");
       }
-
-      router.push("/dashboard/ai_agents");
+      router.push('/dashboard/ai_agents')
     } catch (error) {
       console.error("Error during agent creation/update:", error);
     }
   };
+
   const onSubmit = async (data: AgentFormData) => {
     try {
       const updatedFormData = {
@@ -155,9 +155,11 @@ const Form2 = ({ data, agentId }: { data: any; agentId: string }) => {
         throw new Error("Some form values are missing or invalid.");
       }
 
+      // Update the agentFormData using the setter function
       await setAgentFormData(updatedFormData);
 
-      await handleFinalSubmit();
+      // Call handleFinalSubmit with the updated form data
+      await handleFinalSubmit(updatedFormData);
     } catch (error: any) {
       console.error("Error during form submission:", error.message);
     }
