@@ -6,22 +6,26 @@ interface WrappedItemProps {
   subHeading: string | number;
     icon?: React.ReactNode; // Corrected type for icon
     style?: string
-    textAlign?:string
+  textAlign?: string
+  fontNormal?: boolean
 }
 
 const WrappedItem: React.FC<WrappedItemProps> = ({
   heading,
   subHeading,
-    icon,
-    style,
-    textAlign
+  icon,
+  style,
+  textAlign,
+  fontNormal,
 }) => {
   return (
     <div className={`flex items-center justify-center gap-1 ${style}`}>
       {icon && <span>{icon}</span>}
       <div>
         <p
-          className={`font-bold text-white text-[12px] lg:text-[16px] leading-[120%] mb-2 ${textAlign}`}
+          className={`${
+            fontNormal ? "font-normal" : "font-bold"
+          } text-white text-[12px] lg:text-[16px] leading-[120%] mb-2 ${textAlign}`}
         >
           {heading}
         </p>

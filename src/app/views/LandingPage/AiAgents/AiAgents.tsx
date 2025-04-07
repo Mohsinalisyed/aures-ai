@@ -27,7 +27,7 @@ const AiAgents = () => {
                         alt="starlist icon"
                       />
                     </span>
-                    <p className="text-20  text-white font-normal leading-[140%]  text-center md:text-left">
+                    <p className="text-16 md:text-20  text-white font-normal leading-[140%]  text-center md:text-left">
                       {point}
                     </p>
                   </li>

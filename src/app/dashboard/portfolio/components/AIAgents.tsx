@@ -10,11 +10,13 @@ const AIAgents = () => {
       <table className="text-left w-full">
         <thead className=" flex text-white w-full">
           <tr className="flex justify-between w-full mb-4 mr-4 table-head-border">
-            <th className="w-[25%] text-[14px] lg:text-[16px] ">Token Name</th>
-            <th className="w-[25%] text-[14px] lg:text-[16px] ">
+            <th className="w-[25%] text-[14px] lg:text-[16px] whitespace-nowrap">
+              Token Name
+            </th>
+            <th className="w-[25%] text-[14px] lg:text-[16px] whitespace-nowrap">
               Latest Trade
             </th>
-            <th className="w-[30%] text-[14px] lg:text-[16px]">
+            <th className="w-[30%] text-[14px] lg:text-[16px] whitespace-nowrap">
               Total Earnings
             </th>
             <th className="w-[15%] text-[14px] lg:text-[16px]">Status</th>

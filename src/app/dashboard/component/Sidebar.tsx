@@ -66,7 +66,7 @@ const DashboardSidebar: React.FC<ISidebar> = ({
         style={{ width: isMobile ? "289px" : "353px", border: "none" }}
       >
         <div className="bg-sidebar_background min-h-screen overflow-y-auto overflow-x-hidden relative">
-          <div className="bg-sidebar_background mt-[60px] mb-[36px] cursor-pointer flex items-center justify-center">
+          <div className="bg-sidebar_background mt-[42px] mb-[36px] cursor-pointer flex items-center justify-center">
             <Link href="/dashboard/portfolio">
               <LogoIcon width="166" height="32" />
             </Link>
@@ -74,55 +74,42 @@ const DashboardSidebar: React.FC<ISidebar> = ({
 
           <div className="px-4">
             <Menu className="text-white border-t border-primary_border pt-10 pb-4">
-              <MenuItem
-                href="/dashboard/portfolio"
-                icon={<Porfolio />}
-                className={`mb-3 ${
-                  pathname.includes("/dashboard/portfolio")
-                    ? "ps-menu-button-active"
-                    : ""
-                }`}
-              >
-                Portfolio
-              </MenuItem>
-              <MenuItem
-                href="/dashboard/ai_agents"
-                icon={<AIAgent />}
-                className={`mb-3 ${
-                  pathname.includes("/dashboard/ai_agents")
-                    ? "ps-menu-button-active"
-                    : ""
-                }`}
-              >
-                Custom AI Agents
-              </MenuItem>
-              <MenuItem
-                href="/dashboard/trading_agent"
-                icon={<AIChat />}
-                className={`mb-3 ${
-                  pathname.includes("/dashboard/trading_agent")
-                    ? "ps-menu-button-active"
-                    : ""
-                }`}
-              >
-                Trading AI Agent
-              </MenuItem>
-              <MenuItem
-                href="/dashboard/notifications"
-                icon={<Notification />}
-                className={`mb-3 ${
-                  pathname.includes("/dashboard/notifications")
-                    ? "ps-menu-button-active"
-                    : ""
-                }`}
-              >
-                <div className="flex justify-between">
-                  <div>Notifications</div>
-                  <div className="h-6 w-6 rounded-[80px] bg-button-gradient text-center">
-                    4
-                  </div>
-                </div>
-              </MenuItem>
+              <Link href="/dashboard/portfolio">
+                <MenuItem
+                  icon={<Porfolio />}
+                  className={`mb-3 ${
+                    pathname.includes("/dashboard/portfolio")
+                      ? "ps-menu-button-active"
+                      : ""
+                  }`}
+                >
+                  Portfolio
+                </MenuItem>
+              </Link>
+              <Link href="/dashboard/ai_agents">
+                <MenuItem
+                  icon={<AIAgent />}
+                  className={`mb-3 ${
+                    pathname.includes("/dashboard/ai_agents")
+                      ? "ps-menu-button-active"
+                      : ""
+                  }`}
+                >
+                  Custom AI Agents
+                </MenuItem>
+              </Link>
+              <Link href="/dashboard/trading_agent">
+                <MenuItem
+                  icon={<AIChat />}
+                  className={`mb-3 ${
+                    pathname.includes("/dashboard/trading_agent")
+                      ? "ps-menu-button-active"
+                      : ""
+                  }`}
+                >
+                  Trading AI Agent
+                </MenuItem>
+              </Link>
               <Tooltip text="Comming Soon">
                 <MenuItem
                   href="####"
@@ -133,6 +120,23 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                   Market Place
                 </MenuItem>
               </Tooltip>
+              <Link href="/dashboard/notifications">
+                <MenuItem
+                  icon={<Notification />}
+                  className={`mb-3 ${
+                    pathname.includes("/dashboard/notifications")
+                      ? "ps-menu-button-active"
+                      : ""
+                  }`}
+                >
+                  <div className="flex justify-between">
+                    <div>Notifications</div>
+                    <div className="h-6 w-6 rounded-[80px] bg-button-gradient text-center">
+                      4
+                    </div>
+                  </div>
+                </MenuItem>
+              </Link>
             </Menu>
           </div>
         </div>

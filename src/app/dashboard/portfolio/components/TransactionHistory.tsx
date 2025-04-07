@@ -26,7 +26,7 @@ const TransactionHistory = () => {
                   <LiraToken />
                   <div>
                     <p
-                      className={`font-bold text-white text-[14px] lg:text-[16px] leading-[120%] mb-2 `}
+                      className={` text-white text-[14px] lg:text-[16px] leading-[120%] mb-1 `}
                     >
                       Token Name
                     </p>
@@ -42,12 +42,14 @@ const TransactionHistory = () => {
                 <WrappedItem
                   heading={`$${parseFloat(trns.latest_trade_token).toFixed(2)}`}
                   subHeading="0.000000ABC"
+                  fontNormal
                 />
               </td>
               <td>
                 <WrappedItem
                   heading={`$${parseFloat(trns.earning).toFixed(2)}`}
                   subHeading={"0.00%"}
+                  fontNormal
                 />
               </td>
               <td className=" text-white">
@@ -59,7 +61,7 @@ const TransactionHistory = () => {
           ))}
         </tbody>
       </table>
-      <div className='block md:hidden'>
+      <div className="block md:hidden">
         <h1 className="text-primary text-center">View More</h1>
       </div>
     </div>
