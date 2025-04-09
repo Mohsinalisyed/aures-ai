@@ -3,7 +3,7 @@ import Axios, { InternalAxiosRequestConfig, AxiosResponse } from "axios";
 
 // Create an Axios instance
 export const axios = Axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://api.aureusai.ideofuzion.com",
 });
 
 // Request interceptor to attach token to headers

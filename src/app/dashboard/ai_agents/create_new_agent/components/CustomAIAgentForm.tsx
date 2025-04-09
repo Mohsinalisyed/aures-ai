@@ -1,11 +1,9 @@
 "use client";
 import { Toggle } from "@/app/components";
-import { ProgressBar } from "@/app/components/ProgressBar";
 import RadioButtonGroup from "@/app/components/RadioButton/RadioButtonGroup";
 import React from "react";
 import {
   Control,
-  Controller,
   FieldErrors,
   UseFormRegister,
   UseFormWatch,
@@ -17,7 +15,7 @@ import {
   TOLORENCE_ARRAY,
   TRADING_PERFORMANCE,
 } from "@/app/utils";
-import { ExplinatortToolTip } from "@/app/svg";
+import { ExplinatortToolTip, TooltipIcon } from "@/app/svg";
 import { TradingBotData } from "@/app/api";
 import { TokenSelection } from "../../components";
 import { Tooltip } from "@/app/components/Tooltip";
@@ -40,8 +38,34 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
   setSelectedPairs
 }) => {
   const investmentType = watch("investmentType");
+  const isDcaPref = watch("dcaPref");
   return (
     <div className="max-w-[688px] pb-2 lg:py-12">
+      <div className="flex items-center gap-3 mt-8 mb-6">
+        <h1 className="heading-text">Trading Amount</h1>
+        <Tooltip text="Comming Soon">
+          <TooltipIcon />
+        </Tooltip>
+      </div>
+      <div>
+        <div className="relative w-full">
+          <input
+            type="number"
+            min={0}
+            {...register("tradingAmount", {
+              setValueAs: (value) => (value === 0 ? null : Number(value)),
+            })}
+            placeholder="Enter Here"
+            className="w-full bg-darkest_white h-[48px] px-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary pr-[40px]" // Added padding-right for space for the % symbol
+          />
+        </div>
+
+        {errors.tradingAmount && (
+          <p className="text-error_color text-sm mt-4">
+            {errors.tradingAmount?.message}
+          </p>
+        )}
+      </div>
       {/* Tolerance Group */}
       <RadioButtonGroup
         title="Tolerance"
@@ -50,7 +74,6 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         fieldName="tolerance"
         errors={errors}
       />
-
       {/* Investment Type Group */}
       <RadioButtonGroup
         title="Investment Type"
@@ -81,7 +104,6 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         fieldName="goalType"
         errors={errors}
       />
-
       {/* Trading Preferences Group */}
       <RadioButtonGroup
         title="Trading Preferences"
@@ -90,7 +112,6 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         fieldName="tradingPreference"
         errors={errors}
       />
-
       {/* DCA Preferences */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">DCA Preferences</h1>
@@ -98,15 +119,76 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
           <ExplinatortToolTip />
         </Tooltip>
       </div>
-
       <div>
         <Toggle
           register={register("dcaPref")}
           errors={errors}
           fieldName="dcaPref"
         />
+        {isDcaPref && (
+          <>
+            <div className=" flex gap-4 items-center">
+              <div>
+                <div className="flex items-center gap-3 mt-8 mb-6">
+                  <h1 className="heading-text">DCA Iteration</h1>
+                  <Tooltip text="Comming Soon">
+                    <TooltipIcon />
+                  </Tooltip>
+                </div>
+                <div className="relative w-full">
+                  <input
+                    type="number"
+                    min={0}
+                    {...register("dcaIteration", {
+                      setValueAs: (value) =>
+                        value === 0 ? null : Number(value),
+                    })}
+                    placeholder="Enter Here"
+                    className="w-full bg-darkest_white h-[48px] px-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary pr-[40px]" // Added padding-right for space for the % symbol
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center gap-3 mt-8 mb-6">
+                  <h1 className="heading-text">DCA Percentage</h1>
+                  <Tooltip text="Comming Soon">
+                    <TooltipIcon />
+                  </Tooltip>
+                </div>
+                <div className="relative w-full">
+                  <input
+                    type="number"
+                    min={0}
+                    {...register("dcaPercentage", {
+                      setValueAs: (value) =>
+                        value === 0 ? null : Number(value),
+                    })}
+                    placeholder="Enter Here"
+                    className="w-full bg-darkest_white h-[48px] px-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary pr-[40px]" // Added padding-right for space for the % symbol
+                  />
+                  <span className="absolute top-1/2 right-2 transform -translate-y-1/2 text-white">
+                    %
+                  </span>{" "}
+                </div>
+              </div>
+            </div>
+            <div className=" flex gap-4 items-center">
+              <div className="w-1/2">
+                {errors.dcaIteration && (
+                  <p className="text-error_color text-sm mt-4">
+                    {errors.dcaIteration?.message}
+                  </p>
+                )}
+              </div>
+              {errors.dcaPercentage && (
+                <p className="text-error_color text-sm mt-4">
+                  {errors.dcaPercentage?.message}
+                </p>
+              )}
+            </div>
+          </>
+        )}
       </div>
-
       {/* Take-Profit Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Take-Profit Conditions</h1>
@@ -114,25 +196,28 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
           <ExplinatortToolTip />
         </Tooltip>
       </div>
+      <div>
+        <div className="relative w-full">
+          <input
+            type="number"
+            min={0}
+            {...register("takeProfitPercentage", {
+              setValueAs: (value) => (value === 0 ? null : Number(value)),
+            })}
+            placeholder="Enter Here"
+            className="w-full bg-darkest_white h-[48px] px-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary pr-[40px]" // Added padding-right for space for the % symbol
+          />
+          <span className="absolute top-1/2 right-2 transform -translate-y-1/2 text-white">
+            %
+          </span>{" "}
+        </div>
 
-      <div className="max-w-[392px]">
-        <Controller
-          name="takeProfitPercentage"
-          control={control}
-          render={({ field }) => (
-            <ProgressBar
-              progress={field.value || 0}
-              onProgressChange={(value: number) => field.onChange(value)}
-            />
-          )}
-        />
         {errors.takeProfitPercentage && (
           <p className="text-error_color text-sm mt-4">
             {errors.takeProfitPercentage?.message}
           </p>
         )}
       </div>
-
       {/* Stop-Loss Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Stop-Loss Conditions</h1>
@@ -140,26 +225,28 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
           <ExplinatortToolTip />
         </Tooltip>
       </div>
+      <div>
+        <div className="relative w-full">
+          <input
+            type="number"
+            min={0}
+            {...register("stopLossPercentage", {
+              setValueAs: (value) => (value === 0 ? null : Number(value)),
+            })}
+            placeholder="Enter Here"
+            className="w-full bg-darkest_white h-[48px] px-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary pr-[40px]" // Added padding-right for space for the % symbol
+          />
+          <span className="absolute top-1/2 right-2 transform -translate-y-1/2 text-white">
+            %
+          </span>{" "}
+        </div>
 
-      <div className="max-w-[392px]">
-        <Controller
-          name="stopLossPercentage"
-          control={control}
-          render={({ field }) => (
-            <ProgressBar
-              progress={field.value || 0}
-              onProgressChange={(value: number) => field.onChange(value)}
-              isNegative
-            />
-          )}
-        />
         {errors.stopLossPercentage && (
           <p className="text-error_color text-sm mt-4">
             {errors.stopLossPercentage?.message}
           </p>
         )}
       </div>
-
       {/* Auto-Exit Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Auto-Exit Conditions</h1>

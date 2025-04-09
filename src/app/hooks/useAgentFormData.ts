@@ -12,9 +12,12 @@ interface AgentFormData {
   tradingPreference?: string;
   dcaPref: boolean;
   takeProfitStatus: boolean;
-  takeProfitPercentage: number;
+  takeProfitPercentage: number | null;
   stopLossStatus: boolean;
-  stopLossPercentage: number;
+  stopLossPercentage: number | null;
+  tradingAmount: number | null;
+  dcaIteration?: number | null;
+  dcaPercentage?: number | null;
   autoExit: boolean;
   isActive: boolean;
 }
@@ -36,9 +39,12 @@ export function useAgentFormData() {
     tradingPreference: undefined,
     dcaPref: false,
     takeProfitStatus: false,
-    takeProfitPercentage: 0,
+    takeProfitPercentage: null,
     stopLossStatus: false,
-    stopLossPercentage: 0,
+    stopLossPercentage: null,
+    tradingAmount: null,
+    dcaPercentage: null,
+    dcaIteration: null,
     autoExit: false,
     isActive: false,
   };

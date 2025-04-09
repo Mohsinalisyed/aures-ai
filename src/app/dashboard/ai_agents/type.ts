@@ -23,37 +23,59 @@ const TRADING_PERFORMANCE_VALUES = TRADING_PERFORMANCE.map(
 ) as [TradingPerformance];
 
 // Create the Zod schema
-export const form2Schema = z.object({
-  tolerance: z.enum(TOLERANCE_VALUES, {
-    errorMap: () => ({ message: "Invalid tolerance" }),
-  }),
-  investmentType: z.enum(INVESTMENT_TYPE_VALUES, {
-    errorMap: () => ({ message: "Invalid investment type" }),
-  }),
-  poolAddresses: z
-    .array(z.string())
-    // .min(1, "Pair addresses are required")
-    .optional(),
-  goalType: z.enum(GOAL_TYPE_VALUES, {
-    errorMap: () => ({ message: "Invalid goal type" }),
-  }),
-  tradingPreference: z.enum(TRADING_PERFORMANCE_VALUES, {
-    errorMap: () => ({ message: "Invalid trading preference" }),
-  }),
-  dcaPref: z.boolean(),
-  takeProfitStatus: z.boolean().optional(),
-  takeProfitPercentage: z
-    .number()
-    .min(0)
-    .max(100, "Take profit percentage must be between 0 and 100"),
-  stopLossStatus: z.boolean().optional(),
-  stopLossPercentage: z
-    .number()
-    .min(0)
-    .max(100, "Stop loss percentage must be between 0 and 100"),
-  autoExit: z.boolean(),
-  isActive: z.boolean(),
-});
+
+export const form2Schema = z
+  .object({
+    tolerance: z.enum(TOLERANCE_VALUES, {
+      errorMap: () => ({ message: "Invalid tolerance" }),
+    }),
+    investmentType: z.enum(INVESTMENT_TYPE_VALUES, {
+      errorMap: () => ({ message: "Invalid investment type" }),
+    }),
+    poolAddresses: z
+      .array(z.string())
+      // .min(1, "Pair addresses are required")
+      .optional(),
+    goalType: z.enum(GOAL_TYPE_VALUES, {
+      errorMap: () => ({ message: "Invalid goal type" }),
+    }),
+    tradingPreference: z.enum(TRADING_PERFORMANCE_VALUES, {
+      errorMap: () => ({ message: "Invalid trading preference" }),
+    }),
+    dcaPref: z.boolean(),
+    takeProfitStatus: z.boolean().optional(),
+    stopLossStatus: z.boolean().optional(),
+    takeProfitPercentage: z
+      .number()
+      .min(1, "Take profit percentage is required"),
+    stopLossPercentage: z.number().min(1, "Stop loss percentage is required"),
+    tradingAmount: z.number().min(1, "TradingAmount is required"),
+    autoExit: z.boolean(),
+    isActive: z.boolean(),
+    dcaPercentage: z.number().min(1, "DCA Percentage is required").optional(), // Initially optional
+    dcaIteration: z.number().min(1, "DCA Iteration is required").optional(), // Initially optional
+  })
+  .superRefine((data, ctx) => {
+    // Conditionally require dcaPercentage and dcaIteration if dcaPref is true
+    if (data.dcaPref) {
+      if (data.dcaPercentage === undefined) {
+        ctx.addIssue({
+          path: ["dcaPercentage"],
+          message: "DCA Percentage is required when DCA preference is true",
+          code: z.ZodIssueCode.custom,
+        });
+      }
+
+      if (data.dcaIteration === undefined) {
+        ctx.addIssue({
+          path: ["dcaIteration"],
+          message: "DCA Iteration is required when DCA preference is true",
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    }
+  });
+
 
 // Form 1 Schema (Name, Purpose, Description)
 export const form1Schema = z.object({

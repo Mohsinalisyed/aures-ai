@@ -34,6 +34,9 @@ interface AgentFormData {
   takeProfitPercentage: number;
   stopLossStatus?: boolean;
   stopLossPercentage: number;
+  tradingAmount: number;
+  dcaIteration?: number; // Make this optional
+  dcaPercentage?: number;
   autoExit: boolean;
   isActive: boolean;
 }
@@ -62,9 +65,12 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
       tradingPreference: undefined,
       dcaPref: false,
       takeProfitStatus: false,
-      takeProfitPercentage: 0,
+      takeProfitPercentage: undefined,
       stopLossStatus: false,
-      stopLossPercentage: 0,
+      stopLossPercentage: undefined,
+      tradingAmount: undefined,
+      dcaIteration: undefined,
+      dcaPercentage: undefined,
       autoExit: false,
       isActive: false,
     },
@@ -85,12 +91,12 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
       setValue("tradingPreference", agentData.tradingPreference);
       setValue("dcaPref", agentData.dcaPref);
       setValue("takeProfitStatus", agentData.takeProfitStatus);
-      setValue(
-        "takeProfitPercentage",
-        parseInt(agentData.takeProfitPercentage)
-      );
+      setValue("takeProfitPercentage",parseInt(agentData.takeProfitPercentage));
       setValue("stopLossStatus", agentData.stopLossStatus);
       setValue("stopLossPercentage", parseInt(agentData.stopLossPercentage));
+      setValue("tradingAmount",parseInt(agentData.tradingAmount));
+      setValue("dcaPercentage", parseInt(agentData.dcaPercentage));
+      setValue("dcaIteration", parseInt(agentData.dcaIteration));
       setValue("autoExit", agentData.autoExit);
       setValue("isActive", agentData.isActive);
     }
@@ -144,9 +150,11 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
         stopLossStatus: true,
         stopLossPercentage: data.stopLossPercentage,
         autoExit: data.autoExit,
+        tradingAmount: data.tradingAmount,
+        dcaIteration:data.dcaIteration ? data.dcaIteration : 0,
+        dcaPercentage:data.dcaPercentage ? data.dcaPercentage : 0,
         isActive: data.isActive,
       };
-
       if (
         Object.values(updatedFormData).some(
           (value) => value === undefined || value === null
@@ -164,9 +172,8 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
       console.error("Error during form submission:", error.message);
     }
   };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full   mb-4">
       <div className="flex justify-between flex-col-reverse lg:flex-row">
         <CustomAIAgentForm
           register={register}

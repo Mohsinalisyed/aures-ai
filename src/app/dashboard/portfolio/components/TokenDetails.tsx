@@ -1,126 +1,71 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Alchemy, Network } from "alchemy-sdk";
 import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import { useAccount } from "wagmi";
-
-// ERC-20 ABI for name, symbol, balance, and decimals
-const erc20Abi = [
-  "function balanceOf(address owner) view returns (uint256)",
-  "function name() view returns (string)",
-  "function symbol() view returns (string)",
-  "function decimals() view returns (uint8)",
-];
-
-// Define type for token details
-interface TokenInfo {
-  address: string;
-  name: string;
-  symbol: string;
-  balance: string;
-}
-
-// Delay function for rate-limiting
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const TokenDetails = () => {
-  const { address, isConnected } = useAccount(); // Get connected wallet address
-  const [tokensInfo, setTokensInfo] = useState<TokenInfo[]>([]); // Explicitly define the type
-  const [loading, setLoading] = useState(true);
+  const [tokens, setTokens] = useState<any[]>([]); // To hold token details with metadata
+  const settings = {
+    apiKey: "IckhJh095VzMkfbgJVVxirZRweii_Hx0", // Replace with your Alchemy API Key.
+    network: Network.ETH_MAINNET, // Replace with your network.
+  };
+  const alchemy = new Alchemy(settings);
 
   useEffect(() => {
-    const fetchTokensInfo = async () => {
-      if (!isConnected || !address) return;
-
-      setLoading(true);
-
+    const getTokenBalances = async () => {
       try {
-        // Use Sepolia provider from Infura (or another provider)
-        const provider = new ethers.providers.JsonRpcProvider(
-          "https://eth-sepolia.public.blastapi.io"
+        const balances = await alchemy.core.getTokenBalances(
+          "0x8912aE9B03C2209572B0C2CeCE0925d9Ab363848"
         );
 
-        const tokenAddresses = [
-          "0x5a1298B1Bdc9800e8BFb9dc632adDC92a9b5aded",
-          "0x17Fb64BAB6b42DCAbc3d5275183b55b685b073b1",
-          "0xadbf21cCdFfe308a8d83AC933EF5D3c98830397F",
-        ];
-
-        const tokensDetails = await Promise.all(
-          tokenAddresses.map(async (tokenAddress, index) => {
-            // Implement retry logic with delay between requests
-            try {
-              if (index > 0) {
-                await delay(1000); // Add a 1-second delay between requests to avoid hitting rate limit
-              }
-
-              const tokenContract = new ethers.Contract(
-                tokenAddress,
-                erc20Abi,
-                provider
-              );
-             console.log("Token Contract: ", tokenContract);
-              // Fetch token details
-              const name = await tokenContract.name();
-              const symbol = await tokenContract.symbol();
-              const decimals = await tokenContract.decimals();
-
-              // Fetch balance and format it using decimals
-              const balanceResult = await tokenContract.balanceOf(address);
-              const formattedBalance = ethers.utils.formatUnits(
-                balanceResult,
-                decimals
-              );
-
-              return {
-                address: tokenAddress,
-                name,
-                symbol,
-                balance: formattedBalance,
-              };
-            } catch (error) {
-              console.error(
-                "Error fetching token info for address:",
-                tokenAddress,
-                error
-              );
-              return null; // Return null for failed requests
-            }
+        // Fetch token metadata for each token
+        const tokenDetails = await Promise.all(
+          balances.tokenBalances.map(async (token: any) => {
+            const metadata = await alchemy.core.getTokenMetadata(
+              token.contractAddress
+            );
+            return {
+              ...token,
+              name: metadata.name,
+              symbol: metadata.symbol,
+              decimals: metadata.decimals,
+            };
           })
         );
 
-        // Filter out null values and set the token details
-        const validTokens = tokensDetails.filter(
-          (token): token is TokenInfo => token !== null
-        );
-
-        setTokensInfo(validTokens); // Set the valid token details
+        setTokens(tokenDetails);
       } catch (error) {
-        console.error("Error fetching token info:", error);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching token balances:", error);
       }
     };
 
-    fetchTokensInfo();
-  }, [address, isConnected]); // Dependencies: Re-run when address or connection changes
-
-  if (loading) {
-    return <p className="text-white">Loading token info...</p>;
-  }
+    getTokenBalances();
+  }, []);
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <h3>Token Information</h3>
-      {tokensInfo.length === 0 ? (
-        <p>No tokens found</p>
-      ) : (
-        tokensInfo.map((token, index) => (
-          <div key={index} className="mb-4">
-            <h4>{token.name}</h4>
-            <p>Symbol: {token.symbol}</p>
-            <p>Balance: {token.balance}</p>
-            <p>Address: {token.address}</p>
+    <div className="token-details">
+      {tokens.length > 0 ? (
+        tokens.map((token: any) => (
+          <div key={token.contractAddress} className="token-card p-1">
+            <div className="text-center text-white">
+              <strong>Token Address:</strong> {token.contractAddress}
+            </div>
+            <div className="text-center text-white">
+              <strong>Token Name:</strong> {token.name || "N/A"}
+            </div>
+            <div className="text-center text-white">
+              <strong>Token Symbol:</strong> {token.symbol || "N/A"}
+            </div>
+            <div className="text-center text-white">
+              <strong>Decimals:</strong> {token.decimals || "N/A"}
+            </div>
+            <div className="text-center text-white">
+              <strong>Balance:</strong>{" "}
+              {BigInt(token.tokenBalance) / BigInt(10 ** token.decimals)}
+            </div>
           </div>
         ))
+      ) : (
+        <div className="text-white">No tokens found for this address.</div>
       )}
     </div>
   );
