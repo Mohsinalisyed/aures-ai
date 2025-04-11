@@ -3,12 +3,14 @@ import React, { useState } from 'react'
 import WithdrawModal from './WithdrawModal';
 import DepositConformation from './DepositConformation';
 import ConfirmationModal from './ConformationModal';
+import DepositModal from './DepositModal';
 interface IRefundCard {
   showWithdraw?:boolean
 }
 const RefundCard: React.FC<IRefundCard> = ({ showWithdraw }) => {
   const [openModal, setOpenModal] = useState(false)
-  const [depositModal, setDepositModal] = useState(false);
+  const [depositModal, setDepositModal]=useState(false)
+  const [withdrawModal, setWithdrawModal] = useState(false);
       const [conformationModal, setConformationModal] = useState(false);
 
 
@@ -25,9 +27,11 @@ const RefundCard: React.FC<IRefundCard> = ({ showWithdraw }) => {
           <div className="text-white">12.4463</div>
         </div>
         <div className="flex gap-3">
-          {/* <button className="bg-white text-toggle_active_color w-full h-[48px] rounded-[24px] mt-2">
-            Fund
-          </button> */}
+          <button
+            onClick={() => setDepositModal(true)}
+            className="bg-white text-toggle_active_color w-full h-[48px] rounded-[24px] mt-2">
+            Deposit
+          </button>
           {showWithdraw && (
             <button
               onClick={() => setOpenModal(true)}
@@ -41,12 +45,12 @@ const RefundCard: React.FC<IRefundCard> = ({ showWithdraw }) => {
       <WithdrawModal
         isOpen={openModal}
         onClose={() => setOpenModal(false)}
-        setModalOpen={(e) => setDepositModal(e)}
-        isModalOpen={depositModal}
+        setModalOpen={(e) => setWithdrawModal(e)}
+        isModalOpen={withdrawModal}
       />
       <DepositConformation
-        isOpen={depositModal}
-        onClose={() => setDepositModal(false)}
+        isOpen={withdrawModal}
+        onClose={() => setWithdrawModal(false)}
         setModalOpen={(e) => setConformationModal(e)}
         isModalOpen={conformationModal}
       />
@@ -55,8 +59,11 @@ const RefundCard: React.FC<IRefundCard> = ({ showWithdraw }) => {
         icon={<WebLogoModal />}
         title="Sending..."
         desc="Please wait!  It may take few seconds. "
-        onClose={()=>setConformationModal(false)}
-        
+        onClose={() => setConformationModal(false)}
+      />
+      <DepositModal
+        isOpen={depositModal}
+        onClose={() => setDepositModal(false)}
       />
     </>
   );

@@ -54,7 +54,7 @@ const handleModalClick = (e: React.MouseEvent) => {
                 setModalOpen(true);
               }}
             >
-              Deposit
+              Withdraw
             </button>
           </div>
           <div className="flex justify-between">

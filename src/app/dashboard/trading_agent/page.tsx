@@ -43,7 +43,9 @@ const ChatAgent = () => {
             <Activity />
           </div>
         </div>
-        <AIChatAgent isDashboardChat/>
+        <div className="sm:absolute max-w-[719px] right-0 sm:pl-6 top-5 py-4 sm:pt-0">
+          <AIChatAgent isDashboardChat />
+        </div>
       </div>
     </div>
   );

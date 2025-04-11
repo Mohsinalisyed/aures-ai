@@ -6,3 +6,4 @@ export { default as RefundCard } from './RefundCard'
 export { default as CopyButton } from "./CopyButton";
 export { default as WithdrawModal } from "./WithdrawModal";
 export { default as DepositConformation } from "./DepositConformation";
+export { default as DepositModal } from "./DepositModal";

@@ -6,23 +6,14 @@ export const axios = Axios.create({
   baseURL: "https://api.aureusai.ideofuzion.com",
 });
 
-// Request interceptor to attach token to headers
 const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
-  // Check if running on the client side
   if (typeof window !== "undefined") {
-    // Retrieve login data from localStorage
     const loginData = localStorage.getItem("loginData");
 
-    // Ensure headers are initialized
-    config.headers = config.headers || {};
-
-    // Check if loginData exists and if it's valid JSON
     if (loginData) {
       try {
-        // Parse the login data and extract the token
         const parsedLoginData = JSON.parse(loginData);
         const token = parsedLoginData.token;
-        // If token exists, set it in the Authorization header
         if (token) {
           config.headers["Authorization"] = `Bearer ${token}`;
         }
@@ -32,28 +23,32 @@ const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
     }
 
     // Set additional headers
-    config.headers["ngrok-skip-browser-warning"] = "true"; // Skip Ngrok warning
-    config.headers["Accept"] = "application/json"; // Set Accept header to application/json
+    config.headers["ngrok-skip-browser-warning"] = "true";
   }
-
+  if (config.url && config.url === `/users/upload-image`) {
+    if (config.method === "post" || config.method === "put") {
+      config.headers["Content-Type"] = "multipart/form-data";
+    } else {
+      config.headers["Content-Type"] = "application/json";
+    }
+  }
   return config;
 };
 
-// Set up the request interceptor
 axios.interceptors.request.use(authRequestInterceptor);
 
-// Set up the response interceptor
 axios.interceptors.response.use(
   (response: AxiosResponse) => {
-    return response.data; // Return only the data from the response
+    return response.data;
   },
   (error) => {
     const status = error.response?.status || 200;
 
     if (status === 401) {
       localStorage.clear();
-window.location.href = "/";     }
+      window.location.href = "/";
+    }
 
-    return Promise.reject(error); // Reject the promise with the error
+    return Promise.reject(error);
   }
 );

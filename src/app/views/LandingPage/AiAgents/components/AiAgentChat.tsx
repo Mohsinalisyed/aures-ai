@@ -13,13 +13,13 @@ const AIChatAgent: React.FC<Iprops> = ({ isDashboardChat }) => {
       sender: "user",
     },
     {
-      text: "Analysts predict a bullish market for Bitcoin in 2025, with prices potentially reaching $225,000 by year-end, driven by favorable regulations and increased adoption.",
+      text:isDashboardChat ?  "As of January 22, 2025, Bitcoin (BTC) is trading at approximately $103,979.This surge is attributed to favorable macroeconomic conditions and the inauguration of President Donald Trump, who has announced plans to support the cryptocurrency industry.As of January 22, 2025, Bitcoin (BTC) is trading at approximately $103,979.This surge is attributed to favorable macroeconomic conditions and the inauguration of President Donald Trump, who has announced plans to support the cryptocurrency industry.Investor's Business DailyAnalysts predict a bullish market for Bitcoin in 2025, with prices potentially reaching $225,000 by year-end, driven by favorable regulations and increased adoption." : "Analysts predict a bullish market for Bitcoin in 2025, with prices potentially reaching $225,000 by year-end, driven by favorable regulations and increased adoption.",
       sender: "ai",
     },
   ];
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex items-center justify-center w-full h-[735px]">
       <div
         className={`w-full max-w-[400px] rounded-[1.5rem] shadow-lg border border-light_gray ${
           isDashboardChat

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IUser } from "../state";
 import { GoalType, InvestmentType, Tolerance, TradingPerformance } from "../utils";
 
@@ -14,8 +15,9 @@ export interface VerifyAccountResponse {
 export interface ApiResponse {
   success: boolean;
   message: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  imageUrl?: string;
   data: any;
+  user?:any
 }
 export interface TradingBotData {
   id?: string;

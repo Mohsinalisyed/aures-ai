@@ -33,12 +33,18 @@ const AIAgent = () => {
                 }
                 className="cursor-pointer"
               >
-                <AgentDetails
-                  agentName={agent.name}
-                  owner={`${agent.walletPublicKey.slice(0, 6)}......`}
-                  status={agent.isActive}
-                  lastTrade={getTimeAgo(agent.updatedAt)}
-                />
+                {!!agent && (
+                  <AgentDetails
+                    agentName={agent.name}
+                    owner={
+                      agent.walletPublicKey
+                        ? `${agent.walletPublicKey.slice(0, 6)}......`
+                        : "N/A"
+                    }
+                    status={agent.isActive}
+                    lastTrade={getTimeAgo(agent.updatedAt)}
+                  />
+                )}
               </div>
             );
           })}

@@ -85,6 +85,7 @@ const handleModalClick = (e: React.MouseEvent) => {
           <button
             type="button"
             className="h-12 px-2 text-sm rounded-full bg-white text-primary w-full"
+          onClick={onClose}
           >
             Cancel
           </button>

@@ -48,10 +48,14 @@ const DashboardSidebar: React.FC<ISidebar> = ({
       };
     }
   }, [setIsSidebarHidden, isMobile]);
-  const handleLogout = () => {
-    localStorage.clear();
-    router.push('/login')
-}
+const handleLogout = async () => {
+  localStorage.clear();
+
+  await router.push("/login");
+
+  window.location.reload();
+};
+
   return (
     <>
       {!isSidebarHidden && isMobile && (

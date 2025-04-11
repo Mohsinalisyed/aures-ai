@@ -1,40 +1,81 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { IProfile, updateProfile } from "@/app/api";
-import { Avatar, BackwardArrow, UploadImage } from "@/app/svg";
-import { useMutation } from "@tanstack/react-query";
+
+import { getProfile, IProfile, updateProfile, uploadImage } from "@/app/api";
+import { BackwardArrow, UploadImage } from "@/app/svg";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import avatar from "@/app/assets/images/avatar.png";
+import { successToast } from "@/app/utils";
 
 interface FormData {
   name: string;
+  imageUrl: string;
 }
 
 const Profile = () => {
   const router = useRouter();
-   const { mutateAsync: updateProfileMutation } = useMutation<any, Error, any>({
-      mutationFn: async (data: IProfile) => {
-        return updateProfile(data);
-      },
-    });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    const {
+      register,
+      handleSubmit,
+      setValue,
+      formState: { errors },
+    } = useForm<FormData>();
 
-const onSubmit = async (data: FormData) => {
-  try {
-    await updateProfileMutation(data);
+      const { data, isLoading } = useQuery({
+        queryKey: ["profile"],
+        queryFn: getProfile,
+      });
+  
+  const [profileImage, setProfileImage] = useState<string | undefined>(undefined);
+ useEffect(() => {
+   if (data) {
+     setValue("name", data.user.name);
+   }
+ }, [data, setValue]);
+  // Mutation for updating profile
+  const { mutateAsync: updateProfileMutation } = useMutation<any, Error, any>({
+    mutationFn: async (data: IProfile) => updateProfile(data),
+  });
 
-    console.log("Profile updated successfully!");
-  } catch (error: any) {
-    console.error("Error while updating profile:", error.message);
+  // Mutation for uploading image
+  const { mutateAsync: uploadImageMutation } = useMutation({
+    mutationFn: async (file: File) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      return await uploadImage(formData);
+    },
+  });
 
-  }
-};
+  // ✅ Single valid definition of handleImageSelect
+  const handleImageSelect = async (file: File) => {
 
+    try {
+      const response = await uploadImageMutation(file);
+      setProfileImage(response?.imageUrl);
+      if (response !== undefined) {
+        console.log(response, "response ");
+        setProfileImage(response?.imageUrl);
+      } else {
+        console.warn("Upload response invalid", response);
+      }
+    } catch (error) {
+      console.error("Image upload failed", error);
+    }
+  };
+
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await updateProfileMutation({...data,imageUrl: profileImage});
+      successToast("Profile updated successfully!");
+    } catch (error: any) {
+      console.error("Error while updating profile:", error.message);
+    }
+  };
 
   return (
     <div className="lg:px-16 lg:py-12 pb-2 text-white">
@@ -50,17 +91,29 @@ const onSubmit = async (data: FormData) => {
       <div>
         <div className="mt-[64px]">
           <div className="flex gap-6 items-center">
-            <Avatar height={120} width={120} />
+            <div className="h-[120px] w-[120px] rounded-full overflow-hidden border">
+              {isLoading ? <div className="text-white flex justify-center items-center h-full">
+                Loading...
+          </div> :   <Image
+                src={
+                  profileImage
+                    ? profileImage
+                    : data && !!data.user.imageUrl
+                    ? data.user.imageUrl
+                    : avatar
+                }
+                alt="Profile"
+                className="h-full w-full object-cover"
+                width={100}
+                height={100}
+              />}
+            </div>
+
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <h1 className="text-white">Update Profile Picture</h1>
-                <div className="cursor-pointer">
-                  <UploadImage />
-                </div>
+                <UploadImage onImageSelect={handleImageSelect} />
               </div>
-              <h1 className="text-logout_text_color cursor-pointer">
-                Remove Image
-              </h1>
             </div>
           </div>
         </div>
