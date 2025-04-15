@@ -3,7 +3,7 @@ import React from "react";
 
 interface WrappedItemProps {
   heading: string | number;
-  subHeading: string | number;
+  subHeading?: string | number;
     icon?: React.ReactNode; // Corrected type for icon
     style?: string
   textAlign?: string

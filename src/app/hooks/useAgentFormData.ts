@@ -16,7 +16,7 @@ interface AgentFormData {
   stopLossStatus: boolean;
   stopLossPercentage: number | null;
   tradingAmount: number | null;
-  dcaIteration?: number | null;
+  dcaIterations?: number | null;
   dcaPercentage?: number | null;
   autoExit: boolean;
   isActive: boolean;
@@ -44,7 +44,7 @@ export function useAgentFormData() {
     stopLossPercentage: null,
     tradingAmount: null,
     dcaPercentage: null,
-    dcaIteration: null,
+    dcaIterations: null,
     autoExit: false,
     isActive: false,
   };

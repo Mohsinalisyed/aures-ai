@@ -92,21 +92,27 @@ const Profile = () => {
         <div className="mt-[64px]">
           <div className="flex gap-6 items-center">
             <div className="h-[120px] w-[120px] rounded-full overflow-hidden border">
-              {isLoading ? <div className="text-white flex justify-center items-center h-full">
-                Loading...
-          </div> :   <Image
-                src={
-                  profileImage
-                    ? profileImage
-                    : data && !!data.user.imageUrl
-                    ? data.user.imageUrl
-                    : avatar
-                }
-                alt="Profile"
-                className="h-full w-full object-cover"
-                width={100}
-                height={100}
-              />}
+              {isLoading ? (
+                <div className="text-white flex justify-center items-center h-full">
+                  Loading...
+                </div>
+              ) : (
+                <Image
+                  src={
+                    profileImage
+                      ? profileImage
+                      : data && !!data.user.imageUrl
+                      ? data.user.imageUrl
+                      : avatar
+                  }
+                  alt="Profile"
+                  className="h-full w-full object-cover"
+                  width={100}
+                  height={100}
+                  unoptimized
+                  priority
+                />
+              )}
             </div>
 
             <div>

@@ -17,7 +17,8 @@ export interface ApiResponse {
   message: string;
   imageUrl?: string;
   data: any;
-  user?:any
+  user?: any
+  transactions?: any
 }
 export interface TradingBotData {
   id?: string;
@@ -35,7 +36,7 @@ export interface TradingBotData {
   stopLossStatus?: boolean;
   stopLossPercentage: number;
   tradingAmount: number;
-  dcaIteration?: number; // Make this optional
+  dcaIterations?: number; // Make this optional
   dcaPercentage?: number;
   autoExit: boolean;
   isActive: boolean;

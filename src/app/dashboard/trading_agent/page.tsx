@@ -9,7 +9,7 @@ const ChatAgent = () => {
   const [showDetail, setShowDetail] = useState(true);
 
   return (
-    <div className="lg:px-16 lg:pb-4 text-white">
+    <div className="lg:px-16 lg:pb-4 text-white max-w-[1920px] mx-auto">
       <div className="flex flex-col md:flex-row mt-6">
         <div className="bg-darkest_white p-[10px] sm:p-0 sm:bg-transparent flex flex-col-reverse sm:flex-col rounded-[12px] mt-4 sm:mt-0">
           {showDetail && (

@@ -36,8 +36,10 @@ const AIChatAgent: React.FC<Iprops> = ({ isDashboardChat }) => {
   };
 
   useEffect(() => {
-    scrollToBottom(); // 👈 Scroll on new message
-  }, [messages]);
+    if (!isDashboardChat) {
+      scrollToBottom();
+    } // 👈 Scroll on new message
+  }, [messages, isDashboardChat]);
 
   const handleSend = () => {
     if (!input.trim()) return;

@@ -5,9 +5,10 @@ import DepositConformation from './DepositConformation';
 import ConfirmationModal from './ConformationModal';
 import DepositModal from './DepositModal';
 interface IRefundCard {
-  showWithdraw?:boolean
+  showWithdraw?: boolean
+  balance?: string
 }
-const RefundCard: React.FC<IRefundCard> = ({ showWithdraw }) => {
+const RefundCard: React.FC<IRefundCard> = ({ showWithdraw,balance }) => {
   const [openModal, setOpenModal] = useState(false)
   const [depositModal, setDepositModal]=useState(false)
   const [withdrawModal, setWithdrawModal] = useState(false);
@@ -19,12 +20,12 @@ const RefundCard: React.FC<IRefundCard> = ({ showWithdraw }) => {
     <>
       <div className="bg-refund_card_gradient  rounded-[12px] p-4">
         <div className="h-[97px] mb-2">
-          <h1 className="text-24 text-white font-bold">$279.17</h1>
+          <h1 className="text-24 text-white font-bold">${balance }</h1>
           <h1 className="text-eth_color text-24 pt-2">~ 0 ETH</h1>
         </div>
         <div className="bg-darker_white border border-darker_white py-4 px-[10px] rounded-[6px] flex gap-3 items-center ">
           <Ethereum />
-          <div className="text-white">12.4463</div>
+          <div className="text-white">0.00</div>
         </div>
         <div className="flex gap-3">
           <button

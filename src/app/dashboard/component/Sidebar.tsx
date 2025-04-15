@@ -90,10 +90,11 @@ const DashboardSidebar: React.FC<ISidebar> = ({
               <Link href="/dashboard/portfolio">
                 <MenuItem
                   icon={<Porfolio />}
-                  className={`mb-3 ${pathname.includes("/dashboard/portfolio")
+                  className={`mb-3 ${
+                    pathname.includes("/dashboard/portfolio")
                       ? "ps-menu-button-active"
                       : ""
-                    }`}
+                  }`}
                 >
                   Portfolio
                 </MenuItem>
@@ -101,10 +102,11 @@ const DashboardSidebar: React.FC<ISidebar> = ({
               <Link href="/dashboard/ai_agents">
                 <MenuItem
                   icon={<AIAgent />}
-                  className={`mb-3 ${pathname.includes("/dashboard/ai_agents")
+                  className={`mb-3 ${
+                    pathname.includes("/dashboard/ai_agents")
                       ? "ps-menu-button-active"
                       : ""
-                    }`}
+                  }`}
                 >
                   Custom AI Agents
                 </MenuItem>
@@ -112,15 +114,16 @@ const DashboardSidebar: React.FC<ISidebar> = ({
               <Link href="/dashboard/trading_agent">
                 <MenuItem
                   icon={<AIChat />}
-                  className={`mb-3 ${pathname.includes("/dashboard/trading_agent")
+                  className={`mb-3 ${
+                    pathname.includes("/dashboard/trading_agent")
                       ? "ps-menu-button-active"
                       : ""
-                    }`}
+                  }`}
                 >
                   Trading AI Agent
                 </MenuItem>
               </Link>
-              <Tooltip text="Comming Soon">
+              <Tooltip text="Coming Soon">
                 <MenuItem
                   href="####"
                   disabled
@@ -189,15 +192,14 @@ const DashboardSidebar: React.FC<ISidebar> = ({
               <div className="flex items-center gap-2">
                 <Image
                   src={
-
-                    data && !!data.user.imageUrl
-                      ? data.user.imageUrl
-                      : avatar
+                    data && !!data.user.imageUrl ? data.user.imageUrl : avatar
                   }
                   alt="Profile"
                   className="h-8 w-8 object-cover"
                   width={100}
                   height={100}
+                  unoptimized
+                  priority
                 />
                 <span className="text-white text-[14px] lg:text-[16px]">
                   {data?.user.name ? data.user.name : "Niko Setro"}

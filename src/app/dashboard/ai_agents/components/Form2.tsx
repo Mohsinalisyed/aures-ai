@@ -35,7 +35,7 @@ interface AgentFormData {
   stopLossStatus?: boolean;
   stopLossPercentage: number;
   tradingAmount: number;
-  dcaIteration?: number; // Make this optional
+  dcaIterations?: number; // Make this optional
   dcaPercentage?: number;
   autoExit: boolean;
   isActive: boolean;
@@ -69,7 +69,7 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
       stopLossStatus: false,
       stopLossPercentage: undefined,
       tradingAmount: undefined,
-      dcaIteration: undefined,
+      dcaIterations: undefined,
       dcaPercentage: undefined,
       autoExit: false,
       isActive: false,
@@ -91,12 +91,12 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
       setValue("tradingPreference", agentData.tradingPreference);
       setValue("dcaPref", agentData.dcaPref);
       setValue("takeProfitStatus", agentData.takeProfitStatus);
-      setValue("takeProfitPercentage",parseInt(agentData.takeProfitPercentage));
+      setValue("takeProfitPercentage",agentData.takeProfitPercentage);
       setValue("stopLossStatus", agentData.stopLossStatus);
-      setValue("stopLossPercentage", parseInt(agentData.stopLossPercentage));
-      setValue("tradingAmount",parseInt(agentData.tradingAmount));
-      setValue("dcaPercentage", parseInt(agentData.dcaPercentage));
-      setValue("dcaIteration", parseInt(agentData.dcaIteration));
+      setValue("stopLossPercentage", agentData.stopLossPercentage);
+      setValue("tradingAmount",agentData.tradingAmount);
+      setValue("dcaPercentage", agentData.dcaPercentage);
+      setValue("dcaIterations", agentData.dcaIterations);
       setValue("autoExit", agentData.autoExit);
       setValue("isActive", agentData.isActive);
     }
@@ -151,7 +151,7 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
         stopLossPercentage: data.stopLossPercentage,
         autoExit: data.autoExit,
         tradingAmount: data.tradingAmount,
-        dcaIteration:data.dcaIteration ? data.dcaIteration : 0,
+        dcaIterations:data.dcaIterations ? data.dcaIterations : 0,
         dcaPercentage:data.dcaPercentage ? data.dcaPercentage : 0,
         isActive: data.isActive,
       };

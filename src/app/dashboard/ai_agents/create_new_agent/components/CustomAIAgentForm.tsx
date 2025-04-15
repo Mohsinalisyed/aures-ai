@@ -43,7 +43,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
     <div className="max-w-[688px] pb-2 lg:py-12">
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Trading Amount</h1>
-        <Tooltip text="Comming Soon">
+        <Tooltip text="Coming Soon">
           <TooltipIcon />
         </Tooltip>
       </div>
@@ -51,9 +51,13 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         <div className="relative w-full">
           <input
             type="number"
-            min={0}
+            onWheel={(e) => e.currentTarget.blur()}
+            step="any"
             {...register("tradingAmount", {
-              setValueAs: (value) => (value === 0 ? null : Number(value)),
+              setValueAs: (value) => {
+                const parsed = Number(value);
+                return isNaN(parsed) ? null : parsed;
+              },
             })}
             placeholder="Enter Here"
             className="w-full bg-darkest_white h-[48px] px-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary pr-[40px]" // Added padding-right for space for the % symbol
@@ -73,6 +77,11 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         register={register}
         fieldName="tolerance"
         errors={errors}
+        tooltipText="Select your preferred risk level for asset allocation:
+Low Risk: Prioritizes high-liquidity, stable tokens with minimal volatility.
+Medium Risk: Balances between stability and moderate price fluctuations.
+High Risk: Includes small-cap, low-liquidity tokens targeting higher potential returns.
+Risk is primarily assessed based on token liquidity—higher liquidity generally implies lower risk."
       />
       {/* Investment Type Group */}
       <RadioButtonGroup
@@ -115,7 +124,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* DCA Preferences */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">DCA Preferences</h1>
-        <Tooltip text="Comming Soon">
+        <Tooltip text="Coming Soon">
           <ExplinatortToolTip />
         </Tooltip>
       </div>
@@ -131,15 +140,15 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
               <div>
                 <div className="flex items-center gap-3 mt-8 mb-6">
                   <h1 className="heading-text">DCA Iteration</h1>
-                  <Tooltip text="Comming Soon">
+                  <Tooltip text="Coming Soon">
                     <TooltipIcon />
                   </Tooltip>
                 </div>
                 <div className="relative w-full">
                   <input
                     type="number"
-                    min={0}
-                    {...register("dcaIteration", {
+                    onWheel={(e) => e.currentTarget.blur()}
+                    {...register("dcaIterations", {
                       setValueAs: (value) =>
                         value === 0 ? null : Number(value),
                     })}
@@ -151,13 +160,14 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
               <div>
                 <div className="flex items-center gap-3 mt-8 mb-6">
                   <h1 className="heading-text">DCA Percentage</h1>
-                  <Tooltip text="Comming Soon">
+                  <Tooltip text="Coming Soon">
                     <TooltipIcon />
                   </Tooltip>
                 </div>
                 <div className="relative w-full">
                   <input
                     type="number"
+                    onWheel={(e) => e.currentTarget.blur()}
                     min={0}
                     {...register("dcaPercentage", {
                       setValueAs: (value) =>
@@ -174,9 +184,9 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
             </div>
             <div className=" flex gap-4 items-center">
               <div className="w-1/2">
-                {errors.dcaIteration && (
+                {errors.dcaIterations && (
                   <p className="text-error_color text-sm mt-4">
-                    {errors.dcaIteration?.message}
+                    {errors.dcaIterations?.message}
                   </p>
                 )}
               </div>
@@ -192,7 +202,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Take-Profit Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Take-Profit Conditions</h1>
-        <Tooltip text="Comming Soon">
+        <Tooltip text="Coming Soon">
           <ExplinatortToolTip />
         </Tooltip>
       </div>
@@ -200,6 +210,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         <div className="relative w-full">
           <input
             type="number"
+            onWheel={(e) => e.currentTarget.blur()}
             min={0}
             {...register("takeProfitPercentage", {
               setValueAs: (value) => (value === 0 ? null : Number(value)),
@@ -221,7 +232,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Stop-Loss Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Stop-Loss Conditions</h1>
-        <Tooltip text="Comming Soon">
+        <Tooltip text="Coming Soon">
           <ExplinatortToolTip />
         </Tooltip>
       </div>
@@ -229,6 +240,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         <div className="relative w-full">
           <input
             type="number"
+            onWheel={(e) => e.currentTarget.blur()}
             min={0}
             {...register("stopLossPercentage", {
               setValueAs: (value) => (value === 0 ? null : Number(value)),
@@ -250,7 +262,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Auto-Exit Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Auto-Exit Conditions</h1>
-        <Tooltip text="Comming Soon">
+        <Tooltip text="Coming Soon">
           <ExplinatortToolTip />
         </Tooltip>
       </div>

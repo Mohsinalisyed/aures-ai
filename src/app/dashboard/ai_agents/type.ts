@@ -49,14 +49,16 @@ export const form2Schema = z
       .number()
       .min(1, "Take profit percentage is required"),
     stopLossPercentage: z.number().min(1, "Stop loss percentage is required"),
-    tradingAmount: z.number().min(1, "TradingAmount is required"),
+    tradingAmount: z
+      .number({ required_error: "Trading amount is required" })
+      .min(0.00000001, "Trading amount must not be too small or negative"),
     autoExit: z.boolean(),
     isActive: z.boolean(),
     dcaPercentage: z.number().min(1, "DCA Percentage is required").optional(), // Initially optional
-    dcaIteration: z.number().min(1, "DCA Iteration is required").optional(), // Initially optional
+    dcaIterations: z.number().min(1, "DCA Iteration is required").optional(), // Initially optional
   })
   .superRefine((data, ctx) => {
-    // Conditionally require dcaPercentage and dcaIteration if dcaPref is true
+    // Conditionally require dcaPercentage and dcaIterations if dcaPref is true
     if (data.dcaPref) {
       if (data.dcaPercentage === undefined) {
         ctx.addIssue({
@@ -66,9 +68,9 @@ export const form2Schema = z
         });
       }
 
-      if (data.dcaIteration === undefined) {
+      if (data.dcaIterations === undefined) {
         ctx.addIssue({
-          path: ["dcaIteration"],
+          path: ["dcaIterations"],
           message: "DCA Iteration is required when DCA preference is true",
           code: z.ZodIssueCode.custom,
         });
