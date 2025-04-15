@@ -65,7 +65,7 @@ const CreateNewAgent = () => {
             {showDetail && (
               <div className="w-full sm:w-[423px]">
                 <RefundCard showWithdraw />
-                <div className="flex sm:hidden gap-4 mt-4">
+                <div className="flex sm:hidden gap-4 mt-4 font-bold">
                   <Holding />
                   <Activity />
                 </div>

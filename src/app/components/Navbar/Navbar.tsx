@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { NavLogo, MenuIcon, NavTextIcon, CloseMenuIcon } from "../Icons";
 import { cn } from "@/app/utils";
 import {  scrollToElement } from "@/app/utils/function";
-import { useRouter } from "next/navigation";
+import ConnectWalletModal from "@/app/dashboard/component/ConnectWalletModal";
 interface INavbarProps {
     onPresentMobileMenu: () => void
     onDismissMobileMenu: () => void
@@ -21,8 +21,8 @@ export const NavMenu = [
 
 const Navbar = ({ onPresentMobileMenu, onDismissMobileMenu, visible }: INavbarProps) => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isActive, setIsActive] = useState("home");
-     const router = useRouter();
+  const [isActive, setIsActive] = useState("home");
+  const [openConnectModal, setOpenConnectModal] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -181,12 +181,13 @@ const Navbar = ({ onPresentMobileMenu, onDismissMobileMenu, visible }: INavbarPr
             ))}
             <button
               className="py-3 px-3 bg-darkest_white text-white text-16 shadow-[inset_0px_0px_8px_0px_#FFFFFF40] rounded-full transition-shadow duration-500 ease-in-out"
-              onClick={() => router.push("/login")}
+              onClick={() => setOpenConnectModal(true)}
             >
               Get Started
             </button>
           </div>
         </div>
+        <ConnectWalletModal isOpen={openConnectModal} onClose={()=>setOpenConnectModal(false)} />
       </div>
     );
 }

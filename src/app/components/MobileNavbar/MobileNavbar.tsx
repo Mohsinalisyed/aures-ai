@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/app/utils";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import ConnectWalletModal from "@/app/dashboard/component/ConnectWalletModal";
 
 interface MobileMenuProps {
   visible?: boolean;
@@ -10,9 +11,9 @@ interface MobileMenuProps {
 }
 const MobileNavbar = ({ visible, onDismissMobileMenu }: MobileMenuProps) => {
   const pathName = usePathname();
+  const [openConnectModal, setOpenConnectModal] = useState(false);
   const [shouldRender, setShouldRender] = useState(false); // Controls initial render
   const [isAnimating, setIsAnimating] = useState(false); // Tracks animation state
-  const router = useRouter();
 
   useEffect(() => {
     if (visible) {
@@ -87,13 +88,17 @@ const MobileNavbar = ({ visible, onDismissMobileMenu }: MobileMenuProps) => {
             </Link>
           </div>
           <button
-            onClick={() => router.push("/login")}
+            onClick={() => setOpenConnectModal(true)}
             className="w-full py-4 text-16 text-center rounded-3xl bg-darkest_white backdrop-blur-[80px] shadow-[inset_0px_0px_8px_0px_#FFFFFF40] text-white "
           >
             Get Started
           </button>
         </div>
       </div>
+      <ConnectWalletModal
+        isOpen={openConnectModal}
+        onClose={() => setOpenConnectModal(false)}
+      />
     </div>
   );
 };

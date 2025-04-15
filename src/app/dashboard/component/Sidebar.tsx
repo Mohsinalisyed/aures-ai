@@ -6,11 +6,9 @@ import { LogoIcon } from "@/app/components/Icons";
 import {
   AIAgent,
   AIChat,
-  Avatar,
   DropDownIcon,
   Logout,
   MarketPlace,
-  Notification,
   Porfolio,
   Profile,
   UpwardIcon,
@@ -18,6 +16,12 @@ import {
 import { useMediaQuery } from "@/app/hooks";
 import Link from "next/link";
 import { Tooltip } from "@/app/components/Tooltip";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "@/app/api";
+import Image from "next/image";
+import avatar from "@/app/assets/images/avatar.png";
+import { useDisconnect } from "wagmi";
+
 
 interface ISidebar {
   isSidebarHidden: boolean;
@@ -30,8 +34,14 @@ const DashboardSidebar: React.FC<ISidebar> = ({
 }) => {
   const isMobile = useMediaQuery("(max-width: 1024px)");
   const pathname = usePathname();
-  const router =useRouter()
-  const [showProfile, setShowProfile] =useState(false)
+  const { disconnect } = useDisconnect();
+
+  const router = useRouter()
+  const [showProfile, setShowProfile] = useState(false)
+  const { data, isLoading } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  });
   // Close sidebar when clicking outside
   useEffect(() => {
     if (isMobile) {
@@ -48,13 +58,12 @@ const DashboardSidebar: React.FC<ISidebar> = ({
       };
     }
   }, [setIsSidebarHidden, isMobile]);
-const handleLogout = async () => {
-  localStorage.clear();
-
-  await router.push("/login");
-
-  window.location.reload();
-};
+  const handleLogout = async () => {
+    disconnect();
+    localStorage.clear();
+    await router.push("/login");
+    window.location.reload();
+  };
 
   return (
     <>
@@ -81,11 +90,10 @@ const handleLogout = async () => {
               <Link href="/dashboard/portfolio">
                 <MenuItem
                   icon={<Porfolio />}
-                  className={`mb-3 ${
-                    pathname.includes("/dashboard/portfolio")
+                  className={`mb-3 ${pathname.includes("/dashboard/portfolio")
                       ? "ps-menu-button-active"
                       : ""
-                  }`}
+                    }`}
                 >
                   Portfolio
                 </MenuItem>
@@ -93,11 +101,10 @@ const handleLogout = async () => {
               <Link href="/dashboard/ai_agents">
                 <MenuItem
                   icon={<AIAgent />}
-                  className={`mb-3 ${
-                    pathname.includes("/dashboard/ai_agents")
+                  className={`mb-3 ${pathname.includes("/dashboard/ai_agents")
                       ? "ps-menu-button-active"
                       : ""
-                  }`}
+                    }`}
                 >
                   Custom AI Agents
                 </MenuItem>
@@ -105,11 +112,10 @@ const handleLogout = async () => {
               <Link href="/dashboard/trading_agent">
                 <MenuItem
                   icon={<AIChat />}
-                  className={`mb-3 ${
-                    pathname.includes("/dashboard/trading_agent")
+                  className={`mb-3 ${pathname.includes("/dashboard/trading_agent")
                       ? "ps-menu-button-active"
                       : ""
-                  }`}
+                    }`}
                 >
                   Trading AI Agent
                 </MenuItem>
@@ -124,7 +130,7 @@ const handleLogout = async () => {
                   Market Place
                 </MenuItem>
               </Tooltip>
-              <Link href="/dashboard/notifications">
+              {/* <Link href="/dashboard/notifications">
                 <MenuItem
                   icon={<Notification />}
                   className={`mb-3 ${
@@ -140,7 +146,7 @@ const handleLogout = async () => {
                     </div>
                   </div>
                 </MenuItem>
-              </Link>
+              </Link> */}
             </Menu>
           </div>
         </div>
@@ -174,16 +180,27 @@ const handleLogout = async () => {
             </div>
           </div>
         )}
-        {!isMobile && (
+        {!isMobile && !isLoading && (
           <div className="fixed flex items-center gap-2 bottom-[40px] left-[20px] px-4 bg-hover_background_gradient w-[305px] h-[64px] cursor-pointer rounded-full">
             <div
               className="flex justify-between items-center w-full"
               onClick={() => setShowProfile(!showProfile)}
             >
               <div className="flex items-center gap-2">
-                <Avatar />
+                <Image
+                  src={
+
+                    data && !!data.user.imageUrl
+                      ? data.user.imageUrl
+                      : avatar
+                  }
+                  alt="Profile"
+                  className="h-8 w-8 object-cover"
+                  width={100}
+                  height={100}
+                />
                 <span className="text-white text-[14px] lg:text-[16px]">
-                  Niko Setro
+                  {data?.user.name ? data.user.name : "Niko Setro"}
                 </span>
               </div>
               {showProfile ? <UpwardIcon /> : <DropDownIcon />}

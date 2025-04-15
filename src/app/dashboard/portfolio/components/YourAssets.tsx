@@ -22,10 +22,11 @@ const YourAssets = () => {
             Loading...
           </div>
         ) : (
+        data && data.tokens && data.tokens && data.tokens.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-            {data && data.tokens && data.tokens && data.tokens.length > 0 ? (
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              data.tokens.slice(0, 4).map((item: any) => {
+                {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  data.tokens.slice(0, 4).map((item: any) => {
                 return (
                   <div className="p-1 asset_card" key={item.tokenAddress}>
                     <WrappedItem
@@ -52,13 +53,13 @@ const YourAssets = () => {
                     </div>
                   </div>
                 );
-              })
-            ) : (
-              <div className="text-white flex justify-center items-center min-h-[150px]">
-                No tokens available.
+              })}
+            
               </div>
-            )}
-          </div>
+                        ): (
+              <div className="text-white flex justify-center items-center min-h-[150px] w-full">
+                No Assets Found </div>
+            )
         )}
       </div>
     </div>

@@ -46,7 +46,7 @@ const {
      router.push("/dashboard/portfolio");
    }
   }, [router, token])
-  
+  console.log(isConnected, "isConnected in login route" );
   useEffect(() => {
     if (isConnected && data !== undefined) {
       console.log("Connected: ", address);
@@ -129,7 +129,6 @@ const {
             <LogoIcon />
           </div>
         </div>
-
         {/* QR Section */}
         <div className="flex flex-col items-center justify-center w-full min-h-[80vh]">
           <span className="text-white text-[24px] lg:text-[32px] font-bold mb-[80px] mt-8 lg:mt-0">

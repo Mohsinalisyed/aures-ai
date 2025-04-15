@@ -51,7 +51,7 @@ const WhyAureus = () => {
             ease: "power2.inOut",
         }, "+=0.5"); // Small delay before moving container
 
-        return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill()); // Cleanup
+        return () => ScrollTrigger.getAll()?.forEach(trigger => trigger.kill()); // Cleanup
     }, { scope: ref, revertOnUpdate: true });
 
     const cardBodyClasses = ' card box-border p-6 rounded-[24px] shadow-[0_0_30px_0_rgba(0,0,0,0.3)] h-[260px]  mx-auto flex flex-col justify-between items-start bg-darkest_white border-darker_white border-[1px] backdrop-blur-[25px] filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]';
