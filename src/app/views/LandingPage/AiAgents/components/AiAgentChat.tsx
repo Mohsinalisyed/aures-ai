@@ -31,12 +31,13 @@ const AIChatAgent: React.FC<Iprops> = ({ isDashboardChat }) => {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null); // 👈 Ref to bottom
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+ 
 
   useEffect(() => {
-    if (!isDashboardChat) {
+     const scrollToBottom = () => {
+       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+     };
+    if (isDashboardChat) {
       scrollToBottom();
     } // 👈 Scroll on new message
   }, [messages, isDashboardChat]);
