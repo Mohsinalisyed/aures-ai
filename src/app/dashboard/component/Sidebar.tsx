@@ -88,30 +88,36 @@ const DashboardSidebar: React.FC<ISidebar> = ({
           <div className="px-4">
             <Menu className="text-white border-t border-primary_border pt-10 pb-4">
               <Link href="/dashboard/portfolio">
-                <MenuItem
-                  icon={<Porfolio />}
-                  className={`mb-3 ${
-                    pathname.includes("/dashboard/portfolio")
-                      ? "ps-menu-button-active"
-                      : ""
-                  }`}
-                >
-                  Portfolio
-                </MenuItem>
+                <div onClick={() => isMobile && setIsSidebarHidden(true)}>
+                  <MenuItem
+                    icon={<Porfolio />}
+                    className={`mb-3 ${
+                      pathname.includes("/dashboard/portfolio")
+                        ? "ps-menu-button-active"
+                        : ""
+                    }`}
+                  >
+                    Portfolio
+                  </MenuItem>
+                </div>
               </Link>
               <Link href="/dashboard/ai_agents">
-                <MenuItem
-                  icon={<AIAgent />}
-                  className={`mb-3 ${
-                    pathname.includes("/dashboard/ai_agents")
-                      ? "ps-menu-button-active"
-                      : ""
-                  }`}
-                >
-                  Custom AI Agents
-                </MenuItem>
+                <div onClick={() => isMobile && setIsSidebarHidden(true)}>
+                  <MenuItem
+                    icon={<AIAgent />}
+                    className={`mb-3 ${
+                      pathname.includes("/dashboard/ai_agents")
+                        ? "ps-menu-button-active"
+                        : ""
+                    }`}
+                  >
+                    Custom AI Agents
+                  </MenuItem>
+                </div>
               </Link>
               <Link href="/dashboard/trading_agent">
+                                <div onClick={() => isMobile && setIsSidebarHidden(true)}>
+
                 <MenuItem
                   icon={<AIChat />}
                   className={`mb-3 ${
@@ -121,9 +127,12 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                   }`}
                 >
                   Trading AI Agent
-                </MenuItem>
+                  </MenuItem>
+                  </div>
               </Link>
               <Tooltip text="Coming Soon">
+                                <div onClick={() => isMobile && setIsSidebarHidden(true)}>
+
                 <MenuItem
                   href="####"
                   disabled
@@ -131,7 +140,8 @@ const DashboardSidebar: React.FC<ISidebar> = ({
                   className={`mb-3  bg-transparent`}
                 >
                   Market Place
-                </MenuItem>
+                  </MenuItem>
+                  </div>
               </Tooltip>
               {/* <Link href="/dashboard/notifications">
                 <MenuItem

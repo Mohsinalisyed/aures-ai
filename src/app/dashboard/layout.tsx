@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <div>
       {isSidebarHidden && isMobile && (
-        <div className="text-white w-full top-2 fixed overflow-x-hidden my-2 px-4">
+        <div className="text-white w-full top-2 fixed overflow-x-hidden my-2 px-4 bg-black_two ">
           <div className="p-2 rounded-[48px] h-[56px] flex justify-between items-center mblsidebar w-full">
             <div
               className="flex items-center justify-center w-[56px] h-[40px] py-2 px-4 bg-darkest_white shadow-button-shadow rounded-3xl"

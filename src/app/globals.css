@@ -223,7 +223,6 @@ body {
 }
 .mblsidebar {
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(80px)
 }
 /* Hide number input spin buttons in all browsers */
 input[type="number"]::-webkit-outer-spin-button,

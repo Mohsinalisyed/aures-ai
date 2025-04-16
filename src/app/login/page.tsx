@@ -130,8 +130,8 @@ const {
           </div>
         </div>
         {/* QR Section */}
-        <div className="flex flex-col items-center justify-center w-full min-h-[80vh]">
-          <span className="text-white text-[24px] lg:text-[32px] font-bold mb-[80px] mt-8 lg:mt-0">
+        <div className="flex flex-col items-center justify-center w-full h-[80vh] overflow-auto">
+          <span className="text-white text-[24px] lg:text-[32px] font-bold mb-4 lg:mb-[80px] mt-8 lg:mt-0">
             Connect Your Wallet
           </span>
 

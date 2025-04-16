@@ -55,7 +55,7 @@ const CreateNewAgent = () => {
           </button>
         )}
       </div>
-      <div className="flex justify-between relative">
+      <div className="flex justify-between relative flex-col-reverse lg:flex-row ">
         {customForm === 1 && (
           <Form1 setCustomForm={setCustomForm} data={data} />
         )}

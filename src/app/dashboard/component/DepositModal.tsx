@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { EllipsisMenuIcon } from '@/app/components/Icons';
 import { QRCodeSVG } from 'qrcode.react';
 import { CopyIcon } from '@/app/svg';
+import CrossIcon from '@/app/svg/CrossIcon';
 interface DepositModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -39,9 +40,15 @@ const handleModalClick = (e: React.MouseEvent) => {
         onClick={onClose}
       >
         <div
-          className="w-[380px] mx-4 min-h-[302px] rounded-[12px] p-6 gap-[10px] border border-darker_white  backdrop-blur-xl bg-darkest_white "
+          className="w-[380px] relative mx-4 min-h-[302px] rounded-[12px] p-6 gap-[10px] border border-darker_white  backdrop-blur-xl bg-darkest_white "
           onClick={handleModalClick}
         >
+          <div
+            className="absolute top-1 right-1 cursor-pointer"
+            onClick={onClose}
+          >
+            <CrossIcon />
+          </div>
           <h2 className="text-white font-bold text-center text-[16px] lg:text-[20px] leading-[130%]">
             Recieve
           </h2>
@@ -64,7 +71,7 @@ const handleModalClick = (e: React.MouseEvent) => {
               </div>
             </div>
             <div className="max-w-[250px] ">
-              <div className=" break-words text-center">
+              <div className=" break-words text-center text-white">
                 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
               </div>
               <button
