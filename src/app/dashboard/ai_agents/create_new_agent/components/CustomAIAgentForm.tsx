@@ -77,11 +77,6 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         register={register}
         fieldName="tolerance"
         errors={errors}
-        tooltipText="Select your preferred risk level for asset allocation:
-Low Risk: Prioritizes high-liquidity, stable tokens with minimal volatility.
-Medium Risk: Balances between stability and moderate price fluctuations.
-High Risk: Includes small-cap, low-liquidity tokens targeting higher potential returns.
-Risk is primarily assessed based on token liquidity—higher liquidity generally implies lower risk."
       />
       {/* Investment Type Group */}
       <RadioButtonGroup
@@ -148,7 +143,7 @@ Risk is primarily assessed based on token liquidity—higher liquidity generally
                   <input
                     type="number"
                     onWheel={(e) => e.currentTarget.blur()}
-                    {...register("dcaIterations", {
+                    {...register("dcaIteration", {
                       setValueAs: (value) =>
                         value === 0 ? null : Number(value),
                     })}
@@ -184,9 +179,9 @@ Risk is primarily assessed based on token liquidity—higher liquidity generally
             </div>
             <div className=" flex gap-4 items-center">
               <div className="w-1/2">
-                {errors.dcaIterations && (
+                {errors.dcaIteration && (
                   <p className="text-error_color text-sm mt-4">
-                    {errors.dcaIterations?.message}
+                    {errors.dcaIteration?.message}
                   </p>
                 )}
               </div>

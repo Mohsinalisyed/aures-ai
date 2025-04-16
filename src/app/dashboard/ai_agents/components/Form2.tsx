@@ -35,7 +35,7 @@ interface AgentFormData {
   stopLossStatus?: boolean;
   stopLossPercentage: number;
   tradingAmount: number;
-  dcaIterations?: number; // Make this optional
+  dcaIteration?: number; // Make this optional
   dcaPercentage?: number;
   autoExit: boolean;
   isActive: boolean;
@@ -69,7 +69,7 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
       stopLossStatus: false,
       stopLossPercentage: undefined,
       tradingAmount: undefined,
-      dcaIterations: undefined,
+      dcaIteration: undefined,
       dcaPercentage: undefined,
       autoExit: false,
       isActive: false,
@@ -96,7 +96,7 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
       setValue("stopLossPercentage", agentData.stopLossPercentage);
       setValue("tradingAmount",agentData.tradingAmount);
       setValue("dcaPercentage", agentData.dcaPercentage);
-      setValue("dcaIterations", agentData.dcaIterations);
+      setValue("dcaIteration", agentData.dcaIterations);
       setValue("autoExit", agentData.autoExit);
       setValue("isActive", agentData.isActive);
     }
@@ -151,7 +151,7 @@ const Form2 = ({ agentData, agentId }: { agentData: any; agentId: string }) => {
         stopLossPercentage: data.stopLossPercentage,
         autoExit: data.autoExit,
         tradingAmount: data.tradingAmount,
-        dcaIterations:data.dcaIterations ? data.dcaIterations : 0,
+        dcaIteration:data.dcaIteration ? data.dcaIteration : 0,
         dcaPercentage:data.dcaPercentage ? data.dcaPercentage : 0,
         isActive: data.isActive,
       };

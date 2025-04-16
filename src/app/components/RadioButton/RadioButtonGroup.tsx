@@ -16,7 +16,6 @@ interface RadioButtonGroupProps {
   errors?: FieldErrors<TradingBotData>;
   register: UseFormRegister<TradingBotData>; // Accept register function
   fieldName: keyof TradingBotData;
-  tooltipText?: string;
 }
 
 const RadioButtonGroup = ({
@@ -25,13 +24,12 @@ const RadioButtonGroup = ({
   register,
   fieldName,
   errors,
-  tooltipText,
 }: RadioButtonGroupProps) => {
   return (
     <div>
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">{title}</h1>
-        <Tooltip text={tooltipText ?? 'Coming Soon'}>
+        <Tooltip text="Coming Soon">
           <TooltipIcon />
         </Tooltip>
       </div>

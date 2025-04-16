@@ -36,7 +36,7 @@ export interface TradingBotData {
   stopLossStatus?: boolean;
   stopLossPercentage: number;
   tradingAmount: number;
-  dcaIterations?: number; // Make this optional
+  dcaIteration?: number; // Make this optional
   dcaPercentage?: number;
   autoExit: boolean;
   isActive: boolean;

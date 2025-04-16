@@ -1,16 +1,16 @@
-"use client";
+'use client'
 import React from "react";
 import { WrappedItem } from "../../component";
-import { BitcoinToken } from "@/app/svg";
+import { BitcoinToken} from "@/app/svg";
 import { useQuery } from "@tanstack/react-query";
 import { getPortfolio } from "@/app/api/porfolio";
 import Image from "next/image";
 
 const YourAssets = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["portfolio"],
-    queryFn: getPortfolio,
-  });
+    const { data, isLoading } = useQuery({
+      queryKey: ["portfolio"],
+      queryFn: getPortfolio,
+    });
   return (
     <div className="border-0 lg:border border-gray_border lg:p-4 rounded-[20px] h-full">
       <h1 className="text-white text-[24px] font-bold mb-5">Your Assets</h1>

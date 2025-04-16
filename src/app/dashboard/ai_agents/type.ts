@@ -55,10 +55,10 @@ export const form2Schema = z
     autoExit: z.boolean(),
     isActive: z.boolean(),
     dcaPercentage: z.number().min(1, "DCA Percentage is required").optional(), // Initially optional
-    dcaIterations: z.number().min(1, "DCA Iteration is required").optional(), // Initially optional
+    dcaIteration: z.number().min(1, "DCA Iteration is required").optional(), // Initially optional
   })
   .superRefine((data, ctx) => {
-    // Conditionally require dcaPercentage and dcaIterations if dcaPref is true
+    // Conditionally require dcaPercentage and dcaIteration if dcaPref is true
     if (data.dcaPref) {
       if (data.dcaPercentage === undefined) {
         ctx.addIssue({
@@ -68,9 +68,9 @@ export const form2Schema = z
         });
       }
 
-      if (data.dcaIterations === undefined) {
+      if (data.dcaIteration === undefined) {
         ctx.addIssue({
-          path: ["dcaIterations"],
+          path: ["dcaIteration"],
           message: "DCA Iteration is required when DCA preference is true",
           code: z.ZodIssueCode.custom,
         });
