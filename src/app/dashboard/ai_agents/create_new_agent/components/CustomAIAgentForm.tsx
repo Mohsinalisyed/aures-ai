@@ -19,14 +19,15 @@ import { ExplinatortToolTip, TooltipIcon } from "@/app/svg";
 import { TradingBotData } from "@/app/api";
 import { TokenSelection } from "../../components";
 import { Tooltip } from "@/app/components/Tooltip";
+import { TOOLTIP_CONTENT } from "@/app/utils/TooltipContent";
 
 interface CustomAIAgentFormProps {
   register: UseFormRegister<TradingBotData>;
   control: Control<TradingBotData>;
   errors: FieldErrors<TradingBotData>;
   watch: UseFormWatch<TradingBotData>;
-  selectedPairs: string[] | undefined
-  setSelectedPairs:(e:string[])=>void
+  selectedPairs: string[] | undefined;
+  setSelectedPairs: (e: string[]) => void;
 }
 
 const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
@@ -35,7 +36,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
   errors,
   watch,
   selectedPairs,
-  setSelectedPairs
+  setSelectedPairs,
 }) => {
   const investmentType = watch("investmentType");
   const isDcaPref = watch("dcaPref");
@@ -43,7 +44,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
     <div className="max-w-[688px] pb-2 lg:py-12">
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Trading Amount</h1>
-        <Tooltip text="Coming Soon">
+        <Tooltip content={TOOLTIP_CONTENT.tradingAmount}>
           <TooltipIcon />
         </Tooltip>
       </div>
@@ -77,6 +78,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         register={register}
         fieldName="tolerance"
         errors={errors}
+        content={TOOLTIP_CONTENT.tolerance}
       />
       {/* Investment Type Group */}
       <RadioButtonGroup
@@ -84,6 +86,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         options={INVESTMENT_TYPE}
         register={register}
         fieldName="investmentType"
+        content={TOOLTIP_CONTENT.investmentType}
       />
       {errors.investmentType && (
         <p className="text-error_color text-sm mt-4">
@@ -107,6 +110,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         register={register}
         fieldName="goalType"
         errors={errors}
+        content={TOOLTIP_CONTENT.goalType}
       />
       {/* Trading Preferences Group */}
       <RadioButtonGroup
@@ -116,10 +120,11 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
         fieldName="tradingPreference"
         errors={errors}
       />
+
       {/* DCA Preferences */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">DCA Preferences</h1>
-        <Tooltip text="Coming Soon">
+        <Tooltip content={TOOLTIP_CONTENT.dcaPref}>
           <ExplinatortToolTip />
         </Tooltip>
       </div>
@@ -197,7 +202,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Take-Profit Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Take-Profit Conditions</h1>
-        <Tooltip text="Coming Soon">
+        <Tooltip content={TOOLTIP_CONTENT.takeProfit}>
           <ExplinatortToolTip />
         </Tooltip>
       </div>
@@ -227,7 +232,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Stop-Loss Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Stop-Loss Conditions</h1>
-        <Tooltip text="Coming Soon">
+        <Tooltip content={TOOLTIP_CONTENT.stopLoss}>
           <ExplinatortToolTip />
         </Tooltip>
       </div>
@@ -257,7 +262,7 @@ const CustomAIAgentForm: React.FC<CustomAIAgentFormProps> = ({
       {/* Auto-Exit Conditions */}
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">Auto-Exit Conditions</h1>
-        <Tooltip text="Coming Soon">
+        <Tooltip content={TOOLTIP_CONTENT.autoExit}>
           <ExplinatortToolTip />
         </Tooltip>
       </div>

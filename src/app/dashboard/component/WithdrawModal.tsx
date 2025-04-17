@@ -4,15 +4,19 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "../ai_agents/components/selectStyle.css";
 import { WithdrawFormData, WithdrawSchema } from "./type";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getPortfolio } from "@/app/api/porfolio";
 import { Option } from "../ai_agents/components/TokenSelection";
+import { WithdrawData } from "@/app/api";
+import { withdrawAmount } from "@/app/api/withdraw";
 
 interface WithdrawModalProps {
   isOpen: boolean;
   onClose: () => void;
   isModalOpen: boolean;
   setModalOpen: (e: boolean) => void;
+  agentId: string
+  setConfirmed:(e:boolean)=>void
 }
 
 interface IToken {
@@ -24,6 +28,8 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   isOpen,
   onClose,
   setModalOpen,
+  agentId,
+  setConfirmed,
 }) => {
   const {
     register,
@@ -33,29 +39,45 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   } = useForm<WithdrawFormData>({
     resolver: zodResolver(WithdrawSchema),
   });
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { mutateAsync: withdrawMutation } = useMutation<any, Error, any>({
+    mutationFn: async (data: WithdrawData) => withdrawAmount(data),
+  });
   const { data, isLoading } = useQuery({
     queryKey: ["holdings"],
     queryFn: getPortfolio,
   });
-  console.log(data, "data");
-    const tokenOptions: Option[] =
-      data && data.tokens.length > 0
-        ? data.tokens.map((token: IToken) => ({
-            value: token.tokenAddress,
-            label: token.name,
-          }))
-        : [];
+  const tokenOptions: Option[] =
+    data && data.tokens.length > 0
+      ? data.tokens.map((token: IToken) => ({
+          value: token.tokenAddress,
+          label: token.name,
+        }))
+      : [];
 
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
 
-  const onSubmit = (data: WithdrawFormData) => {
-    console.log("Withdraw Data: ", data);
-    setModalOpen(true);
-    onClose();
+  const onSubmit = async (data: WithdrawFormData) => {
+    try {
+      setModalOpen(true);
+      await withdrawMutation({
+        ...data,
+        withdrawAmount: data.withdrawAmount.toString(),
+        agentId: Number(agentId),
+        tokenAddress: data.token.value,
+      });
+      setModalOpen(false);
+      setConfirmed(true);
+      onClose();
+    } catch (error) {
+      setModalOpen(false);
+
+      console.error("Withdrawal failed:", error);
+    }
   };
+
   if (!isOpen) return null;
 
   return (
@@ -101,13 +123,13 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
               step="any"
               min={0}
               placeholder="Enter Amount Here"
-              {...register("amount", { valueAsNumber: true })}
+              {...register("withdrawAmount", { valueAsNumber: true })}
               onWheel={(e) => e.currentTarget.blur()}
               className="w-full bg-darkest_white mb-2 h-[48px] px-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary pr-[40px]"
             />
-            {errors.amount && (
+            {errors.withdrawAmount && (
               <p className="text-red-500 text-xs mb-2">
-                {errors.amount.message}
+                {errors.withdrawAmount.message}
               </p>
             )}
           </div>
@@ -118,13 +140,13 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
             </h4>
             <input
               type="text"
-              {...register("address")}
+              {...register("toAddress")}
               placeholder="Enter Address Here"
               className="w-full bg-darkest_white h-[48px] px-2 mb-2 rounded-[6px] border-gray_border border placeholder:text-white hover:border-primary"
             />
-            {errors.address && (
+            {errors.toAddress && (
               <p className="text-red-500 text-xs mb-2">
-                {errors.address.message}
+                {errors.toAddress.message}
               </p>
             )}
           </div>
@@ -139,12 +161,12 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
           </div>
         </form>
 
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <h1 className="font-medium text-white text-[14px]">ETH Balance</h1>
           <h1 className="font-medium text-white text-[14px]">
             0.005545ETH = $200.90
           </h1>
-        </div>
+        </div> */}
       </div>
     </div>
   );

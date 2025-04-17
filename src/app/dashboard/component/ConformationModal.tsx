@@ -7,9 +7,8 @@ interface ConfirmationModalProps {
   actionText?: string;
   onAction?: () => void;
   title: string
-    desc: string
-    showCancel?:boolean
-  
+  desc: string
+  showCancel?: boolean
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -39,7 +38,7 @@ const handleModalClick = (e: React.MouseEvent) => {
         <div className="flex justify-center">{icon}</div>
         <div className="mt-10">
           <div className="pb-4">
-            <h1 className="text-sm font-medium text-white text-[22px] text-center">
+            <h1 className="font-medium text-white text-[22px] text-center">
               {title}
             </h1>
           </div>

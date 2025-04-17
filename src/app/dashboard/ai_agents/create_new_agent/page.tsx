@@ -67,6 +67,7 @@ const CreateNewAgent = () => {
                 <RefundCard
                   showWithdraw
                   balance={parseFloat(data.tradingAmount).toFixed(2)}
+                  agentId={agentId ?? ''}
                 />
                 <div className="flex sm:hidden gap-4 mt-4 font-bold">
                   <Holding />

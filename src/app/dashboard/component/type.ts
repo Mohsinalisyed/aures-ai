@@ -8,10 +8,10 @@ export const WithdrawSchema = z.object({
     },
     { required_error: "Token is required" }
   ),
-  amount: z
+  withdrawAmount: z
     .number({ invalid_type_error: "Amount is required" })
     .positive("Amount must be greater than 0"),
-  address: z
+  toAddress: z
     .string()
     .min(10, "Address is too short")
     .max(100, "Address is too long"),

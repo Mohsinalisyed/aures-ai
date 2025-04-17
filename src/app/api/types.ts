@@ -68,3 +68,10 @@ export interface IProfile {
   name: string
   imgUrl:string
 }
+
+export interface WithdrawData {
+  agentId:string
+  tokenAddress:string
+  withdrawAmount:string
+  toAddress:string
+}

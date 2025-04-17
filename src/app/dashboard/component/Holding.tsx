@@ -6,7 +6,7 @@ const Holding = () => {
   return (
     <div className="w-full  h-[274px] bg-darkest_white rounded-[12px] px-3 py-4 mb-2 sm:mb-0">
       <div className="flex justify-between items-center mb-5">
-        <h1 className="text-[20px] text-white ">Holdings</h1>
+        <h1 className="text-[20px] text-white font-bold">Holdings</h1>
         <h1 className="text-white ">$0</h1>
       </div>
       <HoldingItem

@@ -5,5 +5,7 @@ export { default as WebLogoModal } from "./WebLogoModal";
 export { default as WalletIcon } from "./WalletIcon";
 export { default as WithdrawIcon } from "./WithdrawIcon";
 export { default as TransactionIcon } from "./TransactionIcon";
+export { default as SuccessIcon } from "./SuccessIcon";
+
 
 

@@ -91,7 +91,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         }}
         className="px-2 w-full max-w-[1920] mx-auto overflow-x-hidden"
       >
-        {!isMobile && (
+        {!isMobile && pathName !== "/dashboard/trading_agent" && (
           <div className="text-white pt-[100px] lg:pt-[34px] text-[32px] font-bold">
             {formatParams(pathName)}
           </div>

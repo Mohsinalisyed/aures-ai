@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ReactNode } from "react";
 import { RadioButton } from "@/app/components";
 import { TooltipIcon } from "@/app/svg";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
@@ -16,6 +16,7 @@ interface RadioButtonGroupProps {
   errors?: FieldErrors<TradingBotData>;
   register: UseFormRegister<TradingBotData>; // Accept register function
   fieldName: keyof TradingBotData;
+  content?:ReactNode
 }
 
 const RadioButtonGroup = ({
@@ -24,12 +25,13 @@ const RadioButtonGroup = ({
   register,
   fieldName,
   errors,
+  content,
 }: RadioButtonGroupProps) => {
   return (
     <div>
       <div className="flex items-center gap-3 mt-8 mb-6">
         <h1 className="heading-text">{title}</h1>
-        <Tooltip text="Coming Soon">
+        <Tooltip content={content ? content : <div className="text-white">Coming Soon</div>}>
           <TooltipIcon />
         </Tooltip>
       </div>

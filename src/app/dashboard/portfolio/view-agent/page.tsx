@@ -56,6 +56,7 @@ const ViewAgent = () => {
                   <RefundCard
                     showWithdraw
                     balance={`${parseFloat(data.tradingAmount).toFixed(2)}`}
+                    agentId={agentId ?? ''}
                   />
                 </div>
               )}

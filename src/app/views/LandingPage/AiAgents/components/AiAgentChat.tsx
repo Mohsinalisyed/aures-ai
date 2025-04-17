@@ -66,11 +66,11 @@ const AIChatAgent: React.FC<Iprops> = ({ isDashboardChat }) => {
   return (
     <div className="flex items-center justify-center w-full h-[735px]">
       <div
-        className={`w-full max-w-[400px] rounded-[1.5rem] shadow-lg border border-light_gray ${
+        className={`w-full  rounded-[1.5rem] shadow-lg border border-light_gray ${
           isDashboardChat
             ? "h-full flex flex-col justify-between pt-6"
             : "h-auto my-[3rem] p-6"
-        } md:mx-[20px] md:max-w-[700px]`}
+        } md:mx-[20px] `}
       >
         <h2 className="text-white text-20 px-4 font-bold mb-[40px]">
           AI Chat Agent
