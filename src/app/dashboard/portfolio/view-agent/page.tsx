@@ -55,7 +55,7 @@ const ViewAgent = () => {
                 <div className="w-full sm:w-[423px]">
                   <RefundCard
                     showWithdraw
-                    balance={`${parseFloat(data.tradingAmount).toFixed(2)}`}
+                    balance={`${parseFloat(data.tradingAmount).toFixed(4)}`}
                     agentId={agentId ?? ''}
                   />
                 </div>
@@ -64,7 +64,7 @@ const ViewAgent = () => {
                 <div className="flex justify-between text-white pb-4 text-[20px]">
                   <span>Balance</span>
                   <span className="font-bold">
-                    ${parseFloat(data.tradingAmount).toFixed(2)}
+                    ${parseFloat(data.tradingAmount).toFixed(4)}
                   </span>
                 </div>
                 <div className="flex justify-between text-white text-[20px]">

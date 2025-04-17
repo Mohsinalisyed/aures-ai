@@ -4,18 +4,18 @@ import WithdrawModal from './WithdrawModal';
 import ConfirmationModal from './ConformationModal';
 import DepositModal from './DepositModal';
 import { useRouter } from 'next/navigation';
+import { errorToast } from '@/app/utils';
 interface IRefundCard {
   showWithdraw?: boolean
   balance?: string
-  agentId:string
+  agentId:string | undefined
 }
 const RefundCard: React.FC<IRefundCard> = ({ showWithdraw, balance, agentId }) => {
   const router=useRouter()
   const [openModal, setOpenModal] = useState(false)
   const [depositModal, setDepositModal]=useState(false)
   const [conformationModal, setConformationModal] = useState(false);
-const [confirmed,setConfirmed] = useState(false)
-
+  const [confirmed,setConfirmed] = useState(false)
   
   return (
     <>
@@ -37,7 +37,14 @@ const [confirmed,setConfirmed] = useState(false)
           </button>
           {showWithdraw && (
             <button
-              onClick={() => setOpenModal(true)}
+              onClick={() => {
+                if (agentId === undefined) {
+                  errorToast('Please select agent')
+                }
+                else{
+                  setOpenModal(true)
+                }
+              }}
               className="bg-profile_options_bg border border-white text-white w-full h-[48px] rounded-[24px] mt-2"
             >
               Withdraw

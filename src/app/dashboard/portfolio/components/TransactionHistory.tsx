@@ -98,7 +98,7 @@ const TransactionHistory = () => {
                 </td>
                 <td>
                   <WrappedItem
-                    heading={`$${parseFloat(trns.usdValue).toFixed(2)}`}
+                    heading={`$${parseFloat(trns.usdValue).toFixed(4)}`}
                     fontNormal
                   />
                 </td>

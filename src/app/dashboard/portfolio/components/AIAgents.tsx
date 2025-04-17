@@ -72,7 +72,7 @@ const AIAgents = () => {
                     </td>
 
                     <td className="w-[20%] text-center  text-white  text-[14px] lg:text-[16px] ">
-                      ${parseFloat(agent.tradingAmount).toFixed(2)}{" "}
+                      ${parseFloat(agent.tradingAmount).toFixed(4)}{" "}
                     </td>
                     <td className={`w-[20%] flex justify-center text-white `}>
                       <div

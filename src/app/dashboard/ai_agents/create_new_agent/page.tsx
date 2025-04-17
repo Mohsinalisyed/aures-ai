@@ -66,7 +66,7 @@ const CreateNewAgent = () => {
               <div className="w-full sm:w-[423px]">
                 <RefundCard
                   showWithdraw
-                  balance={parseFloat(data.tradingAmount).toFixed(2)}
+                  balance={parseFloat(data.tradingAmount).toFixed(4)}
                   agentId={agentId ?? ''}
                 />
                 <div className="flex sm:hidden gap-4 mt-4 font-bold">
@@ -78,7 +78,7 @@ const CreateNewAgent = () => {
               <div className="flex justify-between text-white pb-4 text-[20px]">
                 <span>Balance</span>
                 <span className="font-bold">
-                  ${parseFloat(data.tradingAmount).toFixed(2)}
+                  ${parseFloat(data.tradingAmount).toFixed(4)}
                 </span>
               </div>
               <div className="flex justify-between text-white text-[20px]">

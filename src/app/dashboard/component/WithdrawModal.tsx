@@ -15,7 +15,7 @@ interface WithdrawModalProps {
   onClose: () => void;
   isModalOpen: boolean;
   setModalOpen: (e: boolean) => void;
-  agentId: string
+  agentId: string | undefined
   setConfirmed:(e:boolean)=>void
 }
 
