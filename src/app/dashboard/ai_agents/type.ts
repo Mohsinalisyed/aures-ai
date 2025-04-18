@@ -23,7 +23,6 @@ const TRADING_PERFORMANCE_VALUES = TRADING_PERFORMANCE.map(
 ) as [TradingPerformance];
 
 // Create the Zod schema
-
 export const form2Schema = z
   .object({
     tolerance: z.enum(TOLERANCE_VALUES, {
@@ -32,10 +31,7 @@ export const form2Schema = z
     investmentType: z.enum(INVESTMENT_TYPE_VALUES, {
       errorMap: () => ({ message: "Invalid investment type" }),
     }),
-    poolAddresses: z
-      .array(z.string())
-      // .min(1, "Pair addresses are required")
-      .optional(),
+    poolAddresses: z.array(z.string()).optional(),
     goalType: z.enum(GOAL_TYPE_VALUES, {
       errorMap: () => ({ message: "Invalid goal type" }),
     }),
@@ -54,16 +50,30 @@ export const form2Schema = z
       .min(0.00000001, "Trading amount must not be too small or negative"),
     autoExit: z.boolean(),
     isActive: z.boolean(),
-    dcaPercentage: z.number().min(1, "DCA Percentage is required").optional(), // Initially optional
-    dcaIteration: z.number().min(1, "DCA Iteration is required").optional(), // Initially optional
+
+    // Allow string | number | undefined, convert "" to undefined, skip validation until superRefine
+    dcaPercentage: z.preprocess(
+      (val) => (val === "" || val === null ? undefined : val),
+      z.number().optional()
+    ),
+    dcaIteration: z.preprocess(
+      (val) => (val === "" || val === null ? undefined : val),
+      z.number().optional()
+    ),
   })
   .superRefine((data, ctx) => {
-    // Conditionally require dcaPercentage and dcaIteration if dcaPref is true
+    // Only require dca fields when dcaPref is true
     if (data.dcaPref) {
       if (data.dcaPercentage === undefined) {
         ctx.addIssue({
           path: ["dcaPercentage"],
-          message: "DCA Percentage is required when DCA preference is true",
+          message: "DCA Percentage is required when DCA is enabled",
+          code: z.ZodIssueCode.custom,
+        });
+      } else if (data.dcaPercentage < 1) {
+        ctx.addIssue({
+          path: ["dcaPercentage"],
+          message: "DCA Percentage must be at least 1",
           code: z.ZodIssueCode.custom,
         });
       }
@@ -71,12 +81,20 @@ export const form2Schema = z
       if (data.dcaIteration === undefined) {
         ctx.addIssue({
           path: ["dcaIteration"],
-          message: "DCA Iteration is required when DCA preference is true",
+          message: "DCA Iteration is required when DCA is enabled",
+          code: z.ZodIssueCode.custom,
+        });
+      } else if (data.dcaIteration < 1) {
+        ctx.addIssue({
+          path: ["dcaIteration"],
+          message: "DCA Iteration must be at least 1",
           code: z.ZodIssueCode.custom,
         });
       }
     }
   });
+
+
 
 
 // Form 1 Schema (Name, Purpose, Description)

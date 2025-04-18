@@ -6,33 +6,33 @@ import CrossIcon from '@/app/svg/CrossIcon';
 interface DepositModalProps {
   isOpen: boolean;
   onClose: () => void;
-//   isModalOpen: boolean;
-//   setModalOpen:(e:boolean)=>void
+  walletPublicKey:string | undefined
 }
 
 const DepositModal: React.FC<DepositModalProps> = ({
-    isOpen,
-    onClose,
+  isOpen,
+  onClose,
+  walletPublicKey,
 }) => {
-const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const handleModalClick = (e: React.MouseEvent) => {
+    // Prevent closing the modal when clicking inside the modal content
+    e.stopPropagation();
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(walletPublicKey ?? '')
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  };
   if (!isOpen) return null;
-const handleModalClick = (e: React.MouseEvent) => {
-  // Prevent closing the modal when clicking inside the modal content
-  e.stopPropagation();
-    };
-    
-      const handleCopy = () => {
-        navigator.clipboard
-          .writeText('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')
-          .then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
-          })
-          .catch((err) => {
-            console.error("Failed to copy: ", err);
-          });
-      };
-    
+
   return (
     <>
       <div
@@ -56,7 +56,11 @@ const handleModalClick = (e: React.MouseEvent) => {
             {/* QR Code */}
             <div className="pt-4">
               <div className="w-[fit-content] relative p-3">
-                <QRCodeSVG className="bg-white" value={""} size={200} />
+                <QRCodeSVG
+                  className="bg-white"
+                  value={walletPublicKey ?? ''}
+                  size={200}
+                />
                 {/* Corner borders */}
                 <div className="absolute inset-0 border-white w-full h-full pointer-events-none">
                   {/* Top Left */}
@@ -72,7 +76,7 @@ const handleModalClick = (e: React.MouseEvent) => {
             </div>
             <div className="max-w-[250px] ">
               <div className=" break-words text-center text-white">
-                0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+                {walletPublicKey}
               </div>
               <button
                 onClick={handleCopy}

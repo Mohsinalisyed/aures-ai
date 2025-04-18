@@ -5,10 +5,10 @@ const generateAI_Agent = (count: number) => {
   return Array.from({ length: count }, () => ({
     id: faker.number.int({ min: 1, max: 1000 }), // Generate a random ID
     name: "Agent Name", // Fixed name for the agents
-    owner_address: faker.finance.ethereumAddress(), // Generate random Ethereum address
-    latest_trade: `${faker.number.int({ min: 1, max: 24 })} Hours ago`, // Random number of hours ago
-    earning: `$${faker.number.int({ min: 100, max: 5000 })}B`, // Random earning
-    status: faker.helpers.arrayElement(["Active", "In Active"]), // Random status
+    walletPublicKey: faker.finance.ethereumAddress(), // Generate random Ethereum address
+    updatedAt: `${faker.number.int({ min: 1, max: 24 })} Hours ago`, // Random number of hours ago
+    tradingAmount: `$${faker.number.int({ min: 100, max: 5000 })}B`, // Random earning
+    isActive: faker.helpers.arrayElement(["Active", "In Active"]), // Random status
   }));
 };
 const generateTransaction_History = (count: number) => {

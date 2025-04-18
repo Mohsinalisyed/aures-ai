@@ -36,6 +36,7 @@ const ChatAgent = () => {
                   showWithdraw
                   agentId={agentId}
                   balance={parseFloat(data?.tradingAmount).toFixed(4)}
+                  walletPublicKey={data?.walletPublicKey}
                 />
                 <div className="flex sm:hidden gap-4 mt-4 flex-col sm:flex-row">
                   <Holding />
@@ -48,7 +49,9 @@ const ChatAgent = () => {
               <div className="flex justify-between text-white pb-4 text-[20px]">
                 <span>Balance</span>
                 <span className="font-bold">
-                  ${parseFloat(data?.tradingAmount).toFixed(4)}
+                  ${!isNaN(parseFloat(data?.tradingAmount))
+                    ? parseFloat(data?.tradingAmount).toFixed(4)
+                    : " --"}
                 </span>
               </div>
               <div className="flex justify-between text-white text-[20px]">

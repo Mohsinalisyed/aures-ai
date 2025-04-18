@@ -56,7 +56,8 @@ const ViewAgent = () => {
                   <RefundCard
                     showWithdraw
                     balance={`${parseFloat(data.tradingAmount).toFixed(4)}`}
-                    agentId={agentId ?? ''}
+                    agentId={agentId ?? ""}
+                    walletPublicKey={data?.walletPublicKey}
                   />
                 </div>
               )}
@@ -64,7 +65,9 @@ const ViewAgent = () => {
                 <div className="flex justify-between text-white pb-4 text-[20px]">
                   <span>Balance</span>
                   <span className="font-bold">
-                    ${parseFloat(data.tradingAmount).toFixed(4)}
+                    ${!isNaN(parseFloat(data?.tradingAmount))
+                      ? parseFloat(data?.tradingAmount).toFixed(4)
+                      : " --"}
                   </span>
                 </div>
                 <div className="flex justify-between text-white text-[20px]">
@@ -78,7 +81,7 @@ const ViewAgent = () => {
                   <span>Details</span>
                   <span>{!showDetail ? <DropDownIcon /> : <UpwardIcon />}</span>
                 </div>
-                          </div>
+              </div>
             </div>
           )}
         </div>

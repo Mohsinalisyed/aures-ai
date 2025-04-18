@@ -24,11 +24,11 @@ const AIAgents = () => {
         </div>
       ) : (
         <div className="w-full overflow-x-auto">
-          <table className="text-left w-full min-w-[600px]">
+          <table className="text-left w-full min-w-[540px]">
             <thead className=" flex text-white w-full">
-              <tr className="flex  w-full mb-4 mr-4 table-head-border">
+              <tr className="flex  w-full mb-4 mr-4 pb-1 table-head-border">
                 <th className="w-[20%] text-[14px] lg:text-[16px] whitespace-nowrap">
-                  Token Name
+                  Agent
                 </th>
                 <th className="w-[20%] text-center text-[14px] lg:text-[16px] whitespace-nowrap">
                   Latest Trade
@@ -56,7 +56,11 @@ const AIAgents = () => {
                     className="flex justify-between mr-4  w-full pb-3"
                   >
                     <td className="w-[20%]  text-white  text-[14px] lg:text-[16px] pl-2">
-                      <div>{agent.name}</div>
+                      <div>
+                        {agent.name.length > 6
+                          ? `${agent.name?.slice(0, 6)}...`
+                          : agent.name}
+                      </div>
                       <div className="flex text-sub_heading_color text-[14px] lg:text-[16px]">
                         <span>Owner:</span>
                         <span>

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 export default {
   content: [
@@ -92,7 +93,6 @@ export default {
           "linear-gradient(90deg, #8266F2 0%, #8266F2 58.09%, rgba(255, 255, 255, 0.8) 73.5%, #8266F2 88.51%, #9488C3 100%)",
         refund_card_gradient:
           "linear-gradient(180deg, #9488C3 0%, #8266F2 79.87%)",
-        
       },
       fontSize: {
         64: ["4rem", { lineHeight: "4.8rem", fontWeight: "700" }],
@@ -191,5 +191,15 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: PluginAPI) {
+      addUtilities({
+        ".border-radial": {
+          borderImageSource:
+            "radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255, 255, 255, 0.32) 100%)",
+          borderImageSlice: "1",
+        },
+      });
+    },
+  ],
 } satisfies Config;

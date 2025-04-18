@@ -24,13 +24,13 @@ const CopyButton: React.FC<CopyButtonProps> = ({ textToCopy }) => {
   return (
     <span className="flex items-center gap-2">
       {truncateAddress(textToCopy)}
-      <button onClick={handleCopy} className="cursor-pointer" type="button">
+{   !!textToCopy &&   <button onClick={handleCopy} className="cursor-pointer" type="button">
         {copied ? (
           <span className="text-green-500">✔</span> // You can replace this with an icon or text
         ) : (
           <CopyIcon />
         )}
-      </button>
+      </button>}
     </span>
   );
 };

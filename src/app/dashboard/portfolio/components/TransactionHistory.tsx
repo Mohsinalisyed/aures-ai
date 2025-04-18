@@ -13,7 +13,6 @@ const TransactionHistory = () => {
     queryKey: ["transaction"],
     queryFn: getTransaction,
   });
-  console.log(data, "data");
   return (
     <div className="bg-darkest_white py-2 px-2 lg:px-4  rounded-[20px]">
       <h1 className="text-white text-[24px] font-bold mb-6">
